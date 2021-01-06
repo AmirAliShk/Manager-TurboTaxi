@@ -7,4 +7,45 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--    <color name="colorPrimary">#4caf50</color>-->
+    <!--    <color name="colorPrimaryDark">#2E7D32</color>-->
+    <!--    <color name="colorPrimaryLight">#72CF76</color>-->
+    <!--    <color name="colorAccent">#424242</color>-->
+    <!--    <color name="colorWhite">#ffffff</color>-->
+    <!--    <color name="colorBlack">#000000</color>-->
+    <!--    <color name="grayLight">#757575</color>-->
+    <!--    <color name="grayDark">#424242</color>-->
+    <!--    <color name="transparent">#00424242</color>-->
+
+    <color name="colorPrimary">#3827b4</color>
+    <color name="colorPrimaryDark">#792ca9</color>
+    <color name="colorPrimaryLight">#e08cc0</color>
+    <color name="colorPrimaryLighter">#EEE9F1</color>
+    <color name="colorLightPurple">#a192aa</color>
+    <color name="colorAccent">#e51ead</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="grayLight">#a4a2ab</color>
+    <color name="grayMedium">#777579</color>
+    <color name="grayDark">#424242</color>
+    <color name="transparent">#00424242</color>
+    <color name="colorOrange">#FF6600</color>
+    <color name="colorYellow">#f1c02b</color>
+    <color name="colorBlue">#2c78e9</color>
+    <color name="colorBlueLight">#8DC6F3</color>
+    <color name="colorGreen">#2AB123</color>
+    <color name="colorPurple">#673AB7</color>
+    <color name="colorPurpleLight">#D8C9F3</color>
+    <color name="colorRed">#cd3232</color>
+    <color name="colorRedLight">#ECC1C1</color>
+    <color name="colorTransparent">#00FFB2B2</color>
+    <color name="colorGreenLight">#31ce5a</color>
+
+    <color name="colorGolden">#ffe45d</color>
+    <color name="colorSilver">#c5c6cb</color>
+    <color name="colorBronze">#d8c897</color>
+    <color name="colorBlueBic">#5980d4</color>
+
+
 </resources>
