@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -75,9 +76,12 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
+
+        edtUserName.requestFocus();
+        KeyBoardHelper.showKeyboard(MyApplication.context);
 
         return view;
     }
@@ -115,7 +119,7 @@ public class LoginFragment extends Fragment {
                         });
                     } else {
                         new ErrorDialog()
-                                .titleText("خطایی رخ داده")
+                                .titleText("")
                                 .messageText(message)
                                 .closeBtnRunnable("بستن", null)
                                 .tryAgainBtnRunnable("تلاش مجدد", () -> {
@@ -124,6 +128,7 @@ public class LoginFragment extends Fragment {
                                         KeyBoardHelper.showKeyboard(MyApplication.context);
                                     }
                                 })
+                                .cancelable(true)
                                 .show();
                     }
 

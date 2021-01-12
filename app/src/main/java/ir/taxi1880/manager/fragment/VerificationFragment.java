@@ -71,7 +71,8 @@ public class VerificationFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
-
+        edtMobileNumber.requestFocus();
+        KeyBoardHelper.showKeyboard(MyApplication.context);
         return view;
     }
 

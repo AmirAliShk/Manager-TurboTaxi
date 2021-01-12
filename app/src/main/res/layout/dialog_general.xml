@@ -50,7 +50,7 @@
                 android:layout_marginRight="4dp"
                 android:gravity="center"
                 android:textColor="#000"
-                android:textSize="@dimen/text_title" />
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/edtMessage"

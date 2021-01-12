@@ -1,5 +1,6 @@
 package ir.taxi1880.manager.activity;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         setParamsChart();
 
 
-
 //
 //        NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -89,12 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 drawer.openDrawer(Gravity.RIGHT);
             }
         });
-
-
-//        drawer.close();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
 
     }
 
@@ -124,10 +118,13 @@ public class MainActivity extends AppCompatActivity {
         if (hasAxes) {
             Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
-            if (hasAxesNames) {
-                axisX.setName("Axis X");
-                axisY.setName("Axis Y");
-            }
+            axisX.setTextColor(Color.BLACK);
+            axisY.setTextColor(Color.BLACK);
+            axisX.setName("car");
+            axisX.setTextSize(16);
+            chart.setZoomEnabled(false);
+//                axisX.setTextColor()
+
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
         } else {

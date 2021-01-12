@@ -5,7 +5,7 @@
     android:id="@+id/draw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/colorPrimaryLighter"
     android:clickable="true"
     android:layoutDirection="rtl"
     android:orientation="vertical">
@@ -19,8 +19,7 @@
         <LinearLayout
             android:id="@+id/action"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.055"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_action_bar_purple"
             android:elevation="3dp"
             android:orientation="horizontal">
@@ -29,9 +28,8 @@
                 android:id="@+id/add"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_weight="0.15"
+                android:padding="7dp"
                 android:src="@drawable/ic_baseline_dehaze_24" />
 
             <TextView
@@ -41,29 +39,208 @@
 
         </LinearLayout>
 
-        <lecho.lib.hellocharts.view.ColumnChartView
-            android:id="@+id/chart1"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
-            tools:ignore="MergeRootFrame" />
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <lecho.lib.hellocharts.view.ColumnChartView
-            android:id="@+id/chart2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
-            tools:ignore="MergeRootFrame" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <lecho.lib.hellocharts.view.ColumnChartView
-            android:id="@+id/chart3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
-            tools:ignore="MergeRootFrame" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_white_edge"
+                        android:elevation="3dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView10"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="تعداد کل سفرها :"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:text="2000"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="تعداد اپراتور فعال :"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView12"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:text="50"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="تعداد کنسلی ها :"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:text="100"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.15"
+                        tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
+                        tools:ignore="MergeRootFrame" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.05"
+                        android:text="چارت 1"
+                        android:textSize="24sp" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.15"
+                        android:fitsSystemWindows="true"
+                        tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
+                        tools:ignore="MergeRootFrame" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.05"
+                        android:text="چارت 2"
+                        android:textSize="24sp" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.15"
+                        tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
+                        tools:ignore="MergeRootFrame" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.05"
+                        android:text="چارت 3"
+                        android:textSize="24sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
@@ -71,8 +248,9 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true" >
+        android:layout_gravity="right"
+        android:fitsSystemWindows="true">
+
         <include layout="@layout/drawer_layout" />
 
     </com.google.android.material.navigation.NavigationView>

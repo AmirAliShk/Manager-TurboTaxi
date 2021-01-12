@@ -63,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setNavigationBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            window.setNavigationBarColor(getResources().getColor(R.color.colorPrimaryLighter));
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
@@ -72,15 +72,7 @@ public class SplashActivity extends AppCompatActivity {
 
         MyApplication.handler.postDelayed(() -> {
             checkPermission();
-            if (!MyApplication.prefManager.getLoggedIn()) {
-                FragmentHelper.toFragment(MyApplication.currentActivity, new LoginFragment())
-                        .setAddToBackStack(false)
-                        .replace();
-            } else {
-                startActivity(new Intent(MyApplication.currentActivity, MainActivity.class));
-                MyApplication.currentActivity.finish();
-            }
-        }, 2000);
+        }, 1000);
 
     }
 
@@ -94,7 +86,8 @@ public class SplashActivity extends AppCompatActivity {
 
                 new GeneralDialog()
                         .title("دسترسی")
-                        .message("برای ورود به برنامه ضروری است تا دسترسی های لازم را برای عملکرد بهتر به برنامه داده شود لطفا جهت بهبود عملکرد دسترسی های لازم را اعمال نمایید")
+                        .message("" +
+                                "برای ورود به برنامه اجازه دسترسی به مجوزهای لازم را بدهید.")
                         .cancelable(false)
                         .firstButton("باشه", new Runnable() {
                             @Override
