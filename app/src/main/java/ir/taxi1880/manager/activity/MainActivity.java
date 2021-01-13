@@ -4,19 +4,16 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,6 +24,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.fragment.ControlLinesFragment;
+import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasLabelForSelected = false;
     private int dataType = 0;
 
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,30 +66,29 @@ public class MainActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
 
-        DrawerLayout drawer = findViewById(R.id.draw); //TODO
-        NavigationView navigation = findViewById(R.id.navigation); //TODO
+        drawer = findViewById(R.id.draw);
+        NavigationView navigation = findViewById(R.id.navigation);
 
-        chart = (ColumnChartView) findViewById(R.id.chart1);
+        chart = findViewById(R.id.chart1);
         setParamsChart();
-        chart = (ColumnChartView) findViewById(R.id.chart2);
+        chart = findViewById(R.id.chart2);
         setParamsChart();
-        chart = (ColumnChartView) findViewById(R.id.chart3);
+        chart = findViewById(R.id.chart3);
         setParamsChart();
 
 
-//
-//        NavigationView navigationView = findViewById(R.id.nav_view);
+        ImageView openDrawer = findViewById(R.id.openDrawer);
 
-
-        ImageView add = findViewById(R.id.add);
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(Gravity.RIGHT);
-            }
+        openDrawer.setOnClickListener(view12 -> {
+            drawer.openDrawer(Gravity.RIGHT);
         });
 
+        LinearLayout llLines = findViewById(R.id.llLines);
+
+        llLines.setOnClickListener(view1 -> {
+            drawer.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
+        });
     }
 
 
@@ -175,11 +174,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (getFragmentManager().getBackStackEntryCount() > 0 || getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 super.onBackPressed();
-            } else {
+            }else {
                 if (doubleBackToExitPressedOnce) {
-                    Log.i(TAG, "onBackPressed:exiiiiiiiiiiiiiiiiiiiiiiiiiiiiitte ");
-//          super.onBackPressed();
-                    finish();
+                    MyApplication.currentActivity.finish();
                 } else {
                     this.doubleBackToExitPressedOnce = true;
                     MyApplication.Toast(getString(R.string.txt_please_for_exit_reenter_back), Toast.LENGTH_SHORT);

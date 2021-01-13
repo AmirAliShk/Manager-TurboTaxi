@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+
     android:background="#ffffff">
 
     <LinearLayout
@@ -18,22 +20,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             app:srcCompat="@mipmap/turbo" />
 
         <ImageView
-            android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@mipmap/turbo2" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:id="@+id/llHome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:orientation="horizontal">
@@ -60,9 +65,9 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:id="@+id/llLine"
+            android:id="@+id/llLines"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:orientation="horizontal">
@@ -91,7 +96,7 @@
         <LinearLayout
             android:id="@+id/llQueue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:orientation="horizontal">

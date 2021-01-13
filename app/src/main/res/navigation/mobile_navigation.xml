@@ -9,7 +9,7 @@
         android:id="@+id/nav_home"
         android:name="ir.taxi1880.manager.activity.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_control_lines" />
 
     <fragment
         android:id="@+id/nav_gallery"
