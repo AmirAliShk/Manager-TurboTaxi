@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/draw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -20,9 +19,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
+            android:contentDescription="TODO"
             android:padding="7dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="TODO" />
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="0dp"
@@ -54,7 +53,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_dialog_header"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -96,12 +95,26 @@
                         android:textColor="#000"
                         android:textSize="30sp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="center"
+                        android:text="وضعیت : قطع تماس های جدید"
+                        android:textColor="#000"
+                        android:textSize="30sp" />
+
                 </ViewFlipper>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="bottom"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.3"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -114,7 +127,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layoutDirection="rtl"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5sdp">
 
                         <ViewFlipper
                             android:id="@+id/vfBtnAll1880"
@@ -127,11 +141,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="قطع تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
@@ -139,48 +154,48 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="اتصال تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
 
                         <ImageView
-                            android:layout_width="1dip"
-                            android:layout_height="match_parent"
-                            android:background="#d2d2d2" />
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
 
                         <ViewFlipper
-                            android:id="@+id/vfBtnSupport1880"
+                            android:id="@+id/vfBtnNew1880"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <Button
-                                android:id="@+id/btnDeactiveSupport1880"
+                                android:id="@+id/btnDeactiveNew1880"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
                                 android:text="قطع تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
-                                android:id="@+id/btnActiveSupport1880"
+                                android:id="@+id/btnActiveNew1880"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
                                 android:text="اتصال تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
@@ -204,7 +219,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_dialog_header"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -246,12 +261,26 @@
                         android:textColor="#000"
                         android:textSize="30sp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="center"
+                        android:text="وضعیت : قطع تماس های جدید"
+                        android:textColor="#000"
+                        android:textSize="30sp" />
+
                 </ViewFlipper>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="bottom"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.3"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -264,7 +293,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layoutDirection="rtl"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5sdp">
 
                         <ViewFlipper
                             android:id="@+id/vfBtnAll1870"
@@ -277,11 +307,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="قطع تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
@@ -289,48 +320,48 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="اتصال تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
 
                         <ImageView
-                            android:layout_width="1dip"
-                            android:layout_height="match_parent"
-                            android:background="#d2d2d2" />
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
 
                         <ViewFlipper
-                            android:id="@+id/vfBtnSupport1870"
+                            android:id="@+id/vfBtnNew1870"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <Button
-                                android:id="@+id/btnActiveSupport1870"
+                                android:id="@+id/btnDeactiveNew1870"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
                                 android:text="قطع تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
-                                android:id="@+id/btnDeactiveSupport1870"
+                                android:id="@+id/btnActiveNew1870"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
-                                android:text="اتصال تمام تماس ها"
+                                android:text="اتصال تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
@@ -354,7 +385,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_dialog_header"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -396,12 +427,26 @@
                         android:textColor="#000"
                         android:textSize="30sp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="center"
+                        android:text="وضعیت : قطع تماس های جدید"
+                        android:textColor="#000"
+                        android:textSize="30sp" />
+
                 </ViewFlipper>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="bottom"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.3"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -414,7 +459,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layoutDirection="rtl"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5sdp">
 
                         <ViewFlipper
                             android:id="@+id/vfBtnAll1817"
@@ -427,11 +473,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="قطع تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
@@ -439,48 +486,48 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="اتصال تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
 
                         <ImageView
-                            android:layout_width="1dip"
-                            android:layout_height="match_parent"
-                            android:background="#d2d2d2" />
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
 
                         <ViewFlipper
-                            android:id="@+id/vfBtnSupport1817"
+                            android:id="@+id/vfBtnNew1817"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <Button
-                                android:id="@+id/btnActiveSupport1817"
+                                android:id="@+id/btnDeactiveNew1817"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
                                 android:text="قطع تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
-                                android:id="@+id/btnDeactiveSupport1817"
+                                android:id="@+id/btnActiveNew1817"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
-                                android:text="اتصال تمام تماس ها"
+                                android:text="اتصال تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
@@ -492,7 +539,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
@@ -504,7 +551,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_dialog_header"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -546,12 +593,26 @@
                         android:textColor="#000"
                         android:textSize="30sp" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="center"
+                        android:text="وضعیت : قطع تماس های جدید"
+                        android:textColor="#000"
+                        android:textSize="30sp" />
+
                 </ViewFlipper>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="bottom"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.3"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -564,7 +625,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layoutDirection="rtl"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_5sdp">
 
                         <ViewFlipper
                             android:id="@+id/vfBtnAll950"
@@ -577,11 +639,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="قطع تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
@@ -589,48 +652,49 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
+                                android:padding="5dp"
                                 android:text="اتصال تمام تماس ها"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>
 
                         <ImageView
-                            android:layout_width="1dip"
-                            android:layout_height="match_parent"
-                            android:background="#d2d2d2" />
+                            android:id="@+id/imageView"
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
 
                         <ViewFlipper
-                            android:id="@+id/vfBtnSupport950"
+                            android:id="@+id/vfBtnNew950"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                             <Button
-                                android:id="@+id/btnActiveSupport950"
+                                android:id="@+id/btnDeactiveNew950"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_deactive_edge"
+                                android:background="@drawable/bg_btn_red"
                                 android:gravity="center"
                                 android:text="قطع تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                             <Button
-                                android:id="@+id/btnDeactiveSupport950"
+                                android:id="@+id/btnActiveNew950"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_button_active_edge"
+                                android:background="@drawable/bg_btn_green"
                                 android:gravity="center"
-                                android:text="اتصال تمام تماس ها"
+                                android:text="اتصال تماس جدید"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textStyle="bold" />
 
                         </ViewFlipper>

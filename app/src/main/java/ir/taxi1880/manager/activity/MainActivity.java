@@ -25,6 +25,7 @@ import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
+import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import lecho.lib.hellocharts.model.Axis;
@@ -88,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
         llLines.setOnClickListener(view1 -> {
             drawer.close();
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
+        });
+
+        LinearLayout  llQueue= findViewById(R.id.llQueue);
+
+        llQueue.setOnClickListener(view1 -> {
+            drawer.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
         });
     }
 
