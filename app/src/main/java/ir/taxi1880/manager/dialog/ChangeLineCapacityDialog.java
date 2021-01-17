@@ -1,6 +1,8 @@
 package ir.taxi1880.manager.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -9,29 +11,36 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
 
+import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 
 public class ChangeLineCapacityDialog {
+    EditText txtNumber;
 
     private static final String TAG = ChangeLineCapacityDialog.class.getSimpleName();
 
     public interface Listener {
-        void onClose(boolean b);
+        void num(String num);
     }
 
+    private Listener listener;
     static Dialog dialog;
 
-    public void show() {
+    public void show(Listener listener) {
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())
             return;
         dialog = new Dialog(MyApplication.currentActivity);
@@ -45,12 +54,13 @@ public class ChangeLineCapacityDialog {
         wlp.windowAnimations = R.style.ExpandAnimation;
         dialog.getWindow().setAttributes(wlp);
         dialog.setCancelable(true);
+        this.listener = listener;
 
         ImageView imgClose = dialog.findViewById(R.id.imgClose);
-
-        TextView txtNumber = dialog.findViewById(R.id.txtNumber);
+        txtNumber = dialog.findViewById(R.id.txtNumber);
         Button btnSubmit = dialog.findViewById(R.id.btnSubmit);
 
+        txtNumber.requestFocus();
 
         txtNumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +72,9 @@ public class ChangeLineCapacityDialog {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String num = txtNumber.getText().toString();
+                listener.num(num);
+
                 dismiss();
             }
         });
@@ -79,6 +92,7 @@ public class ChangeLineCapacityDialog {
     private static void dismiss() {
         try {
             if (dialog != null) {
+                Log.i(TAG, "dismiss run");
                 dialog.dismiss();
                 KeyBoardHelper.hideKeyboard();
             }

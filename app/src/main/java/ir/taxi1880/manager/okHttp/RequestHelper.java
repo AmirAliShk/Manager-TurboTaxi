@@ -482,7 +482,6 @@ public class RequestHelper implements okhttp3.Callback {
                         errorDialog.cancelable(false);
                         errorDialog.closeBtnRunnable("بستن", () -> errorDialog.dismiss());
                         errorDialog.tryAgainBtnRunnable("تلاش مجدد", () -> runnable.run());
-                        errorDialog.cancelable(true);
                     }
                     ErrorDialog.dismiss();
                     errorDialog.show();

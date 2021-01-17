@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment {
                                         KeyBoardHelper.showKeyboard(MyApplication.context);
                                     }
                                 })
-                                .cancelable(true)
+                                .cancelable(false)
                                 .show();
                     }
 

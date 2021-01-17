@@ -41,7 +41,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/grayMedium" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtNumber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -51,7 +51,10 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/colorBlack"
+                android:inputType="number"
+                android:focusable="true"
+                />
 
         </LinearLayout>
 
