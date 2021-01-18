@@ -29,6 +29,7 @@ import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
@@ -42,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
     Unbinder unbinder;
     boolean doubleBackToExitPressedOnce = false;
     private boolean hasAxes = true;
-    private boolean hasAxesNames = true;
-    private boolean hasLabels = false;
+    private boolean hasLabels = true;
 
     private ColumnChartView chart;
     private ColumnChartData data;
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setNavigationBarColor(getResources().getColor(R.color.colorPrimaryLighter));
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            window.setNavigationBarColor(getResources().getColor(R.color.alsoBlack));
+            window.setStatusBarColor(getResources().getColor(R.color.alsoBlack));
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
         unbinder = ButterKnife.bind(this, view);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
         });
 
-        LinearLayout  llQueue= findViewById(R.id.llQueue);
+        LinearLayout llQueue = findViewById(R.id.llQueue);
 
         llQueue.setOnClickListener(view1 -> {
             drawer.close();
@@ -103,42 +103,40 @@ public class MainActivity extends AppCompatActivity {
     public void setParamsChart() {
 
         int numSubcolumns = 1;
-        int numColumns = 7;
+        int numColumns = 8;
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
+        List<AxisValue> axisValues = new ArrayList<>();
+
+        int[] value = {10000 , 3500 , 2000 , 1500 , 1500 , 1000 , 500 , 100};
+        int[] color = {R.color.redChart , R.color.orangeChart ,  R.color.yellowChart ,  R.color.deepGreenChart ,  R.color.greenChart ,  R.color.greenChart ,  R.color.deepClueChart ,  R.color.blueChart , R.color.lightBlueChart};
+        String[] city = {"مشهد", "خواف", "تربت جام", "تربت حیدریه", "فریمان", "گناباد", "نیشابور", "کاشمر", "تایباد"};
+
         for (int i = 0; i < numColumns; ++i) {
-
             values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 50f + 5, ChartUtils.pickColor()));
-            }
+            values.add(new SubcolumnValue(value[i], MyApplication.currentActivity.getResources().getColor(color[i])));
 
+            axisValues.add(new AxisValue(i).setLabel(city[i]));
             Column column = new Column(values);
             column.setHasLabels(hasLabels);
-            column.setHasLabelsOnlyForSelected(hasLabelForSelected);
             columns.add(column);
         }
 
         data = new ColumnChartData(columns);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            axisX.setTextColor(Color.BLACK);
-            axisY.setTextColor(Color.BLACK);
-            axisX.setName("car");
-            axisX.setTextSize(16);
-            chart.setZoomEnabled(false);
-//                axisX.setTextColor()
+            Axis axisX = new Axis(axisValues);
+            Axis axisY = new Axis();
+            axisX.setHasLines(false);
+            axisY.setHasLines(false);
 
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
+            data.setAxisXBottom(new Axis(axisValues));
         } else {
             data.setAxisXBottom(null);
             data.setAxisYLeft(null);
         }
-
+        chart.setZoomEnabled(false);
         chart.setColumnChartData(data);
 
     }
@@ -182,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (getFragmentManager().getBackStackEntryCount() > 0 || getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 super.onBackPressed();
-            }else {
+            } else {
                 if (doubleBackToExitPressedOnce) {
                     MyApplication.currentActivity.finish();
                 } else {

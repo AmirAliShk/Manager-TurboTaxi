@@ -7,6 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="alsoBlack">#1f1f1f</color>
+
+
+    <color name="redChart">#e84d48</color>
+    <color name="orangeChart">#e48a4e</color>
+    <color name="yellowChart">#f8a03f</color>
+    <color name="deepGreenChart">#a8a838</color>
+    <color name="greenChart">#86aa64</color>
+    <color name="deepClueChart">#8caab2</color>
+    <color name="blueChart">#4db6d4</color>
+    <color name="lightBlueChart">#69c6ff</color>
+    <color name="purpleChart">#a75fea</color>
 
     <!--    <color name="colorPrimary">#4caf50</color>-->
     <!--    <color name="colorPrimaryDark">#2E7D32</color>-->

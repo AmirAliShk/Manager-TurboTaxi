@@ -5,7 +5,7 @@
     android:id="@+id/draw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLighter"
+    android:background="#1f1f1f"
     android:clickable="true"
     android:layoutDirection="rtl"
     android:orientation="vertical">
@@ -14,21 +14,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="64px"
+        android:layout_marginLeft="64px"
+        android:layout_marginTop="20px"
+        android:layout_marginEnd="64px"
+        android:layout_marginRight="64px"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/action"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_action_bar_purple"
-            android:elevation="3dp"
+            android:layout_height="56dp"
+            android:background="#1f1f1f"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/openDrawer"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.15"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_btn_action"
                 android:padding="7dp"
                 android:src="@drawable/ic_baseline_dehaze_24" />
 
@@ -36,6 +41,28 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9" />
+
+            <RelativeLayout
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_btn_action"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:foregroundGravity="center"
+                        android:src="@drawable/ic_weather" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -56,172 +83,162 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/bg_white_edge"
+                        android:layout_height="125dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_btn_action"
                         android:elevation="3dp"
-                        android:orientation="vertical">
+                        android:gravity="center">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/textView10"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="0dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:text="تعداد کل سفرها :"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:padding="5dp"
+                                android:src="@drawable/ic_operator" />
 
                             <TextView
-                                android:id="@+id/textView11"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
                                 android:gravity="left|center_vertical"
-                                android:text="2000"
-                                android:textColor="@color/colorBlack"
+                                android:text="154"
+                                android:textColor="#ffffff"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/textView9"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="0dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:text="تعداد اپراتور فعال :"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:padding="5dp"
+                                android:src="@drawable/ic_travels" />
 
                             <TextView
                                 android:id="@+id/textView12"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:gravity="left|center_vertical"
-                                android:text="50"
-                                android:textColor="@color/colorBlack"
+                                android:text="5000"
+                                android:textColor="@color/colorWhite"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="0dp"
+                                android:layout_margin="5dp"
                                 android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:text="تعداد کنسلی ها :"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:padding="5dp"
+                                android:src="@drawable/ic_canceled_trips" />
 
                             <TextView
                                 android:id="@+id/textView13"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
                                 android:gravity="left|center_vertical"
                                 android:text="100"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/bg_btn_action"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="تعداد سفرهای کل شهر"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="24sp" />
+
                     <lecho.lib.hellocharts.view.ColumnChartView
                         android:id="@+id/chart1"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
                         tools:ignore="MergeRootFrame" />
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:text="چارت 1"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/bg_btn_action"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="تعداد سفرهای زمان برده"
+                        android:textColor="@color/colorWhite"
                         android:textSize="24sp" />
 
                     <lecho.lib.hellocharts.view.ColumnChartView
                         android:id="@+id/chart2"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:fitsSystemWindows="true"
                         tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
                         tools:ignore="MergeRootFrame" />
 
                     <TextView
-                        android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:text="چارت 2"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/bg_btn_action"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="تعداد راننده فعال"
+                        android:textColor="@color/colorWhite"
                         android:textSize="24sp" />
 
                     <lecho.lib.hellocharts.view.ColumnChartView
                         android:id="@+id/chart3"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
                         tools:ignore="MergeRootFrame" />
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:text="چارت 3"
-                        android:textSize="24sp" />
 
                 </LinearLayout>
 
