@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
+import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasLabelForSelected = false;
     private int dataType = 0;
 
+
+    TextView txtCancelTrip;
+    TextView txtTripNum;
+    TextView operatorNum;
     DrawerLayout drawer;
 
     @Override
@@ -65,7 +71,21 @@ public class MainActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
         unbinder = ButterKnife.bind(this, view);
+
+        txtCancelTrip = findViewById(R.id.txtCancelTrip);
+        txtTripNum = findViewById(R.id.txtTripNum);
+        operatorNum = findViewById(R.id.operatorNum);
+
         TypefaceUtil.overrideFonts(view);
+
+        TypefaceUtil.overrideFonts(txtCancelTrip,MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(txtTripNum,MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(operatorNum,MyApplication.IraSanSBold);
+
+        txtCancelTrip.setText(StringHelper.toPersianDigits("100"));
+        txtTripNum.setText(StringHelper.toPersianDigits("5,000"));
+        operatorNum.setText(StringHelper.toPersianDigits("154"));
+
 
         drawer = findViewById(R.id.draw);
         NavigationView navigation = findViewById(R.id.navigation);

@@ -14,28 +14,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="64px"
-        android:layout_marginLeft="64px"
-        android:layout_marginTop="20px"
-        android:layout_marginEnd="64px"
-        android:layout_marginRight="64px"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/action"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_marginTop="20dp"
             android:background="#1f1f1f"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
 
-            <ImageView
-                android:id="@+id/openDrawer"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <RelativeLayout
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_btn_action"
-                android:padding="7dp"
-                android:src="@drawable/ic_baseline_dehaze_24" />
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_btn_action"
+                    android:elevation="3dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="1dp">
+
+                    <ImageView
+                        android:id="@+id/openDrawer"
+                        android:layout_width="43dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_dehaze_24" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -52,13 +66,14 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:background="@drawable/bg_btn_action"
+                    android:elevation="3dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:foregroundGravity="center"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_weather" />
                 </LinearLayout>
 
@@ -69,12 +84,15 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,20 +102,22 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="125dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/bg_btn_action"
-                        android:elevation="3dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingTop="7dp">
 
                             <ImageView
-                                android:layout_width="50dp"
+                                android:layout_width="40dp"
                                 android:layout_height="0dp"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
@@ -105,12 +125,17 @@
                                 android:src="@drawable/ic_operator" />
 
                             <TextView
+                                android:id="@+id/operatorNum"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:layout_margin="5dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
                                 android:gravity="left|center_vertical"
-                                android:text="154"
+                                android:text="5,000"
                                 android:textColor="#ffffff"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -122,10 +147,11 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingTop="7dp">
 
                             <ImageView
-                                android:layout_width="50dp"
+                                android:layout_width="40dp"
                                 android:layout_height="0dp"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
@@ -133,13 +159,17 @@
                                 android:src="@drawable/ic_travels" />
 
                             <TextView
-                                android:id="@+id/textView12"
+                                android:id="@+id/txtTripNum"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:layout_margin="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"
                                 android:layout_weight="1"
                                 android:gravity="left|center_vertical"
-                                android:text="5000"
+                                android:text="5,000"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -151,10 +181,11 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingTop="7dp">
 
                             <ImageView
-                                android:layout_width="50dp"
+                                android:layout_width="40dp"
                                 android:layout_height="0dp"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1"
@@ -162,13 +193,17 @@
                                 android:src="@drawable/ic_canceled_trips" />
 
                             <TextView
-                                android:id="@+id/textView13"
+                                android:id="@+id/txtCancelTrip"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:layout_margin="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="4dp"
                                 android:layout_weight="1"
                                 android:gravity="left|center_vertical"
-                                android:text="100"
+                                android:text="5,000"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
