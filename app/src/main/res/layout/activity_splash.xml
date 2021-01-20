@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1f1f1f"
     android:gravity="bottom"
-    android:background="#EEE9F1"
     android:orientation="vertical"
     tools:context="ir.taxi1880.manager.activity.SplashActivity">
 
@@ -19,25 +19,25 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="0.75"-->
-<!--            android:background="@mipmap/header_up" />-->
+        <!--        <ImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="0.75"-->
+        <!--            android:background="@mipmap/header_up" />-->
 
         <com.scwang.wave.MultiWaveHeader
-            android:scaleY="-1"
-            app:mwhStartColor="@color/colorPrimaryDark"
-            app:mwhCloseColor="@color/colorPrimary"
-            app:mwhIsRunning="true"
-            app:mwhGradientAngle="90"
-            app:mwhVelocity="1"
-            app:mwhWaveHeight="60dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.25"/>
+            android:layout_weight="0.25"
+            android:scaleY="-1"
+            app:mwhCloseColor="@color/colorPrimary"
+            app:mwhGradientAngle="90"
+            app:mwhIsRunning="true"
+            app:mwhStartColor="@color/colorSilver"
+            app:mwhVelocity="1"
+            app:mwhWaveHeight="60dp" />
 
     </LinearLayout>
 
