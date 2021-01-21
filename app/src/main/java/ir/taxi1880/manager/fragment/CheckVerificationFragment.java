@@ -1,6 +1,7 @@
 package ir.taxi1880.manager.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
+
+import com.chaos.view.PinView;
 
 import org.json.JSONObject;
 
@@ -64,8 +67,8 @@ public class CheckVerificationFragment extends Fragment {
         checkVerification();
     }
 
-    @BindView(R.id.edtCode)
-    PinEntryEditText edtCode;
+    @BindView(R.id.pin)
+    PinView edtCode;
 
     @BindView(R.id.txtResendCode)
     TextView txtResendCode;
@@ -227,6 +230,7 @@ public class CheckVerificationFragment extends Fragment {
                 if (txtResendCode != null) {
                     if (vfTime != null)
                         vfTime.setDisplayedChild(0);
+                    txtResendCode.setTextColor(Color.WHITE);
                     txtResendCode.setText("تلاش مجدد برای ارسال کد پس از : " + millisUntilFinished / 1000 + " ثانیه");
                 }
             }
