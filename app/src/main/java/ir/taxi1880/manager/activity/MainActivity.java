@@ -1,15 +1,19 @@
 package ir.taxi1880.manager.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtTripNum;
     TextView operatorNum;
     DrawerLayout drawer;
+    RelativeLayout rlBtnWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,15 +77,16 @@ public class MainActivity extends AppCompatActivity {
         }
         unbinder = ButterKnife.bind(this, view);
 
+        rlBtnWeather = findViewById(R.id.btnWeather);
         txtCancelTrip = findViewById(R.id.txtCancelTrip);
         txtTripNum = findViewById(R.id.txtTripNum);
         operatorNum = findViewById(R.id.operatorNum);
 
         TypefaceUtil.overrideFonts(view);
 
-        TypefaceUtil.overrideFonts(txtCancelTrip,MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(txtTripNum,MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(operatorNum,MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(txtCancelTrip, MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(txtTripNum, MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(operatorNum, MyApplication.IraSanSBold);
 
         txtCancelTrip.setText(StringHelper.toPersianDigits("100"));
         txtTripNum.setText(StringHelper.toPersianDigits("5,000"));
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         setParamsChart();
 
 
-        ImageView openDrawer = findViewById(R.id.openDrawer);
+        RelativeLayout openDrawer = findViewById(R.id.openDrawer);
 
         openDrawer.setOnClickListener(view12 -> {
             drawer.openDrawer(Gravity.RIGHT);
@@ -117,6 +123,17 @@ public class MainActivity extends AppCompatActivity {
             drawer.close();
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
         });
+
+        rlBtnWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
+                MyApplication.currentActivity.startActivity(i);
+                MyApplication.currentActivity.finish();
+            }
+        });
+
     }
 
 
@@ -129,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
         List<SubcolumnValue> values;
         List<AxisValue> axisValues = new ArrayList<>();
 
-        int[] value = {10000 , 3500 , 2000 , 1500 , 1500 , 1000 , 500 , 100};
-        int[] color = {R.color.redChart , R.color.orangeChart ,  R.color.yellowChart ,  R.color.deepGreenChart ,  R.color.greenChart ,  R.color.greenChart ,  R.color.deepClueChart ,  R.color.blueChart , R.color.lightBlueChart};
+        int[] value = {10000, 3500, 2000, 1500, 1500, 1000, 500, 100};
+        int[] color = {R.color.redChart, R.color.orangeChart, R.color.yellowChart, R.color.deepGreenChart, R.color.greenChart, R.color.greenChart, R.color.deepClueChart, R.color.blueChart, R.color.lightBlueChart};
         String[] city = {"مشهد", "خواف", "تربت جام", "تربت حیدریه", "فریمان", "گناباد", "نیشابور", "کاشمر", "تایباد"};
 
         for (int i = 0; i < numColumns; ++i) {

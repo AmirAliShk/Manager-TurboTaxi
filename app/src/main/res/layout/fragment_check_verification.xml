@@ -98,12 +98,6 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="24sp" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_call"/>
-
             </LinearLayout>
 
             <ir.taxi1880.manager.customView.PinEntryEditText
