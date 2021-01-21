@@ -124,14 +124,11 @@ public class MainActivity extends AppCompatActivity {
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
         });
 
-        rlBtnWeather.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
-                MyApplication.currentActivity.startActivity(i);
-                MyApplication.currentActivity.finish();
-            }
+        rlBtnWeather.setOnClickListener(view13 -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
+            MyApplication.currentActivity.startActivity(i);
+            MyApplication.currentActivity.finish();
         });
 
     }
