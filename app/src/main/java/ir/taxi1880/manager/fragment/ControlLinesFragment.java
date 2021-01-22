@@ -64,155 +64,107 @@ public class ControlLinesFragment extends Fragment {
         Button btnActiveNew950 = view.findViewById(R.id.btnActiveNew950);
 
 
-        btnDeactiveAll1880.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive all 1880");
-                vfStatus1880.setDisplayedChild(1);
-                vfBtnAll1880.setDisplayedChild(1);
-                btnDeactiveNew1880.setEnabled(false);
-                btnActiveNew1880.setEnabled(false);
+        btnDeactiveAll1880.setOnClickListener(view1 -> {
+            Log.i(TAG, "deactive all 1880");
+            vfStatus1880.setDisplayedChild(1);
+            vfBtnAll1880.setDisplayedChild(1);
+            btnDeactiveNew1880.setEnabled(false);
+            btnActiveNew1880.setEnabled(false);
 
-            }
         });
-        btnDeactiveAll1870.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive all 1880");
-                vfStatus1870.setDisplayedChild(1);
-                vfBtnAll1870.setDisplayedChild(1);
-                btnDeactiveNew1870.setEnabled(false);
-                btnActiveNew1870.setEnabled(false);
+        btnDeactiveAll1870.setOnClickListener(view13 -> {
+            Log.i(TAG, "deactive all 1880");
+            vfStatus1870.setDisplayedChild(1);
+            vfBtnAll1870.setDisplayedChild(1);
+            btnDeactiveNew1870.setEnabled(false);
+            btnActiveNew1870.setEnabled(false);
 
-            }
         });
-        btnDeactiveAll1817.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive all 1880");
-                vfStatus1817.setDisplayedChild(1);
-                vfBtnAll1817.setDisplayedChild(1);
-                btnDeactiveNew1817.setEnabled(false);
-                btnActiveNew1817.setEnabled(false);
+        btnDeactiveAll1817.setOnClickListener(view14 -> {
+            Log.i(TAG, "deactive all 1880");
+            vfStatus1817.setDisplayedChild(1);
+            vfBtnAll1817.setDisplayedChild(1);
+            btnDeactiveNew1817.setEnabled(false);
+            btnActiveNew1817.setEnabled(false);
 
-            }
         });
-        btnDeactiveAll950.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive all 1880");
-                vfStatus950.setDisplayedChild(1);
-                vfBtnAll950.setDisplayedChild(1);
-                btnDeactiveNew950.setEnabled(false);
-                btnActiveNew950.setEnabled(false);
+        btnDeactiveAll950.setOnClickListener(view15 -> {
+            Log.i(TAG, "deactive all 1880");
+            vfStatus950.setDisplayedChild(1);
+            vfBtnAll950.setDisplayedChild(1);
+            btnDeactiveNew950.setEnabled(false);
+            btnActiveNew950.setEnabled(false);
 
-            }
         });
 
 
-        btnActiveAll1880.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vfStatus1880.setDisplayedChild(0);
-                vfBtnAll1880.setDisplayedChild(0);
-                btnDeactiveNew1880.setEnabled(true);
-                btnActiveNew1880.setEnabled(true);
-            }
+        btnActiveAll1880.setOnClickListener(view16 -> {
+            vfStatus1880.setDisplayedChild(0);
+            vfBtnAll1880.setDisplayedChild(0);
+            btnDeactiveNew1880.setEnabled(true);
+            btnActiveNew1880.setEnabled(true);
         });
-        btnActiveAll1870.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vfStatus1870.setDisplayedChild(0);
-                vfBtnAll1870.setDisplayedChild(0);
-                btnDeactiveNew1870.setEnabled(true);
-                btnActiveNew1870.setEnabled(true);
-            }
+        btnActiveAll1870.setOnClickListener(view17 -> {
+            vfStatus1870.setDisplayedChild(0);
+            vfBtnAll1870.setDisplayedChild(0);
+            btnDeactiveNew1870.setEnabled(true);
+            btnActiveNew1870.setEnabled(true);
         });
-        btnActiveAll1817.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vfStatus1817.setDisplayedChild(0);
-                vfBtnAll1817.setDisplayedChild(0);
-                btnDeactiveNew1817.setEnabled(true);
-                btnActiveNew1817.setEnabled(true);
-            }
+        btnActiveAll1817.setOnClickListener(view18 -> {
+            vfStatus1817.setDisplayedChild(0);
+            vfBtnAll1817.setDisplayedChild(0);
+            btnDeactiveNew1817.setEnabled(true);
+            btnActiveNew1817.setEnabled(true);
         });
-        btnActiveAll950.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vfStatus950.setDisplayedChild(0);
-                vfBtnAll950.setDisplayedChild(0);
-                btnDeactiveNew950.setEnabled(true);
-                btnActiveNew950.setEnabled(true);
-            }
+        btnActiveAll950.setOnClickListener(view19 -> {
+            vfStatus950.setDisplayedChild(0);
+            vfBtnAll950.setDisplayedChild(0);
+            btnDeactiveNew950.setEnabled(true);
+            btnActiveNew950.setEnabled(true);
         });
 
 
-        btnDeactiveNew1880.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive new 1880");
-                vfStatus1880.setDisplayedChild(2);
-                vfBtnNew1880.setDisplayedChild(1);
-            }
+        btnDeactiveNew1880.setOnClickListener(view110 -> {
+            Log.i(TAG, "deactive new 1880");
+            vfStatus1880.setDisplayedChild(2);
+            vfBtnNew1880.setDisplayedChild(1);
         });
-        btnDeactiveNew1870.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive new 1880");
-                vfStatus1870.setDisplayedChild(2);
-                vfBtnNew1870.setDisplayedChild(1);
-            }
+        btnDeactiveNew1870.setOnClickListener(view111 -> {
+            Log.i(TAG, "deactive new 1880");
+            vfStatus1870.setDisplayedChild(2);
+            vfBtnNew1870.setDisplayedChild(1);
         });
-        btnDeactiveNew1817.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive new 1880");
-                vfStatus1817.setDisplayedChild(2);
-                vfBtnNew1817.setDisplayedChild(1);
-            }
+        btnDeactiveNew1817.setOnClickListener(view112 -> {
+            Log.i(TAG, "deactive new 1880");
+            vfStatus1817.setDisplayedChild(2);
+            vfBtnNew1817.setDisplayedChild(1);
         });
-        btnDeactiveNew950.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "deactive new 1880");
-                vfStatus950.setDisplayedChild(2);
-                vfBtnNew950.setDisplayedChild(1);
-            }
+        btnDeactiveNew950.setOnClickListener(view113 -> {
+            Log.i(TAG, "deactive new 1880");
+            vfStatus950.setDisplayedChild(2);
+            vfBtnNew950.setDisplayedChild(1);
         });
 
 
-        btnActiveNew1880.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "click active new 1880");
-                vfStatus1880.setDisplayedChild(0);
-                vfBtnNew1880.setDisplayedChild(0);
-            }
+        btnActiveNew1880.setOnClickListener(view114 -> {
+            Log.i(TAG, "click active new 1880");
+            vfStatus1880.setDisplayedChild(0);
+            vfBtnNew1880.setDisplayedChild(0);
         });
-        btnActiveNew1870.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "click active new 1880");
-                vfStatus1870.setDisplayedChild(0);
-                vfBtnNew1870.setDisplayedChild(0);
-            }
+        btnActiveNew1870.setOnClickListener(view115 -> {
+            Log.i(TAG, "click active new 1880");
+            vfStatus1870.setDisplayedChild(0);
+            vfBtnNew1870.setDisplayedChild(0);
         });
-        btnActiveNew1817.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "click active new 1880");
-                vfStatus1817.setDisplayedChild(0);
-                vfBtnNew1817.setDisplayedChild(0);
-            }
+        btnActiveNew1817.setOnClickListener(view116 -> {
+            Log.i(TAG, "click active new 1880");
+            vfStatus1817.setDisplayedChild(0);
+            vfBtnNew1817.setDisplayedChild(0);
         });
-        btnActiveNew950.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "click active new 1880");
-                vfStatus950.setDisplayedChild(0);
-                vfBtnNew950.setDisplayedChild(0);
-            }
+        btnActiveNew950.setOnClickListener(view117 -> {
+            Log.i(TAG, "click active new 1880");
+            vfStatus950.setDisplayedChild(0);
+            vfBtnNew950.setDisplayedChild(0);
         });
 
         btnBack = view.findViewById(R.id.btnBack);

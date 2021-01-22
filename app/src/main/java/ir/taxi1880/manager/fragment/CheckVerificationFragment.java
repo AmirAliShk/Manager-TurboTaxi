@@ -29,7 +29,6 @@ import ir.taxi1880.manager.activity.SplashActivity;
 import ir.taxi1880.manager.app.Constant;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.customView.PinEntryEditText;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.okHttp.RequestHelper;

@@ -62,29 +62,16 @@ public class ChangeLineCapacityDialog {
 
         txtNumber.requestFocus();
 
-        txtNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                KeyBoardHelper.showKeyboard(MyApplication.context);
-            }
+        txtNumber.setOnClickListener(v -> KeyBoardHelper.showKeyboard(MyApplication.context));
+
+        btnSubmit.setOnClickListener(view -> {
+            String num = txtNumber.getText().toString();
+            listener.num(num);
+
+            dismiss();
         });
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String num = txtNumber.getText().toString();
-                listener.num(num);
-
-                dismiss();
-            }
-        });
-
-        imgClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        imgClose.setOnClickListener(view -> dismiss());
 
         dialog.show();
     }

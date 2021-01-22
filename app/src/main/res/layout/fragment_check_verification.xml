@@ -122,7 +122,8 @@
                 app:itemSpacing="12dp"
                 app:itemWidth="48dp"
                 app:lineWidth="3dp"
-                app:viewType="line"
+                app:itemRadius="17dp"
+                app:viewType="rectangle"
                 android:lineHeight="5dp"
                 />
 

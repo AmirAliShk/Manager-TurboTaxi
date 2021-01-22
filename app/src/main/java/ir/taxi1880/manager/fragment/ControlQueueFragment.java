@@ -60,103 +60,19 @@ public class ControlQueueFragment extends Fragment {
         btnLimitation1817 = view.findViewById(R.id.btnLimitation1817);
         btnLimitation950 = view.findViewById(R.id.btnLimitation950);
 
-        btnReduce1880.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtReduce1880.setText(num);
-                    }
-                });
-            }
-        });
-        btnReduce1870.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtReduce1870.setText(num);
-                    }
-                });
-            }
-        });
-        btnReduce1817.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtReduce1817.setText(num);
-                    }
-                });
-            }
-        });
-        btnReduce950.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtReduce950.setText(num);
-                    }
-                });
-            }
-        });
+        btnReduce1880.setOnClickListener(view1 -> new ChangeLineCapacityDialog().show(num -> txtReduce1880.setText(num)));
+        btnReduce1870.setOnClickListener(view13 -> new ChangeLineCapacityDialog().show(num -> txtReduce1870.setText(num)));
+        btnReduce1817.setOnClickListener(view14 -> new ChangeLineCapacityDialog().show(num -> txtReduce1817.setText(num)));
+        btnReduce950.setOnClickListener(view15 -> new ChangeLineCapacityDialog().show(num -> txtReduce950.setText(num)));
 
 
-        btnLimitation1880.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtLimitation1880.setText(num);
-                    }
-                });
-            }
-        });
-        btnLimitation1870.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtLimitation1870.setText(num);
-                    }
-                });
-            }
-        });
-        btnLimitation1817.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtLimitation1817.setText(num);
-                    }
-                });
-            }
-        });
-        btnLimitation950.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeLineCapacityDialog().show(new ChangeLineCapacityDialog.Listener() {
-                    @Override
-                    public void num(String num) {
-                        txtLimitation950.setText(num);
-                    }
-                });
-            }
-        });
+        btnLimitation1880.setOnClickListener(view16 -> new ChangeLineCapacityDialog().show(num -> txtLimitation1880.setText(num)));
+        btnLimitation1870.setOnClickListener(view17 -> new ChangeLineCapacityDialog().show(num -> txtLimitation1870.setText(num)));
+        btnLimitation1817.setOnClickListener(view18 -> new ChangeLineCapacityDialog().show(num -> txtLimitation1817.setText(num)));
+        btnLimitation950.setOnClickListener(view19 -> new ChangeLineCapacityDialog().show(num -> txtLimitation950.setText(num)));
 
         btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
-
-
-
-
 
         return view;
     }
