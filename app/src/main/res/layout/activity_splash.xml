@@ -12,33 +12,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" />
+            android:layout_weight="0.22" />
 
-        <!--        <ImageView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:layout_weight="0.75"-->
-        <!--            android:background="@mipmap/header_up" />-->
-
-        <com.scwang.wave.MultiWaveHeader
+        <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.25"
-            android:scaleY="-1"
-            app:mwhCloseColor="@color/colorPrimary"
-            app:mwhGradientAngle="90"
-            app:mwhIsRunning="true"
-            app:mwhStartColor="@color/colorSilver"
-            app:mwhVelocity="1"
-            app:mwhWaveHeight="60dp" />
+            app:srcCompat="@mipmap/turbo_login" />
 
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="نسخه مدیریت"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="نسخه 1.0.0 "
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <FrameLayout

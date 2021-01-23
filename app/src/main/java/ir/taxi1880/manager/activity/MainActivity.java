@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
             MyApplication.currentActivity.startActivity(i);
-            MyApplication.currentActivity.finish();
+
         });
 
     }
