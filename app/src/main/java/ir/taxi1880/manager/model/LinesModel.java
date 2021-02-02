@@ -2,40 +2,39 @@ package ir.taxi1880.manager.model;
 
 public class LinesModel {
 
- private String name;
- private int code;
- private String address;
- private int countrySide;
+    private String lineTitle;
+    private Boolean statusNewCall;
+    private Boolean statusSupportCall;
 
-  public int getCountrySide() {
-    return countrySide;
-  }
+    public LinesModel(String lineTitle, Boolean statusNewCall, Boolean statusSupportCall) {
+        this.lineTitle = lineTitle;
+        this.statusNewCall = statusNewCall;
+        this.statusSupportCall = statusSupportCall;
+    }
 
-  public void setCountrySide(int countrySide) {
-    this.countrySide = countrySide;
-  }
+    public String getLineTitle() {
+        return lineTitle;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public Boolean getStatusNewCall() {
+        return statusNewCall;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public Boolean getStatusSupportCall() {
+        return statusSupportCall;
+    }
 
-  public int getCode() {
-    return code;
-  }
+    public void setLineTitle(String lineTitle) {
+        this.lineTitle = lineTitle;
+    }
 
-  public void setCode(int code) {
-    this.code = code;
-  }
+    public void setStatusNewCall(Boolean statusNewCall) {
+        this.statusNewCall = statusNewCall;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public void setStatusSupportCall(Boolean statusSupportCall) {
+        this.statusSupportCall = statusSupportCall;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+
 }

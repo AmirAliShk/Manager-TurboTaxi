@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
 
@@ -45,6 +46,9 @@ public class LoginFragment extends Fragment {
 
     @BindView(R.id.edtPassword)
     EditText edtPassword;
+
+    @BindView(R.id.vfEnter)
+    ViewFlipper vfEnter;
 
     @BindView(R.id.btnLogin)
     Button btnLogin;
@@ -87,7 +91,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void logIn(String username, String password) {
-
+        if (vfEnter != null) {
+            vfEnter.setDisplayedChild(1);
+        }
         RequestHelper.builder(EndPoints.LOGIN)
                 .addParam("username", username)
                 .addParam("password", password)

@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.LinesModel;
 
 import static ir.taxi1880.manager.app.MyApplication.context;
@@ -18,11 +19,11 @@ import static ir.taxi1880.manager.app.MyApplication.context;
 public class LinesAdapter extends BaseAdapter {
 
     private ArrayList<LinesModel> linesModels;
-    private LayoutInflater layoutInflater;
+    private Context mContext;
 
-    public LinesAdapter(ArrayList<LinesModel> linesModels, Context context) {
+    public LinesAdapter(Context mContext, ArrayList<LinesModel> linesModels) {
+        this.mContext = mContext;
         this.linesModels = linesModels;
-        this.layoutInflater=LayoutInflater.from(context);
     }
 
     @Override
@@ -43,20 +44,19 @@ public class LinesAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_lines, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_line, viewGroup, false);
+            TypefaceUtil.overrideFonts(view);
         }
 
         LinesModel currentLinesModel = linesModels.get(i);
 
         TextView lineTitle = view.findViewById(R.id.lineTitle);
-        TextView address = view.findViewById(R.id.address);
+        CheckBox cbNewCall = view.findViewById(R.id.cbNewCall);
+        CheckBox cbSupportCall = view.findViewById(R.id.cbSupportCall);
 
-
-        lineTitle.setText(currentLinesModel.lineTitle());
-        address.setText(currentLinesModel.getAddress());
-
-        imageView.setImageResource(currentWebViewModel.getImageView());
-
+        lineTitle.setText(currentLinesModel.getLineTitle());
+        cbNewCall.setChecked(currentLinesModel.getStatusNewCall());
+        cbSupportCall.setChecked(currentLinesModel.getStatusSupportCall());
 
         return view;
     }
