@@ -110,16 +110,16 @@ public class MainActivity extends AppCompatActivity {
             drawer.openDrawer(Gravity.RIGHT);
         });
 
-        LinearLayout llLines = findViewById(R.id.llLines);
+        ImageView lines = findViewById(R.id.lines);
 
-        llLines.setOnClickListener(view1 -> {
+        lines.setOnClickListener(view1 -> {
             drawer.close();
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
         });
 
-        LinearLayout llQueue = findViewById(R.id.llQueue);
+        ImageView queues = findViewById(R.id.queues);
 
-        llQueue.setOnClickListener(view1 -> {
+        queues.setOnClickListener(view1 -> {
             drawer.close();
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
         });
@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     public void setParamsChart() {
 

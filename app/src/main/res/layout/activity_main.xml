@@ -8,7 +8,8 @@
     android:background="#1f1f1f"
     android:clickable="true"
     android:layoutDirection="rtl"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
 
     <LinearLayout
@@ -285,10 +286,11 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
-        android:layout_width="150dp"
+        android:layout_width="90dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        >
 
         <include layout="@layout/drawer_layout" />
 

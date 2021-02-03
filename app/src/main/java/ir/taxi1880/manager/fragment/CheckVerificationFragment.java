@@ -47,12 +47,12 @@ public class CheckVerificationFragment extends Fragment {
         verification(phoneNumber);
     }
 
-    @OnClick(R.id.llChangeNumber)
-    void onPressChangeNumber() {
-        if (countDownTimer != null)
-            countDownTimer.cancel();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new ir.taxi1880.manager.fragment.VerificationFragment()).setAddToBackStack(false).replace();
-    }
+//    @OnClick(R.id.llChangeNumber)
+//    void onPressChangeNumber() {
+//        if (countDownTimer != null)
+//            countDownTimer.cancel();
+//        FragmentHelper.toFragment(MyApplication.currentActivity, new ir.taxi1880.manager.fragment.VerificationFragment()).setAddToBackStack(false).replace();
+//    }
 
     @OnClick(R.id.btnEnter)
     void onPressEnter() {

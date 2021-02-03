@@ -6,82 +6,49 @@
     android:layout_height="match_parent"
 
     android:background="@color/alsoBlack"
+    android:gravity="center_horizontal"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.005" />
-
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="right"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="10dp"
-        android:layout_weight="0.03"
         app:srcCompat="@mipmap/turbo_login" />
 
-    <TextView
-        android:id="@+id/textView7"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="1dip"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#d2d2d2" />
 
-    <LinearLayout
-        android:id="@+id/llLines"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.005"
+    <ImageView
+        android:id="@+id/lines"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
         android:background="@drawable/bg_ripple"
-        android:clickable="true"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="1. خطوط"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            app:srcCompat="@drawable/ic_menu_manage" />
-    </LinearLayout>
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:src="@drawable/ic_lines" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/llQueue"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.005"
+    <ImageView
+        android:id="@+id/queues"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
         android:background="@drawable/bg_ripple"
-        android:clickable="true"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="2. صف"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            app:srcCompat="@drawable/ic_menu_manage" />
-    </LinearLayout>
+        android:padding="5dp"
+        android:src="@drawable/ic_queue" />
 
     <TextView
         android:id="@+id/textView8"
