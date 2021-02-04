@@ -42,19 +42,19 @@ public class CheckVerificationFragment extends Fragment {
     String phoneNumber;
     static CountDownTimer countDownTimer;
 
-    @OnClick(R.id.llResendCode)
+    @OnClick(R.id.txtResendCode)
     void onPressResendCode() {
         verification(phoneNumber);
     }
 
-//    @OnClick(R.id.llChangeNumber)
-//    void onPressChangeNumber() {
-//        if (countDownTimer != null)
-//            countDownTimer.cancel();
-//        FragmentHelper.toFragment(MyApplication.currentActivity, new ir.taxi1880.manager.fragment.VerificationFragment()).setAddToBackStack(false).replace();
-//    }
+    @OnClick(R.id.llChangeNumber)
+    void onPressChangeNumber() {
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new ir.taxi1880.manager.fragment.VerificationFragment()).setAddToBackStack(false).replace();
+    }
 
-    @OnClick(R.id.btnEnter)
+    @OnClick(R.id.btnLogin)
     void onPressEnter() {
         code = edtCode.getText().toString();
 
@@ -69,8 +69,8 @@ public class CheckVerificationFragment extends Fragment {
     @BindView(R.id.pin)
     PinView edtCode;
 
-    @BindView(R.id.txtResendCode)
-    TextView txtResendCode;
+    @BindView(R.id.txtRetry)
+    TextView txtRetry;
 
     @BindView(R.id.txtPhoneNumber)
     TextView txtPhoneNumber;
@@ -226,16 +226,15 @@ public class CheckVerificationFragment extends Fragment {
         countDownTimer = new CountDownTimer(remainingTime, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
-                if (txtResendCode != null) {
+                if (txtRetry != null) {
                     if (vfTime != null)
                         vfTime.setDisplayedChild(0);
-                    txtResendCode.setTextColor(Color.WHITE);
-                    txtResendCode.setText("تلاش مجدد برای ارسال کد پس از : " + millisUntilFinished / 1000 + " ثانیه");
+                    txtRetry.setText("تلاش مجدد برای ارسال کد پس از : " + millisUntilFinished / 1000 + " ثانیه");
                 }
             }
 
             public void onFinish() {
-                if (txtResendCode != null) {
+                if (txtRetry != null) {
                     if (vfTime != null)
                         vfTime.setDisplayedChild(1);
                 }

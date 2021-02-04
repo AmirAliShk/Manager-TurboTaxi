@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasLabelForSelected = false;
     private int dataType = 0;
 
-
     TextView txtCancelTrip;
     TextView txtTripNum;
     TextView operatorNum;
@@ -217,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 if (doubleBackToExitPressedOnce) {
                     MyApplication.currentActivity.finish();
                 } else {
+                    drawer.close();
                     this.doubleBackToExitPressedOnce = true;
                     MyApplication.Toast(getString(R.string.txt_please_for_exit_reenter_back), Toast.LENGTH_SHORT);
                     new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 1500);
