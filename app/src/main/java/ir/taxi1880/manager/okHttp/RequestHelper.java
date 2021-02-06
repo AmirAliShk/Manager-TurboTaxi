@@ -477,7 +477,6 @@ public class RequestHelper implements okhttp3.Callback {
                         return;
                     if (errorDialog == null) {
                         errorDialog = new ErrorDialog();
-                        errorDialog.titleText("خطایی رخ داده است");
                         errorDialog.messageText(message);
                         errorDialog.cancelable(false);
                         errorDialog.closeBtnRunnable("بستن", () -> errorDialog.dismiss());

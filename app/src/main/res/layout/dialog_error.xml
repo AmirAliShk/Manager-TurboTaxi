@@ -3,80 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llParent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="5dp"
     android:layout_marginStart="40dp"
     android:layout_marginLeft="40dp"
     android:layout_marginEnd="40dp"
     android:layout_marginRight="40dp"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_also_black_gradient_edge"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@color/colorWhite"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="خطای عدم اتصال به اینترنت لطفا پس از بررسی ار تباط خود به اینترنت مجدد چک کنید"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_also_black_gradient_edge"
             android:gravity="center"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnTryAgain"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_green_all"
-                android:text="تلاش مجدد"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
                 android:textColor="@color/colorWhite"
-                android:textSize="18dp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imgLine"
-                android:layout_width="5dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/btnClose"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_circle_left_blue"
-                android:text="بستن"
+            <TextView
+                android:id="@+id/txtMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="7dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="خطای عدم اتصال به اینترنت لطفا پس از بررسی ار تباط خود به اینترنت مجدد چک کنید"
                 android:textColor="@color/colorWhite"
-                android:textSize="18dp" />
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnTryAgain"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_green_all"
+                    android:text="تلاش مجدد"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/imgLine"
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:id="@+id/btnClose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circle_left_blue"
+                    android:text="بستن"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:src="@mipmap/error" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:src="@mipmap/error" />
 
 </RelativeLayout>

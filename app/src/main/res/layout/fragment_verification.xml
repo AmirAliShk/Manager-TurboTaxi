@@ -145,6 +145,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="right|center_vertical"
             android:text="ورود با نام کاربری و رمز عبور"
             android:textColor="@color/colorPrimary"
@@ -156,7 +158,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/ic_iphone" />
+            android:src="@drawable/ic_user" />
 
     </LinearLayout>
 

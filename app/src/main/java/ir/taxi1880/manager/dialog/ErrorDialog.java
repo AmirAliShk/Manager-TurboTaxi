@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -76,12 +74,12 @@ public class ErrorDialog {
     TypefaceUtil.overrideFonts(dialog.getWindow().getDecorView());
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
-    wlp.gravity = Gravity.BOTTOM;
     wlp.width = LinearLayout.LayoutParams.MATCH_PARENT;
 //    wlp.windowAnimations = R.style.ExpandAnimation;
     dialog.getWindow().setAttributes(wlp);
 
     dialog.setCancelable(cancelable);
+
 
 //    LinearLayout llParent=dialog.findViewById(R.id.llParent);
 //    llParent.setLayoutParams(new LinearLayout.LayoutParams(300, 150));
@@ -89,13 +87,6 @@ public class ErrorDialog {
     TextView txtMessage = (TextView) dialog.findViewById(R.id.txtMessage);
     txtMessage.setText(messageText);
 
-    TextView title = (TextView) dialog.findViewById(R.id.txtTitle);
-    if (titleText == null || titleText.isEmpty()) {
-      title.setVisibility(View.GONE);
-    } else {
-      title.setVisibility(View.VISIBLE);
-      title.setText(titleText);
-    }
 
     Button btnClose = dialog.findViewById(R.id.btnClose);
     Button btnTryAgain = dialog.findViewById(R.id.btnTryAgain);

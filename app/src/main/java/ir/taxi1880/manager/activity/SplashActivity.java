@@ -85,7 +85,6 @@ public class SplashActivity extends AppCompatActivity {
             if (recordAudioPermission) {
 
                 new GeneralDialog()
-                        .title("دسترسی")
                         .message("" +
                                 "برای ورود به برنامه اجازه دسترسی به مجوزهای لازم را بدهید.")
                         .cancelable(false)

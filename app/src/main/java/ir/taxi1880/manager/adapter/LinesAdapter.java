@@ -51,12 +51,12 @@ public class LinesAdapter extends BaseAdapter {
         LinesModel currentLinesModel = linesModels.get(i);
 
         TextView lineTitle = view.findViewById(R.id.lineTitle);
-        CheckBox cbNewCall = view.findViewById(R.id.cbNewCall);
-        CheckBox cbSupportCall = view.findViewById(R.id.cbSupportCall);
+//        CheckBox cbNewCall = view.findViewById(R.id.cbNewCall);
+//        CheckBox cbSupportCall = view.findViewById(R.id.cbSupportCall);
 
         lineTitle.setText(currentLinesModel.getLineTitle());
-        cbNewCall.setChecked(currentLinesModel.getStatusNewCall());
-        cbSupportCall.setChecked(currentLinesModel.getStatusSupportCall());
+//        cbNewCall.setChecked(currentLinesModel.getStatusNewCall());
+//        cbSupportCall.setChecked(currentLinesModel.getStatusSupportCall());
 
         return view;
     }

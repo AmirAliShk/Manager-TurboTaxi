@@ -5,78 +5,84 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_dialog_header"
-        android:gravity="center"
-        android:minWidth="330dp"
-        android:padding="@dimen/_8sdp"
-        android:text="1880"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/colorWhite" />
-
     <LinearLayout
-        android:layout_width="330dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:background="@drawable/bg_dialog_body"
-        android:gravity="top"
-        android:minWidth="330dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:background="@drawable/bg_also_black_gradient_edge"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_header"
+            android:gravity="center"
+            android:minWidth="330dp"
+            android:padding="@dimen/_8sdp"
+            android:text="1880"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorWhite" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="top"
+            android:minWidth="330dp"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="10dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="تعداد"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/grayMedium" />
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-            <EditText
-                android:id="@+id/txtNumber"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="تعداد"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/txtNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/edit_text_style"
+                    android:elevation="3dp"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:background="@drawable/edit_text_style"
-                android:elevation="3dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:padding="5dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorBlack"
-                android:inputType="number"
-                android:focusable="true"
-                />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/green_shadow"
+                    android:text="ثبت"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSubmit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@drawable/green_shadow"
-                android:text="ثبت"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
 

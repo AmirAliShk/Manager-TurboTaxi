@@ -139,11 +139,7 @@ public class GeneralDialog {
 
   Unbinder unbinder;
 
-  @BindView(R.id.txtTitle)
-  TextView txtTitle;
 
-  @BindView(R.id.llTitle)
-  LinearLayout llTitle;
 
   @BindView(R.id.txtMessage)
   TextView txtMessage;
@@ -154,8 +150,6 @@ public class GeneralDialog {
   @BindView(R.id.btnFirst)
   Button btnFirst;
 
-  @BindView(R.id.edtMessage)
-  EditText edtMessage;
 
   @BindView(R.id.btnSecond)
   Button btnSecond;
@@ -165,9 +159,6 @@ public class GeneralDialog {
 
   @OnClick(R.id.btnFirst)
   void onFirstPress() {
-    if (edtMessage.getVisibility() == View.VISIBLE) {
-      descListener.onDescription(edtMessage.getText().toString());
-    }
     dismiss();
     if (firstBtn != null) {
       if (firstBtn.getBody() != null) {
@@ -230,15 +221,6 @@ public class GeneralDialog {
     TypefaceUtil.overrideFonts(tempDialog.getWindow().getDecorView());
 
     txtMessage.setText(messageText);
-    txtTitle.setText(titleText);
-    if (titleText.isEmpty()) {
-      txtTitle.setVisibility(View.GONE);
-      llTitle.setVisibility(View.GONE);
-    }
-    if (titleText.isEmpty()) {
-      txtTitle.setVisibility(View.GONE);
-      txtMessage.setTextSize(20);
-    }
     if (messageText.isEmpty()) {
       txtMessage.setVisibility(View.GONE);
     }
@@ -265,11 +247,6 @@ public class GeneralDialog {
     }
     if (firstBtn == null && secondBtn == null && thirdBtn == null) {
       llBtnView.setVisibility(View.GONE);
-    }
-    if (visibility == 1) {
-      edtMessage.setVisibility(View.VISIBLE);
-    } else {
-      edtMessage.setVisibility(View.GONE);
     }
     if (bodyRunnable != null)
       bodyRunnable.run();
