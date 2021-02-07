@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.dialog.ChangeQueueCapacityDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.QueuesModel;
 
@@ -52,9 +54,20 @@ public class QueuesAdapter extends BaseAdapter {
         TextView inLineNum = view.findViewById(R.id.inLineNum);
         TextView permittedNum = view.findViewById(R.id.permittedNum);
 
+        Button btnLimitation = view.findViewById(R.id.btnLimitation);
+        Button btnReduce = view.findViewById(R.id.btnReduce);
+
         queueTitle.setText(currentQueuesModel.getQueueTitle());
         inLineNum.setText(currentQueuesModel.getInLineNum());
         permittedNum.setText(currentQueuesModel.getPermittedNum());
+
+        btnLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
+
+        }));
+
+        btnReduce.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
+
+        }));
 
         return view;
     }

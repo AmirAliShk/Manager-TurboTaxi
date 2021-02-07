@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.kyleduo.switchbutton.SwitchButton;
+
 import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
@@ -51,12 +53,12 @@ public class LinesAdapter extends BaseAdapter {
         LinesModel currentLinesModel = linesModels.get(i);
 
         TextView lineTitle = view.findViewById(R.id.lineTitle);
-//        CheckBox cbNewCall = view.findViewById(R.id.cbNewCall);
-//        CheckBox cbSupportCall = view.findViewById(R.id.cbSupportCall);
+        SwitchButton sbNew = view.findViewById(R.id.sbNew);
+        SwitchButton sbSupport = view.findViewById(R.id.sbSupport);
 
         lineTitle.setText(currentLinesModel.getLineTitle());
-//        cbNewCall.setChecked(currentLinesModel.getStatusNewCall());
-//        cbSupportCall.setChecked(currentLinesModel.getStatusSupportCall());
+        sbNew.setChecked(currentLinesModel.getStatusNewCall());
+        sbSupport.setChecked(currentLinesModel.getStatusSupportCall());
 
         return view;
     }

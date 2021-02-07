@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:gravity="center"
-            android:text="خطوط"
+            android:text="صف ها"
             android:textColor="@color/colorWhite"
             android:textSize="30sp" />
 

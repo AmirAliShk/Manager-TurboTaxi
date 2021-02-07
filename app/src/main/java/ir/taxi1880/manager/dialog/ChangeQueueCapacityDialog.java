@@ -1,37 +1,26 @@
 package ir.taxi1880.manager.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
 
-import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
-import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 
-public class ChangeLineCapacityDialog {
+public class ChangeQueueCapacityDialog {
     EditText txtNumber;
 
-    private static final String TAG = ChangeLineCapacityDialog.class.getSimpleName();
+    private static final String TAG = ChangeQueueCapacityDialog.class.getSimpleName();
 
     public interface Listener {
         void num(String num);
@@ -46,7 +35,7 @@ public class ChangeLineCapacityDialog {
         dialog = new Dialog(MyApplication.currentActivity);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.ExpandAnimation;
-        dialog.setContentView(R.layout.dialog_change_line_capacity);
+        dialog.setContentView(R.layout.dialog_change_queue_capacity);
         TypefaceUtil.overrideFonts(dialog.getWindow().getDecorView());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
