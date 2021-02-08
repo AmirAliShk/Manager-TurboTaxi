@@ -132,36 +132,16 @@ public class SplashActivity extends AppCompatActivity {
 
     public void getAppInfo(SplashActivityCallback splashActivityCallback) {
         this.splashActivityCallback = splashActivityCallback;
-        try {
-            if (MyApplication.prefManager.getRefreshToken().equals("")) {
-                FragmentHelper
-                        .toFragment(MyApplication.currentActivity, new LoginFragment())
-                        .setAddToBackStack(false)
-                        .add();
-            } else {
-                JSONObject deviceInfo = new JSONObject();
-                @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(MyApplication.currentActivity.getContentResolver(), Settings.Secure.ANDROID_ID);
-                deviceInfo.put("MODEL", Build.MODEL);
-                deviceInfo.put("HARDWARE", Build.HARDWARE);
-                deviceInfo.put("BRAND", Build.BRAND);
-                deviceInfo.put("DISPLAY", Build.DISPLAY);
-                deviceInfo.put("BOARD", Build.BOARD);
-                deviceInfo.put("SDK_INT", Build.VERSION.SDK_INT);
-                deviceInfo.put("BOOTLOADER", Build.BOOTLOADER);
-                deviceInfo.put("DEVICE", Build.DEVICE);
-                deviceInfo.put("DISPLAY_HEIGHT", ScreenHelper.getRealDeviceSizeInPixels(MyApplication.currentActivity).getHeight());
-                deviceInfo.put("DISPLAY_WIDTH", ScreenHelper.getRealDeviceSizeInPixels(MyApplication.currentActivity).getWidth());
-                deviceInfo.put("DISPLAY_SIZE", ScreenHelper.getScreenSize(MyApplication.currentActivity));
-                deviceInfo.put("ANDROID_ID", android_id);
-
-                RequestHelper.builder(EndPoints.GET_APP_INFO)
-                        .addParam("versionCode", new AppVersionHelper(context).getVerionCode())
-                        .addParam("deviceInfo", deviceInfo)
-                        .listener(onAppInfo)
-                        .post();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (MyApplication.prefManager.getRefreshToken().equals("")) {
+            FragmentHelper
+                    .toFragment(MyApplication.currentActivity, new LoginFragment())
+                    .setAddToBackStack(false)
+                    .add();
+        } else {
+            RequestHelper.builder(EndPoints.APP_INFO)
+                    .addPath(new AppVersionHelper(context).getVerionCode() + "")
+                    .listener(onAppInfo)
+                    .get();
         }
     }
 
@@ -170,15 +150,13 @@ public class SplashActivity extends AppCompatActivity {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
-                    Log.i(TAG, "onResponse: " + args[0].toString());
                     JSONObject object = new JSONObject(args[0].toString());
-                    int block = object.getInt("isBlock");
-                    int updateAvailable = object.getInt("updateAvailable");
-                    int forceUpdate = object.getInt("forceUpdate");
+                    Boolean block = object.getBoolean("isBlock");
+                    boolean updateAvailable = object.getBoolean("updateAvailable");
+                    boolean forceUpdate = object.getBoolean("forceUpdate");
                     String updateUrl = object.getString("updateUrl");
-                    int changePass = object.getInt("changePassword");
 
-                    if (block == 1) {
+                    if (block) {
                         new GeneralDialog()
                                 .title("هشدار")
                                 .message("اکانت شما توسط سیستم مسدود شده است")
@@ -187,29 +165,14 @@ public class SplashActivity extends AppCompatActivity {
                         return;
                     }
 
-                    if (changePass == 1) {
-                        FragmentHelper
-                                .toFragment(MyApplication.currentActivity, new LoginFragment())
-                                .setAddToBackStack(false)
-                                .replace();
-                        return;
-                    }
-
                     continueProcessing();
 
-                    if (updateAvailable == 0) {
+                    if (updateAvailable) {
                         updatePart(forceUpdate, updateUrl);
                         return;
                     }
-
-                    MyApplication.prefManager.setCountRequest(object.getInt("countRequest"));
-
                     if (splashActivityCallback != null)
                         splashActivityCallback.onSuccess(true);
-
-                    NotificationManager notificationManager = (NotificationManager) MyApplication.currentActivity.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.cancel(Constant.USER_STATUS_NOTIFICATION_ID);
-
                 } catch (JSONException e) {
                     if (splashActivityCallback != null)
                         splashActivityCallback.onSuccess(false);
@@ -228,9 +191,9 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
-    private void updatePart(int isForce, final String url) {
+    private void updatePart(boolean isForce, final String url) {
         GeneralDialog generalDialog = new GeneralDialog();
-        if (isForce == 0) {
+        if (isForce) {
             generalDialog.title("به روز رسانی");
             generalDialog.cancelable(false);
             generalDialog.message("برای برنامه نسخه جدیدی موجود است لطفا برنامه را به روز رسانی کنید");

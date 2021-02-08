@@ -24,16 +24,20 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasAxes = true;
     private boolean hasLabels = true;
 
+    Timer timer;
     private ColumnChartView chart;
     private ColumnChartData data;
     private boolean hasLabelForSelected = false;
@@ -75,17 +80,17 @@ public class MainActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
         unbinder = ButterKnife.bind(this, view);
+        TypefaceUtil.overrideFonts(view);
+        TypefaceUtil.overrideFonts(txtCancelTrip, MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(txtTripNum, MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(operatorNum, MyApplication.IraSanSBold);
+
+        getSummery();
 
         rlBtnWeather = findViewById(R.id.btnWeather);
         txtCancelTrip = findViewById(R.id.txtCancelTrip);
         txtTripNum = findViewById(R.id.txtTripNum);
         operatorNum = findViewById(R.id.operatorNum);
-
-        TypefaceUtil.overrideFonts(view);
-
-        TypefaceUtil.overrideFonts(txtCancelTrip, MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(txtTripNum, MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(operatorNum, MyApplication.IraSanSBold);
 
         txtCancelTrip.setText(StringHelper.toPersianDigits("100"));
         txtTripNum.setText(StringHelper.toPersianDigits("5,000"));
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         chart = findViewById(R.id.chart3);
         setParamsChart();
 
+        timer=new Timer();
 
         RelativeLayout openDrawer = findViewById(R.id.openDrawer);
 
@@ -179,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.currentActivity = this;
         MyApplication.prefManager.setAppRun(true);
 
+        timer.schedule(timerTask, 2000,15000);
     }
 
     @Override
@@ -227,5 +234,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    TimerTask timerTask=new TimerTask() {
+        @Override
+        public void run() {
+            getSummery();
+        }
+    };
 
+    private void getSummery() {
+        RequestHelper.builder(EndPoints.SUMMERY)
+                .listener(summeryCallBack)
+                .get();
+    }
+
+    RequestHelper.Callback summeryCallBack= new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+
+        }
+    };
 }

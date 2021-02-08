@@ -19,9 +19,11 @@ import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.LinesAdapter;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.LinesModel;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class ControlLinesFragment extends Fragment {
 
@@ -37,14 +39,16 @@ public class ControlLinesFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         TypefaceUtil.overrideFonts(view);
 
-        linesList = view.findViewById(R.id.linesList);
-        arrayLinesModel = new ArrayList<>();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor("#2f2f2f"));
         }
+
+        linesList = view.findViewById(R.id.linesList);
+        arrayLinesModel = new ArrayList<>();
+
+        getLines();
 
         arrayLinesModel.add(new LinesModel("1880", true, false));
         arrayLinesModel.add(new LinesModel("1870", true, true));
@@ -58,4 +62,24 @@ public class ControlLinesFragment extends Fragment {
 
         return view;
     }
+
+private void getLines(){
+    RequestHelper.builder(EndPoints.GET_LINE)
+            .listener(linesCallBack)
+            .get();
+}
+
+RequestHelper.Callback linesCallBack = new RequestHelper.Callback() {
+    @Override
+    public void onResponse(Runnable reCall, Object... args) {
+
+    }
+
+    @Override
+    public void onFailure(Runnable reCall, Exception e) {
+        super.onFailure(reCall, e);
+    }
+};
+
+
 }

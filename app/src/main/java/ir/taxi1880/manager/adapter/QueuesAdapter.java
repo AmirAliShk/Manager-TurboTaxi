@@ -9,11 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.dialog.ChangeQueueCapacityDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.QueuesModel;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 import static ir.taxi1880.manager.app.MyApplication.context;
 
@@ -61,14 +64,35 @@ public class QueuesAdapter extends BaseAdapter {
         inLineNum.setText(currentQueuesModel.getInLineNum());
         permittedNum.setText(currentQueuesModel.getPermittedNum());
 
-        btnLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
-
-        }));
-
         btnReduce.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
-
+                getQueueInfo(currentQueuesModel.getQueueTitle() ,num , currentQueuesModel.getPermittedNum());
+        }));
+        btnLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
+            getQueueInfo(currentQueuesModel.getQueueTitle(), currentQueuesModel.getInLineNum() ,num);
         }));
 
         return view;
     }
+
+    private void getQueueInfo(String id, String activeMembers, String capacity) {
+        RequestHelper.builder(EndPoints.GET_QUEUE)
+                .addParam("id", id)
+                .addParam("activeMembers", activeMembers)
+                .addParam("capacity", capacity)
+                .listener(queueInfoCallBack)
+                .put();
+    }
+
+    RequestHelper.Callback queueInfoCallBack = new RequestHelper.Callback() {
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+        }
+
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+
+        }
+    };
+
 }

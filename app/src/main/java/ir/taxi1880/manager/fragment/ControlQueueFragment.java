@@ -16,9 +16,11 @@ import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.QueuesAdapter;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.QueuesModel;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class ControlQueueFragment extends Fragment {
     ImageView btnBack;
@@ -43,9 +45,26 @@ public class ControlQueueFragment extends Fragment {
         queuesAdapter = new QueuesAdapter(MyApplication.context, arrayQueuesModel);
         queuesList.setAdapter(queuesAdapter);
 
+        getQueue();
+
         btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
 
         return view;
     }
+
+    private void getQueue(){
+        RequestHelper.builder(EndPoints.GET_QUEUE)
+                .listener(queueCallBack)
+                .get();
+
+    }
+
+    RequestHelper.Callback queueCallBack = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+
+        }
+    };
+
 }

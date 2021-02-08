@@ -67,9 +67,10 @@ public class ChangeQueueCapacityDialog {
 
     private static void dismiss() {
         try {
+            Log.i(TAG, "dismiss run");
             if (dialog != null) {
-                Log.i(TAG, "dismiss run");
-                dialog.dismiss();
+                if (dialog.isShowing())
+                    dialog.dismiss();
                 KeyBoardHelper.hideKeyboard();
             }
         } catch (Exception e) {
