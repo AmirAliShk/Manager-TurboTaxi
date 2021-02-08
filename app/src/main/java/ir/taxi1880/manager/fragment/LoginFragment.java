@@ -113,6 +113,10 @@ public class LoginFragment extends Fragment {
                     boolean success = object.getBoolean("success");
                     String message = object.getString("message");
 
+                    if (vfEnter != null) {
+                        vfEnter.setDisplayedChild(0);
+                    }
+
                     if (success) {
                         JSONObject data = object.getJSONObject("data");
                         MyApplication.prefManager.setUserName(userName);
@@ -127,7 +131,11 @@ public class LoginFragment extends Fragment {
                         new ErrorDialog()
                                 .titleText("")
                                 .messageText(message)
-                                .closeBtnRunnable("بستن", null)
+                                .closeBtnRunnable("بستن", () -> {
+                                    if (vfEnter != null) {
+                                        vfEnter.setDisplayedChild(0);
+                                    }
+                                })
                                 .tryAgainBtnRunnable("تلاش مجدد", () -> {
                                     if (edtUserName != null) {
                                         edtUserName.requestFocus();
@@ -146,7 +154,11 @@ public class LoginFragment extends Fragment {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-
+            MyApplication.handler.post(() -> {
+                if (vfEnter != null) {
+                    vfEnter.setDisplayedChild(0);
+                }
+            });
         }
     };
 

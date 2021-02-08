@@ -110,13 +110,6 @@ public class GeneralDialog {
     return this;
   }
 
-  public ir.taxi1880.manager.dialog.GeneralDialog thirdButton(String name, Runnable body) {
-    thirdBtn = new ButtonModel();
-    thirdBtn.setBody(body);
-    thirdBtn.setText(name);
-    return this;
-  }
-
   public ir.taxi1880.manager.dialog.GeneralDialog bodyRunnable(Runnable bodyRunnable) {
     this.bodyRunnable = bodyRunnable;
     return this;
@@ -154,9 +147,6 @@ public class GeneralDialog {
   @BindView(R.id.btnSecond)
   Button btnSecond;
 
-  @BindView(R.id.btnThird)
-  Button btnThird;
-
   @OnClick(R.id.btnFirst)
   void onFirstPress() {
     dismiss();
@@ -177,21 +167,8 @@ public class GeneralDialog {
     }
   }
 
-  @OnClick(R.id.btnThird)
-  void onThirdPress() {
-    dismiss();
-
-    if (thirdBtn != null) {
-      if (thirdBtn.getBody() != null)
-        thirdBtn.getBody().run();
-    }
-  }
-
   @BindView(R.id.divider_st)
   ImageView divider_st;
-
-  @BindView(R.id.divider_fs)
-  ImageView divider_fs;
 
   private Dialog dialog;
   private static Dialog staticDialog = null;
@@ -216,6 +193,7 @@ public class GeneralDialog {
     tempDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     WindowManager.LayoutParams wlp = tempDialog.getWindow().getAttributes();
     tempDialog.getWindow().setAttributes(wlp);
+    wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
     tempDialog.setCancelable(cancelable);
     unbinder = ButterKnife.bind(this, tempDialog);
     TypefaceUtil.overrideFonts(tempDialog.getWindow().getDecorView());
@@ -234,16 +212,8 @@ public class GeneralDialog {
     } else {
       btnSecond.setText(secondBtn.getText());
     }
-    if (thirdBtn == null) {
-      btnThird.setVisibility(View.GONE);
-    } else {
-      btnThird.setText(thirdBtn.getText());
-    }
     if (thirdBtn == null || secondBtn == null) {
       divider_st.setVisibility(View.GONE);
-    }
-    if (firstBtn == null || secondBtn == null) {
-      divider_fs.setVisibility(View.GONE);
     }
     if (firstBtn == null && secondBtn == null && thirdBtn == null) {
       llBtnView.setVisibility(View.GONE);

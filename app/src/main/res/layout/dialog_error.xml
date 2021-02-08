@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/llParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -19,10 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp">
+        android:layout_marginRight="40dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +56,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="center"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal">
@@ -66,22 +69,21 @@
                 <Button
                     android:id="@+id/btnTryAgain"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_btn_green_all"
+                    android:background="@drawable/bg_circle_green_all"
                     android:text="تلاش مجدد"
                     android:textColor="@color/colorWhite"
                     android:textSize="18dp" />
 
-                <ImageView
-                    android:id="@+id/imgLine"
-                    android:layout_width="5dp"
-                    android:layout_height="match_parent" />
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
 
                 <Button
                     android:id="@+id/btnClose"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_circle_left_blue"
                     android:text="بستن"

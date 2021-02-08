@@ -4,111 +4,114 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginStart="30dp"
-    android:layout_marginLeft="30dp"
-    android:layout_marginEnd="30dp"
-    android:layout_marginRight="30dp"
     android:gravity="center"
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <com.github.mmin18.widget.RealtimeBlurView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_also_black_gradient_edge"
-        android:minWidth="300dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="#8000" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@color/colorWhite"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="خطای عدم اتصال به اینترنت لطفا پس از بررسی ار تباط خود به اینترنت مجدد چک کنید"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <LinearLayout
-            android:id="@+id/llBtnView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bg_dialog_body"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_also_black_gradient_edge"
+            android:gravity="center"
+            android:minWidth="300dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnThird"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ripple"
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingBottom="5dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:padding="10dp"
                 android:textColor="@color/colorWhite"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/divider_fs"
-                android:layout_width="5dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/btnFirst"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ripple"
+            <TextView
+                android:id="@+id/txtMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:padding="5dp"
+                android:text="خطای عدم اتصال به اینترنت لطفا پس از بررسی ار تباط خود به اینترنت مجدد چک کنید"
                 android:textColor="@color/colorWhite"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textSize="24sp" />
 
-            <ImageView
-                android:id="@+id/divider_st"
-                android:layout_width="5dp"
-                android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/llBtnView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center">
 
-            <Button
-                android:id="@+id/btnSecond"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_ripple"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorWhite"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/btnSecond"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circle_left_blue"
+                    android:gravity="center"
+                    android:paddingBottom="5dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/divider_st"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:id="@+id/btnFirst"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circle_green_all"
+                    android:gravity="center"
+                    android:paddingBottom="5dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_warning" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_warning" />
+    </RelativeLayout>
 
 </RelativeLayout>
 
