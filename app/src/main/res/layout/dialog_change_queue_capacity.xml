@@ -76,7 +76,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
-                    android:background="@drawable/green_shadow"
+                    android:background="@drawable/bg_circle_left_blue"
                     android:text="ثبت"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/colorWhite"

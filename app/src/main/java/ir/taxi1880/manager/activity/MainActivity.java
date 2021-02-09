@@ -1,6 +1,8 @@
 package ir.taxi1880.manager.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -8,16 +10,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -27,11 +32,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import at.favre.lib.dali.builder.nav.DaliBlurDrawerToggle;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
@@ -66,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     TextView operatorNum;
     DrawerLayout drawer;
     RelativeLayout rlBtnWeather;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +115,18 @@ public class MainActivity extends AppCompatActivity {
         chart = findViewById(R.id.chart3);
         setParamsChart();
 
-        timer=new Timer();
+        timer = new Timer();
+
+//        drawer.setScrimColor();
 
         RelativeLayout openDrawer = findViewById(R.id.openDrawer);
 
         openDrawer.setOnClickListener(view12 -> {
             drawer.openDrawer(Gravity.RIGHT);
         });
+
+//        BlurSupport.addTo(drawer);
+//        BlurMaskFilter.Blur.NORMAL.compareTo(BlurMaskFilter.Blur.valueOf("blur"));
 
         ImageView lines = findViewById(R.id.lines);
 
@@ -185,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.currentActivity = this;
         MyApplication.prefManager.setAppRun(true);
 
-        timer.schedule(timerTask, 2000,15000);
+//        timer.schedule(timerTask, 2000, 15000);
     }
 
     @Override
@@ -234,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    TimerTask timerTask=new TimerTask() {
+    TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
             getSummery();
@@ -247,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 .get();
     }
 
-    RequestHelper.Callback summeryCallBack= new RequestHelper.Callback() {
+    RequestHelper.Callback summeryCallBack = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
 

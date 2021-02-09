@@ -8,9 +8,7 @@
     android:background="#1f1f1f"
     android:clickable="true"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
-    >
-
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +26,7 @@
             android:paddingRight="30dp">
 
             <RelativeLayout
-                        android:id="@+id/openDrawer"
+                android:id="@+id/openDrawer"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_gravity="center"
@@ -86,8 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:fillViewport="true"
-            >
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -284,17 +281,17 @@
 
     </LinearLayout>
 
+
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
         android:layout_width="90dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:fitsSystemWindows="true"
-        >
+        android:fitsSystemWindows="true">
 
         <include layout="@layout/drawer_layout" />
 
     </com.google.android.material.navigation.NavigationView>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
