@@ -1,19 +1,22 @@
 package ir.taxi1880.manager.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
+import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.dialog.ChangeQueueCapacityDialog;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.QueuesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -21,12 +24,16 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 import static ir.taxi1880.manager.app.MyApplication.context;
 
 public class QueuesAdapter extends BaseAdapter {
-    private ArrayList<QueuesModel> queuesModels;
-    private Context mContext;
 
-    public QueuesAdapter(Context mContext, ArrayList<QueuesModel> queuesModels) {
-        this.mContext = mContext;
+    private ArrayList<QueuesModel> queuesModels;
+    LayoutInflater inflater;
+    String newCapacity;
+    TextView permittedNum;
+    int position;
+
+    public QueuesAdapter(ArrayList<QueuesModel> queuesModels) {
         this.queuesModels = queuesModels;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -46,32 +53,33 @@ public class QueuesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_queue, viewGroup, false);
-            TypefaceUtil.overrideFonts(view);
-        }
+        View myView = view;
 
         QueuesModel currentQueuesModel = queuesModels.get(i);
 
-        TextView queueTitle = view.findViewById(R.id.queueTitle);
-        TextView inLineNum = view.findViewById(R.id.inLineNum);
-        TextView permittedNum = view.findViewById(R.id.permittedNum);
+        if (myView == null) {
+            myView = inflater.inflate(R.layout.item_queue, viewGroup, false);
+            TypefaceUtil.overrideFonts(myView);
+        }
 
-        Button btnLimitation = view.findViewById(R.id.btnLimitation);
-        Button btnReduce = view.findViewById(R.id.btnReduce);
+        TextView queueTitle = myView.findViewById(R.id.queueTitle);
+        TextView inLineNum = myView.findViewById(R.id.inLineNum);
+        permittedNum = myView.findViewById(R.id.permittedNum);
 
-        queueTitle.setText(currentQueuesModel.getQueueTitle());
-        inLineNum.setText(currentQueuesModel.getInLineNum());
-        permittedNum.setText(currentQueuesModel.getPermittedNum());
+        LinearLayout llLimitation = myView.findViewById(R.id.llLimitation);
 
-        btnReduce.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
-                getQueueInfo(currentQueuesModel.getQueueTitle() ,num , currentQueuesModel.getPermittedNum());
-        }));
-        btnLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
-            getQueueInfo(currentQueuesModel.getQueueTitle(), currentQueuesModel.getInLineNum() ,num);
-        }));
+        queueTitle.setText(currentQueuesModel.getName());
+        inLineNum.setText(currentQueuesModel.getActiveMember());
+        permittedNum.setText(currentQueuesModel.getCapacity());
 
-        return view;
+
+        llLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
+            newCapacity = num;
+            position = i;
+            getQueueInfo(currentQueuesModel.getName(), currentQueuesModel.getActiveMember(), num);
+        }, currentQueuesModel.getName()));
+
+        return myView;
     }
 
     private void getQueueInfo(String id, String activeMembers, String capacity) {
@@ -91,7 +99,36 @@ public class QueuesAdapter extends BaseAdapter {
 
         @Override
         public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(new Runnable() {
+                @Override
+                public void run() {
+//                    {"status":true,"message":"با موفقیت بروزرسانی شد"}
+                    try {
+                        JSONObject object = new JSONObject(args[0].toString());
 
+                        String message = object.getString("message");
+                        boolean status = object.getBoolean("status");
+
+
+                        new GeneralDialog()
+                                .message(message)
+                                .cancelable(false)
+                                .firstButton("باشه", () -> {
+                                    queuesModels.get(position).setCapacity(newCapacity);
+                                    notifyDataSetChanged();
+
+//                                    if (status) {
+//                                        permittedNum.setText(newCapacity+ " changed ");
+//                                    }
+                                })
+                                .show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
         }
     };
 

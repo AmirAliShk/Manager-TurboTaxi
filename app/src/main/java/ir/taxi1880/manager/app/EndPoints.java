@@ -22,7 +22,7 @@ public class EndPoints {
   public static final String APIPort = (BuildConfig.DEBUG) ? "1881" : "1881";
   public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "1890" : "1890";
 
-  public static final String WEBSERVICE_PATH = IP + ":" + APIPort + "/api/manager/v2/";
+  public static final String WEBSERVICE_PATH = IP + ":" + APIPort + "/api/manager/v2/splash/";
   public static final String LINE_PATH  = IP + ":" + APIPort + "/api/manager/v2/line";
   public static final String QUEUE_PATH  = IP + ":" + APIPort + "/api/manager/v2/queue";
 

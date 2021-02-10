@@ -1,20 +1,22 @@
 package ir.taxi1880.manager.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.kyleduo.switchbutton.SwitchButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
+import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.LinesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -24,11 +26,16 @@ import static ir.taxi1880.manager.app.MyApplication.context;
 public class LinesAdapter extends BaseAdapter {
 
     private ArrayList<LinesModel> linesModels;
-    private Context mContext;
+    LayoutInflater inflater;
+    ViewFlipper vfConnection;
+    SwitchButton sbNew;
+    SwitchButton sbSupport;
+    SwitchButton sbThird;
+int position;
 
-    public LinesAdapter(Context mContext, ArrayList<LinesModel> linesModels) {
-        this.mContext = mContext;
+    public LinesAdapter(ArrayList<LinesModel> linesModels) {
         this.linesModels = linesModels;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -48,26 +55,39 @@ public class LinesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_line, viewGroup, false);
-            TypefaceUtil.overrideFonts(view);
-        }
+        View myView = view;
 
         LinesModel currentLinesModel = linesModels.get(i);
 
-        TextView lineTitle = view.findViewById(R.id.lineTitle);
-        SwitchButton sbNew = view.findViewById(R.id.sbNew);
-        SwitchButton sbSupport = view.findViewById(R.id.sbSupport);
+        if (myView == null) {
+            myView = inflater.inflate(R.layout.item_line, viewGroup, false);
+            TypefaceUtil.overrideFonts(myView);
+        }
 
-        lineTitle.setText(currentLinesModel.getLineTitle());
-        sbNew.setChecked(currentLinesModel.getStatusNewCall());
-        sbSupport.setChecked(currentLinesModel.getStatusSupportCall());
+        TextView lineTitle = myView.findViewById(R.id.lineTitle);
+        sbNew = myView.findViewById(R.id.sbNew);
+        sbSupport = myView.findViewById(R.id.sbSupport);
+        vfConnection = myView.findViewById(R.id.vfConnection);
 
-        sbNew.setOnCheckedChangeListener((compoundButton, b) -> getLineInfo(currentLinesModel.getLineTitle(), sbSupport.isChecked(), b));
+        lineTitle.setText(currentLinesModel.getName());
+        sbNew.setChecked(currentLinesModel.getNew());
+        sbSupport.setChecked(currentLinesModel.getSupport());
 
-        sbSupport.setOnCheckedChangeListener((compoundButton, b) -> getLineInfo(currentLinesModel.getLineTitle(), b, sbNew.isChecked()));
+        sbNew.setOnCheckedChangeListener((compoundButton, b) -> {
+            getLineInfo(currentLinesModel.getId(), sbSupport.isChecked(), b);
+            vfConnection.setDisplayedChild(1);
+            sbThird = sbNew;
+            position = i;
+        });
 
-        return view;
+        sbSupport.setOnCheckedChangeListener((compoundButton, b) -> {
+            getLineInfo(currentLinesModel.getId(), b, sbNew.isChecked());
+            vfConnection.setDisplayedChild(1);
+            sbThird = sbSupport;
+            position = i;
+        });
+
+        return myView;
     }
 
     private void getLineInfo(String id, boolean support, boolean newCall) {
@@ -82,12 +102,51 @@ public class LinesAdapter extends BaseAdapter {
     RequestHelper.Callback lineInfoCallBack = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
 
+                        JSONObject object = new JSONObject(args[0].toString());
+
+                        boolean status = object.getBoolean("status");
+
+                        if (status) {
+                            vfConnection.setDisplayedChild(0);
+                        } else {
+                            if (sbThird.getId() == R.id.sbNew) {
+                                sbNew.setChecked(!sbNew.isChecked());
+                            } else {
+                                sbSupport.setChecked(!sbSupport.isChecked());
+                            }
+                        }
+                    } catch (JSONException e) {
+                        vfConnection.setDisplayedChild(0);
+                        if (sbThird.getId() == R.id.sbNew) {
+                            sbNew.setChecked(!sbNew.isChecked());
+                        } else {
+                            sbSupport.setChecked(!sbSupport.isChecked());
+                        }
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            super.onFailure(reCall, e);
+            MyApplication.handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    vfConnection.setDisplayedChild(0);
+                    if (sbThird.getId() == R.id.sbNew) {
+                        sbNew.setChecked(!sbNew.isChecked());
+                    } else {
+                        sbSupport.setChecked(!sbSupport.isChecked());
+                    }
+                }
+            });
+
         }
     };
 }

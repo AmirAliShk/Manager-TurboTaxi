@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
@@ -29,7 +30,7 @@ public class ChangeQueueCapacityDialog {
     private Listener listener;
     static Dialog dialog;
 
-    public void show(Listener listener) {
+    public void show(Listener listener, String title) {
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())
             return;
         dialog = new Dialog(MyApplication.currentActivity);
@@ -45,9 +46,12 @@ public class ChangeQueueCapacityDialog {
         dialog.setCancelable(true);
         this.listener = listener;
 
-        ImageView imgClose = dialog.findViewById(R.id.imgClose);
+        ImageView imgClose = dialog.findViewById(R.id.btnClose);
         txtNumber = dialog.findViewById(R.id.txtNumber);
-        Button btnSubmit = dialog.findViewById(R.id.btnSubmit);
+        ImageView btnSubmit = dialog.findViewById(R.id.btnSubmit);
+        TextView txtTitle = dialog.findViewById(R.id.txtTitle);
+
+        txtTitle.setText(title);
 
         txtNumber.requestFocus();
 

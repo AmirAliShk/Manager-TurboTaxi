@@ -15,17 +15,44 @@
         android:background="@drawable/bg_btn"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/lineTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@drawable/bg_dialog_header"
-            android:gravity="center"
-            android:text="1880"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:background="@drawable/bg_dialog_header">
+
+            <TextView
+                android:id="@+id/lineTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="1880"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ViewFlipper
+                android:id="@+id/vfConnection"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_tick" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:padding="10dp"
+                    app:indicatorColor="#508dff " />
+
+            </ViewFlipper>
+
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

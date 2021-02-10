@@ -2,38 +2,50 @@ package ir.taxi1880.manager.model;
 
 public class LinesModel {
 
-    private String lineTitle;
-    private Boolean statusNewCall;
-    private Boolean statusSupportCall;
+    private String name;
+    private String id;
+    private String number;
+    private Boolean statusNew;
+    private Boolean support;
 
-    public LinesModel(String lineTitle, Boolean statusNewCall, Boolean statusSupportCall) {
-        this.lineTitle = lineTitle;
-        this.statusNewCall = statusNewCall;
-        this.statusSupportCall = statusSupportCall;
+    public String getId() {
+        return id;
     }
 
-    public String getLineTitle() {
-        return lineTitle;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Boolean getStatusNewCall() {
-        return statusNewCall;
+    public String getNumber() {
+        return number;
     }
 
-    public Boolean getStatusSupportCall() {
-        return statusSupportCall;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public void setLineTitle(String lineTitle) {
-        this.lineTitle = lineTitle;
+    public String getName() {
+        return name;
     }
 
-    public void setStatusNewCall(Boolean statusNewCall) {
-        this.statusNewCall = statusNewCall;
+    public Boolean getNew() {
+        return statusNew;
     }
 
-    public void setStatusSupportCall(Boolean statusSupportCall) {
-        this.statusSupportCall = statusSupportCall;
+    public Boolean getSupport() {
+        return support;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNew(Boolean statusNew) {
+        this.statusNew = statusNew;
+    }
+
+    public void setSupport(Boolean support) {
+        this.support = support;
     }
 
 

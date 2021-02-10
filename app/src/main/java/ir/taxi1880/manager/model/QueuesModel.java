@@ -3,38 +3,50 @@ package ir.taxi1880.manager.model;
 public class QueuesModel {
 
 
-    private String queueTitle;
-    private String permittedNum;
-    private String inLineNum;
+    private String name;
+    private String queueCode;
+    private String id;
+    private String capacity;
+    private String activeMember;
 
-    public QueuesModel(String queueTitle, String permittedNum, String inLineNum) {
-        this.queueTitle = queueTitle;
-        this.permittedNum = permittedNum;
-        this.inLineNum = inLineNum;
+    public String getName() {
+        return name;
     }
 
-    public String getQueueTitle() {
-        return queueTitle;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPermittedNum() {
-        return permittedNum;
+    public String getQueueCode() {
+        return queueCode;
     }
 
-    public String getInLineNum() {
-        return inLineNum;
+    public void setQueueCode(String queueCode) {
+        this.queueCode = queueCode;
     }
 
-    public void setQueueTitle(String queueTitle) {
-        this.queueTitle = queueTitle;
+    public String getId() {
+        return id;
     }
 
-    public void setPermittedNum(String permittedNum) {
-        this.permittedNum = permittedNum;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setInLineNum(String inLineNum) {
-        this.inLineNum = inLineNum;
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getActiveMember() {
+        return activeMember;
+    }
+
+    public void setActiveMember(String activeMember) {
+        this.activeMember = activeMember;
     }
 
 }
