@@ -131,11 +131,7 @@ public class LoginFragment extends Fragment {
                         new ErrorDialog()
                                 .titleText("")
                                 .messageText(message)
-                                .closeBtnRunnable("بستن", () -> {
-                                    if (vfEnter != null) {
-                                        vfEnter.setDisplayedChild(0);
-                                    }
-                                })
+                                .closeBtnRunnable("بستن", null)
                                 .tryAgainBtnRunnable("تلاش مجدد", () -> {
                                     if (edtUserName != null) {
                                         edtUserName.requestFocus();

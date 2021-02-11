@@ -77,7 +77,7 @@ public class QueuesAdapter extends BaseAdapter {
             newCapacity = num;
             position = i;
             getQueueInfo(currentQueuesModel.getName(), currentQueuesModel.getActiveMember(), num);
-        }, currentQueuesModel.getName()));
+        }, currentQueuesModel.getName(),currentQueuesModel.getCapacity()));
 
         return myView;
     }

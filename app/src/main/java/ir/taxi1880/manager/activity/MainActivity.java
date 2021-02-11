@@ -1,29 +1,20 @@
 package ir.taxi1880.manager.activity;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.BlurMaskFilter;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -33,13 +24,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import at.favre.lib.dali.builder.nav.DaliBlurDrawerToggle;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
@@ -51,9 +40,7 @@ import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         TypefaceUtil.overrideFonts(txtTripNum, MyApplication.IraSanSBold);
         TypefaceUtil.overrideFonts(operatorNum, MyApplication.IraSanSBold);
 
-        getSummery();
+//        getSummery();
 
         rlBtnWeather = findViewById(R.id.btnWeather);
         txtCancelTrip = findViewById(R.id.txtCancelTrip);
@@ -118,16 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
         timer = new Timer();
 
-//        drawer.setScrimColor();
-
         RelativeLayout openDrawer = findViewById(R.id.openDrawer);
 
         openDrawer.setOnClickListener(view12 -> {
             drawer.openDrawer(Gravity.RIGHT);
         });
-
-//        BlurSupport.addTo(drawer);
-//        BlurMaskFilter.Blur.NORMAL.compareTo(BlurMaskFilter.Blur.valueOf("blur"));
 
         ImageView lines = findViewById(R.id.lines);
 

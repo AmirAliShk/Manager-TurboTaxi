@@ -7,19 +7,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.shawnlin.numberpicker.NumberPicker;
+
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
-
 import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 
 public class ChangeQueueCapacityDialog {
-    EditText txtNumber;
 
     private static final String TAG = ChangeQueueCapacityDialog.class.getSimpleName();
 
@@ -30,7 +28,7 @@ public class ChangeQueueCapacityDialog {
     private Listener listener;
     static Dialog dialog;
 
-    public void show(Listener listener, String title) {
+    public void show(Listener listener, String title, String value) {
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())
             return;
         dialog = new Dialog(MyApplication.currentActivity);
@@ -42,24 +40,24 @@ public class ChangeQueueCapacityDialog {
         WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
         wlp.gravity = Gravity.CENTER;
         wlp.windowAnimations = R.style.ExpandAnimation;
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         dialog.getWindow().setAttributes(wlp);
         dialog.setCancelable(true);
         this.listener = listener;
 
         ImageView imgClose = dialog.findViewById(R.id.btnClose);
-        txtNumber = dialog.findViewById(R.id.txtNumber);
         ImageView btnSubmit = dialog.findViewById(R.id.btnSubmit);
         TextView txtTitle = dialog.findViewById(R.id.txtTitle);
+        NumberPicker numberPicker = dialog.findViewById(R.id.numberPicker);
+
+        numberPicker.setVerticalFadingEdgeEnabled(true);
+        numberPicker.setTypeface(MyApplication.IRANSANS_BOLD);
 
         txtTitle.setText(title);
-
-        txtNumber.requestFocus();
-
-        txtNumber.setOnClickListener(v -> KeyBoardHelper.showKeyboard(MyApplication.context));
-
+        numberPicker.setValue(Integer.parseInt(value));
         btnSubmit.setOnClickListener(view -> {
-            String num = txtNumber.getText().toString();
-            listener.num(num);
+            int num = numberPicker.getValue();
+            listener.num(num + "");
 
             dismiss();
         });

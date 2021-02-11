@@ -31,7 +31,7 @@ public class MyApplication extends Application {
   public static Handler handler;
   private static final String IRANSANS = "fonts/IRANSans.otf";
   private static final String IRANSANS_MEDUME = "fonts/IRANSANSMOBILE_MEDIUM.TTF";
-  private static final String IRANSANS_BOLD = "fonts/IRANSANSMOBILE_BOLD.TTF";
+  public static final String IRANSANS_BOLD = "fonts/IRANSANSMOBILE_BOLD.TTF";
   private static final String IRANSANS_LIGHT = "fonts/IRANSANSMOBILE_LIGHT.TTF";
   public static Typeface iranSance;
   public static Typeface IraSanSMedume;
