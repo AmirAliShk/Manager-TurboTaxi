@@ -82,10 +82,10 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <ImageView
+                <View
                     android:id="@+id/divider_st"
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent" />
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="match_parent"/>
 
                 <Button
                     android:id="@+id/btnFirst"
@@ -106,6 +106,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/imgType"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"

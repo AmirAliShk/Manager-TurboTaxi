@@ -32,15 +32,18 @@ public class GeneralDialog {
   private Runnable dismissBody = null;
   private ButtonModel firstBtn = null;
   private ButtonModel secondBtn = null;
-  private ButtonModel thirdBtn = null;
   private DismissListener listener;
   private Listener descListener;
   private String messageText = "";
-  private String titleText = "";
   private int visibility;
   private boolean cancelable = true;
   private boolean singleInstance = false;
-  public static final String ERROR = "error";
+
+  public static int TYPE = 0;
+  public static final int WARNING = 1;
+  public static final int SUCCESS = 2;
+  public static final int ERROR = 3;
+  public static final int INFO = 4;
 
   private class ButtonModel {
     String text;
@@ -120,8 +123,8 @@ public class GeneralDialog {
     return this;
   }
 
-  public ir.taxi1880.manager.dialog.GeneralDialog title(String titleText) {
-    this.titleText = titleText;
+  public GeneralDialog type(int type) {
+    this.TYPE = type;
     return this;
   }
 
@@ -147,6 +150,9 @@ public class GeneralDialog {
   @BindView(R.id.btnSecond)
   Button btnSecond;
 
+  @BindView(R.id.imgType)
+  ImageView imgType;
+
   @OnClick(R.id.btnFirst)
   void onFirstPress() {
     dismiss();
@@ -168,7 +174,7 @@ public class GeneralDialog {
   }
 
   @BindView(R.id.divider_st)
-  ImageView divider_st;
+  View divider_st;
 
   private Dialog dialog;
   private static Dialog staticDialog = null;
@@ -212,10 +218,10 @@ public class GeneralDialog {
     } else {
       btnSecond.setText(secondBtn.getText());
     }
-    if (thirdBtn == null || secondBtn == null) {
+    if (secondBtn == null) {
       divider_st.setVisibility(View.GONE);
     }
-    if (firstBtn == null && secondBtn == null && thirdBtn == null) {
+    if (firstBtn == null && secondBtn == null) {
       llBtnView.setVisibility(View.GONE);
     }
     if (bodyRunnable != null)
@@ -226,6 +232,29 @@ public class GeneralDialog {
         dismissBody.run();
     });
     tempDialog.show();
+
+    switch (TYPE) {
+      case 0: //nothing
+        imgType.setVisibility(View.GONE);
+        break;
+
+      case 1: //warning
+        imgType.setImageResource(R.drawable.ic_warning);
+        break;
+
+      case 2: //success
+        imgType.setImageResource(R.drawable.ic_success);
+        break;
+
+      case 3: //error
+        imgType.setImageResource(R.drawable.ic_error);
+        break;
+
+      case 4: //info
+        imgType.setImageResource(R.drawable.ic_info);
+        break;
+
+    }
   }
 
   // dismiss center control

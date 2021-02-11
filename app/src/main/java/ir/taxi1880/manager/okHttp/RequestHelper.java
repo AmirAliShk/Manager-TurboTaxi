@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.dialog.ErrorDialog;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.LoginFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
@@ -453,7 +452,6 @@ public class RequestHelper implements okhttp3.Callback {
 //          }
 
             new GeneralDialog()
-                    .title("هشدار")
                     .message("اطلاعات صحیح نمیباشد")
                     .cancelable(false)
                     .firstButton("باشه", null)
@@ -466,7 +464,7 @@ public class RequestHelper implements okhttp3.Callback {
         });
     }
 
-    private static ErrorDialog errorDialog;
+    private static GeneralDialog errorDialog;
 
     public void showError(final String message) {
         MyApplication.currentActivity.runOnUiThread(() -> {
@@ -476,13 +474,12 @@ public class RequestHelper implements okhttp3.Callback {
                     if (hideNetworkError)
                         return;
                     if (errorDialog == null) {
-                        errorDialog = new ErrorDialog();
-                        errorDialog.messageText(message);
+                        errorDialog = new GeneralDialog();
+                        errorDialog.message(message);
                         errorDialog.cancelable(false);
-                        errorDialog.closeBtnRunnable("بستن", () -> errorDialog.dismiss());
-                        errorDialog.tryAgainBtnRunnable("تلاش مجدد", () -> runnable.run());
+                        errorDialog.secondButton("بستن", () -> errorDialog.dismiss());
+                        errorDialog.firstButton("تلاش مجدد", () -> runnable.run());
                     }
-                    ErrorDialog.dismiss();
                     errorDialog.show();
                 });
             } catch (Exception e) {

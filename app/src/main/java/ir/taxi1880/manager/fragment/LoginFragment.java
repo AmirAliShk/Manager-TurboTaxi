@@ -25,7 +25,7 @@ import ir.taxi1880.manager.activity.SplashActivity;
 import ir.taxi1880.manager.app.Constant;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.dialog.ErrorDialog;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
@@ -128,11 +128,10 @@ public class LoginFragment extends Fragment {
 
                         });
                     } else {
-                        new ErrorDialog()
-                                .titleText("")
-                                .messageText(message)
-                                .closeBtnRunnable("بستن", null)
-                                .tryAgainBtnRunnable("تلاش مجدد", () -> {
+                        new GeneralDialog()
+                                .message(message)
+                                .secondButton("بستن", null)
+                                .firstButton("تلاش مجدد", () -> {
                                     if (edtUserName != null) {
                                         edtUserName.requestFocus();
                                         KeyBoardHelper.showKeyboard(MyApplication.context);

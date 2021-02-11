@@ -88,12 +88,7 @@ public class SplashActivity extends AppCompatActivity {
                         .message("" +
                                 "برای ورود به برنامه اجازه دسترسی به مجوزهای لازم را بدهید.")
                         .cancelable(false)
-                        .firstButton("باشه", new Runnable() {
-                            @Override
-                            public void run() {
-                                ActivityCompat.requestPermissions(MyApplication.currentActivity, permissionsRequired, PERMISSION_CALLBACK_CONSTANT);
-                            }
-                        })
+                        .firstButton("باشه", () -> ActivityCompat.requestPermissions(MyApplication.currentActivity, permissionsRequired, PERMISSION_CALLBACK_CONSTANT))
                         .show();
             } else {
                 getAppInfo(splashActivityCallback);
@@ -158,7 +153,6 @@ public class SplashActivity extends AppCompatActivity {
 
                     if (block) {
                         new GeneralDialog()
-                                .title("هشدار")
                                 .message("اکانت شما توسط سیستم مسدود شده است")
                                 .firstButton("خروج از برنامه", () -> MyApplication.currentActivity.finish())
                                 .show();
@@ -194,7 +188,6 @@ public class SplashActivity extends AppCompatActivity {
     private void updatePart(boolean isForce, final String url) {
         GeneralDialog generalDialog = new GeneralDialog();
         if (isForce) {
-            generalDialog.title("به روز رسانی");
             generalDialog.cancelable(false);
             generalDialog.message("برای برنامه نسخه جدیدی موجود است لطفا برنامه را به روز رسانی کنید");
             generalDialog.firstButton("به روز رسانی", () -> {
@@ -206,7 +199,6 @@ public class SplashActivity extends AppCompatActivity {
             generalDialog.secondButton("بستن برنامه", () -> MyApplication.currentActivity.finish());
             generalDialog.show();
         } else {
-            generalDialog.title("به روز رسانی");
             generalDialog.cancelable(false);
             generalDialog.message("برای برنامه نسخه جدیدی موجود است در صورت تمایل میتوانید برنامه را به روز رسانی کنید");
             generalDialog.firstButton("به روز رسانی", () -> {
