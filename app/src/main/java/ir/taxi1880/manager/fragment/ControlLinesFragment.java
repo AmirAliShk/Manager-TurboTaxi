@@ -50,7 +50,6 @@ public class ControlLinesFragment extends Fragment {
             window.setStatusBarColor(Color.parseColor("#2f2f2f"));
         }
 
-
         linesList = view.findViewById(R.id.linesList);
         arrayLinesModel = new ArrayList<>();
 
@@ -77,7 +76,7 @@ public class ControlLinesFragment extends Fragment {
                     for (int i = 0; i < linesArr.length(); i++) {
                         JSONObject linesObj = linesArr.getJSONObject(i);
                         LinesModel linesModel = new LinesModel();
-                        linesModel.setId(linesObj.getString("id"));
+                        linesModel.setId(linesObj.getInt("id"));
                         linesModel.setName(linesObj.getString("name"));
                         linesModel.setNumber(linesObj.getString("number"));
                         linesModel.setNew(linesObj.getInt("new") == 1);

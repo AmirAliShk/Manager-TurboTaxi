@@ -455,6 +455,7 @@ public class RequestHelper implements okhttp3.Callback {
                     .message("اطلاعات صحیح نمیباشد")
                     .cancelable(false)
                     .firstButton("باشه", null)
+                    .type(3)
                     .show();
 //        }
 
@@ -480,6 +481,7 @@ public class RequestHelper implements okhttp3.Callback {
                         errorDialog.secondButton("بستن", () -> errorDialog.dismiss());
                         errorDialog.firstButton("تلاش مجدد", () -> runnable.run());
                     }
+                    errorDialog.type(3);
                     errorDialog.show();
                 });
             } catch (Exception e) {

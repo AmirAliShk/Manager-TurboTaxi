@@ -89,6 +89,7 @@ public class SplashActivity extends AppCompatActivity {
                                 "برای ورود به برنامه اجازه دسترسی به مجوزهای لازم را بدهید.")
                         .cancelable(false)
                         .firstButton("باشه", () -> ActivityCompat.requestPermissions(MyApplication.currentActivity, permissionsRequired, PERMISSION_CALLBACK_CONSTANT))
+                        .type(4)
                         .show();
             } else {
                 getAppInfo(splashActivityCallback);
@@ -155,6 +156,7 @@ public class SplashActivity extends AppCompatActivity {
                         new GeneralDialog()
                                 .message("اکانت شما توسط سیستم مسدود شده است")
                                 .firstButton("خروج از برنامه", () -> MyApplication.currentActivity.finish())
+                                .type(3)
                                 .show();
                         return;
                     }
@@ -197,6 +199,7 @@ public class SplashActivity extends AppCompatActivity {
                 MyApplication.currentActivity.finish();
             });
             generalDialog.secondButton("بستن برنامه", () -> MyApplication.currentActivity.finish());
+            generalDialog.type(3);
             generalDialog.show();
         } else {
             generalDialog.cancelable(false);
@@ -207,7 +210,8 @@ public class SplashActivity extends AppCompatActivity {
                 MyApplication.currentActivity.startActivity(i);
                 MyApplication.currentActivity.finish();
             });
-//            generalDialog.secondButton("فعلا نه", () -> );
+            generalDialog.secondButton("فعلا نه", () -> continueProcessing());
+            generalDialog.type(4);
             generalDialog.show();
         }
     }

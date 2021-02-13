@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="1.0.0"
+        android:text="1.0.1"
         android:textColor="#e94d48"
         android:textSize="18sp" />
 

@@ -135,8 +135,6 @@ public class GeneralDialog {
 
   Unbinder unbinder;
 
-
-
   @BindView(R.id.txtMessage)
   TextView txtMessage;
 
@@ -145,7 +143,6 @@ public class GeneralDialog {
 
   @BindView(R.id.btnFirst)
   Button btnFirst;
-
 
   @BindView(R.id.btnSecond)
   Button btnSecond;

@@ -138,6 +138,7 @@ public class LoginFragment extends Fragment {
                                     }
                                 })
                                 .cancelable(false)
+                                .type(3)
                                 .show();
                     }
 
@@ -163,4 +164,9 @@ public class LoginFragment extends Fragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void onPause() {
+        KeyBoardHelper.hideKeyboard();
+        super.onPause();
+    }
 }

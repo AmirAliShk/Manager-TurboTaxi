@@ -54,6 +54,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.9" />
 
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/loader"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                app:indicatorColor="#508dff "
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9" />
+
             <RelativeLayout
                 android:id="@+id/btnWeather"
                 android:layout_width="56dp"
@@ -80,205 +94,201 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:fillViewport="true">
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:layout_marginTop="5dp"
+                android:fillViewport="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="125dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_btn"
-                        android:gravity="center"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_btn"
                             android:gravity="center"
-                            android:orientation="vertical"
-                            android:paddingTop="7dp">
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="0dp"
-                                android:layout_margin="5dp"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:padding="5dp"
-                                android:src="@drawable/ic_operator" />
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="7dp">
 
-                            <TextView
-                                android:id="@+id/operatorNum"
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="4dp"
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_operator" />
+
+                                <TextView
+                                    android:id="@+id/operatorNum"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:gravity="left|center_vertical"
+                                    android:textColor="#ffffff"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:gravity="left|center_vertical"
-                                android:text="5,000"
-                                android:textColor="#ffffff"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="7dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_travels" />
+
+                                <TextView
+                                    android:id="@+id/txtTripNum"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:gravity="left|center_vertical"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="7dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="0dp"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_canceled_trips" />
+
+                                <TextView
+                                    android:id="@+id/txtCancelTrip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    android:gravity="left|center_vertical"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/bg_btn"
                             android:gravity="center"
-                            android:orientation="vertical"
-                            android:paddingTop="7dp">
+                            android:padding="5dp"
+                            android:text="سفرها"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="0dp"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:src="@drawable/ic_travels" />
+                        <lecho.lib.hellocharts.view.ColumnChartView
+                            android:id="@+id/chart1"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
+                            tools:ignore="MergeRootFrame" />
 
-                            <TextView
-                                android:id="@+id/txtTripNum"
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="5dp"
-                                android:layout_weight="1"
-                                android:gravity="left|center_vertical"
-                                android:text="5,000"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/bg_btn"
                             android:gravity="center"
-                            android:orientation="vertical"
-                            android:paddingTop="7dp">
+                            android:padding="5dp"
+                            android:text="سفرهای زمان برده"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
 
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="0dp"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:padding="5dp"
-                                android:src="@drawable/ic_canceled_trips" />
+                        <lecho.lib.hellocharts.view.ColumnChartView
+                            android:id="@+id/chart2"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:fitsSystemWindows="true"
+                            tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
+                            tools:ignore="MergeRootFrame" />
 
-                            <TextView
-                                android:id="@+id/txtCancelTrip"
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_weight="1"
-                                android:gravity="left|center_vertical"
-                                android:text="5,000"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/bg_btn"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="راننده فعال"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <lecho.lib.hellocharts.view.ColumnChartView
+                            android:id="@+id/chart3"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
+                            tools:ignore="MergeRootFrame" />
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/bg_btn"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="تعداد سفرهای کل شهر"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="24sp" />
-
-                    <lecho.lib.hellocharts.view.ColumnChartView
-                        android:id="@+id/chart1"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
-                        tools:ignore="MergeRootFrame" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/bg_btn"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="تعداد سفرهای زمان برده"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="24sp" />
-
-                    <lecho.lib.hellocharts.view.ColumnChartView
-                        android:id="@+id/chart2"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:fitsSystemWindows="true"
-                        tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
-                        tools:ignore="MergeRootFrame" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/bg_btn"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="تعداد راننده فعال"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="24sp" />
-
-                    <lecho.lib.hellocharts.view.ColumnChartView
-                        android:id="@+id/chart3"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        tools:context="lecho.lib.hellocharts.samples.ColumnChartActivity"
-                        tools:ignore="MergeRootFrame" />
-
                 </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
-
+            </ScrollView>
     </LinearLayout>
 
 

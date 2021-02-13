@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.LinesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -27,11 +28,10 @@ public class LinesAdapter extends BaseAdapter {
 
     private ArrayList<LinesModel> linesModels;
     LayoutInflater inflater;
-    ViewFlipper vfConnection;
     SwitchButton sbNew;
     SwitchButton sbSupport;
     SwitchButton sbThird;
-int position;
+    int position;
 
     public LinesAdapter(ArrayList<LinesModel> linesModels) {
         this.linesModels = linesModels;
@@ -67,7 +67,6 @@ int position;
         TextView lineTitle = myView.findViewById(R.id.lineTitle);
         sbNew = myView.findViewById(R.id.sbNew);
         sbSupport = myView.findViewById(R.id.sbSupport);
-        vfConnection = myView.findViewById(R.id.vfConnection);
 
         lineTitle.setText(currentLinesModel.getName());
         sbNew.setChecked(currentLinesModel.getNew());
@@ -75,14 +74,12 @@ int position;
 
         sbNew.setOnCheckedChangeListener((compoundButton, b) -> {
             getLineInfo(currentLinesModel.getId(), sbSupport.isChecked(), b);
-            vfConnection.setDisplayedChild(1);
             sbThird = sbNew;
             position = i;
         });
 
         sbSupport.setOnCheckedChangeListener((compoundButton, b) -> {
             getLineInfo(currentLinesModel.getId(), b, sbNew.isChecked());
-            vfConnection.setDisplayedChild(1);
             sbThird = sbSupport;
             position = i;
         });
@@ -90,7 +87,7 @@ int position;
         return myView;
     }
 
-    private void getLineInfo(String id, boolean support, boolean newCall) {
+    private void getLineInfo(int id, boolean support, boolean newCall) {
         RequestHelper.builder(EndPoints.GET_LINE)
                 .listener(lineInfoCallBack)
                 .addParam("id", id)
@@ -102,49 +99,38 @@ int position;
     RequestHelper.Callback lineInfoCallBack = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
-            MyApplication.handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    try {
+            MyApplication.handler.post(() -> {
+                try {
 
-                        JSONObject object = new JSONObject(args[0].toString());
+                    JSONObject object = new JSONObject(args[0].toString());
 
-                        boolean status = object.getBoolean("status");
-
-                        if (status) {
-                            vfConnection.setDisplayedChild(0);
-                        } else {
-                            if (sbThird.getId() == R.id.sbNew) {
-                                sbNew.setChecked(!sbNew.isChecked());
-                            } else {
-                                sbSupport.setChecked(!sbSupport.isChecked());
-                            }
-                        }
-                    } catch (JSONException e) {
-                        vfConnection.setDisplayedChild(0);
-                        if (sbThird.getId() == R.id.sbNew) {
-                            sbNew.setChecked(!sbNew.isChecked());
-                        } else {
-                            sbSupport.setChecked(!sbSupport.isChecked());
-                        }
-                        e.printStackTrace();
+                    boolean status = object.getBoolean("status");
+                    if (!status) {
+                        new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
+                                .cancelable(false)
+                                .secondButton("بستن", null)
+                                .type(3)
+                                .show();
                     }
+                } catch (JSONException e) {
+                    new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
+                            .cancelable(false)
+                            .secondButton("بستن", null)
+                            .type(3)
+                            .show();
+                    e.printStackTrace();
                 }
             });
         }
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            MyApplication.handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    vfConnection.setDisplayedChild(0);
-                    if (sbThird.getId() == R.id.sbNew) {
-                        sbNew.setChecked(!sbNew.isChecked());
-                    } else {
-                        sbSupport.setChecked(!sbSupport.isChecked());
-                    }
-                }
+            MyApplication.handler.post(() -> {
+                new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
+                        .cancelable(false)
+                        .secondButton("بستن", null)
+                        .type(3)
+                        .show();
             });
 
         }

@@ -76,8 +76,8 @@ public class QueuesAdapter extends BaseAdapter {
         llLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
             newCapacity = num;
             position = i;
-            getQueueInfo(currentQueuesModel.getName(), currentQueuesModel.getActiveMember(), num);
-        }, currentQueuesModel.getName(),currentQueuesModel.getCapacity()));
+            getQueueInfo(currentQueuesModel.getId(), currentQueuesModel.getActiveMember(), num);
+        }, currentQueuesModel.getName(), currentQueuesModel.getCapacity()));
 
         return myView;
     }
@@ -92,44 +92,40 @@ public class QueuesAdapter extends BaseAdapter {
     }
 
     RequestHelper.Callback queueInfoCallBack = new RequestHelper.Callback() {
+
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(() -> {
+//                    {"status":true,"message":"با موفقیت بروزرسانی شد"}
+                try {
+                    JSONObject object = new JSONObject(args[0].toString());
+
+                    String message = object.getString("message");
+                    boolean status = object.getBoolean("status");
+
+
+                    new GeneralDialog()
+                            .message(message)
+                            .cancelable(false)
+                            .firstButton("باشه", () -> {
+                                queuesModels.get(position).setCapacity(newCapacity);
+                                notifyDataSetChanged();
+                            })
+                            .type(2)
+                            .show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            });
+        }
+
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             super.onFailure(reCall, e);
         }
 
-        @Override
-        public void onResponse(Runnable reCall, Object... args) {
-            MyApplication.handler.post(new Runnable() {
-                @Override
-                public void run() {
-//                    {"status":true,"message":"با موفقیت بروزرسانی شد"}
-                    try {
-                        JSONObject object = new JSONObject(args[0].toString());
-
-                        String message = object.getString("message");
-                        boolean status = object.getBoolean("status");
-
-
-                        new GeneralDialog()
-                                .message(message)
-                                .cancelable(false)
-                                .firstButton("باشه", () -> {
-                                    queuesModels.get(position).setCapacity(newCapacity);
-                                    notifyDataSetChanged();
-
-//                                    if (status) {
-//                                        permittedNum.setText(newCapacity+ " changed ");
-//                                    }
-                                })
-                                .show();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-        }
     };
 
 }

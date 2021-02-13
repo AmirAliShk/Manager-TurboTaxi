@@ -13,11 +13,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.wang.avi.AVLoadingIndicatorView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +34,13 @@ import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
+import ir.taxi1880.manager.model.ChartsModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -50,9 +57,17 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasAxes = true;
     private boolean hasLabels = true;
 
+    ArrayList<ChartsModel> chartsModels;
+    ArrayList<ChartsModel> chartsModels2;
+    ArrayList<ChartsModel> chartsModels3;
+
     Timer timer;
-    private ColumnChartView chart;
-    private ColumnChartData data;
+    private ColumnChartView chart1;
+    private ColumnChartView chart2;
+    private ColumnChartView chart3;
+    private ColumnChartData data1;
+    private ColumnChartData data2;
+    private ColumnChartData data3;
     private boolean hasLabelForSelected = false;
     private int dataType = 0;
 
@@ -61,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     TextView operatorNum;
     DrawerLayout drawer;
     RelativeLayout rlBtnWeather;
-
+    AVLoadingIndicatorView loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,29 +96,21 @@ public class MainActivity extends AppCompatActivity {
         TypefaceUtil.overrideFonts(txtTripNum, MyApplication.IraSanSBold);
         TypefaceUtil.overrideFonts(operatorNum, MyApplication.IraSanSBold);
 
-//        getSummery();
+        loader = findViewById(R.id.loader);
+
+        getSummery();
 
         rlBtnWeather = findViewById(R.id.btnWeather);
         txtCancelTrip = findViewById(R.id.txtCancelTrip);
         txtTripNum = findViewById(R.id.txtTripNum);
         operatorNum = findViewById(R.id.operatorNum);
 
-        txtCancelTrip.setText(StringHelper.toPersianDigits("100"));
-        txtTripNum.setText(StringHelper.toPersianDigits("5,000"));
-        operatorNum.setText(StringHelper.toPersianDigits("154"));
-
-
         drawer = findViewById(R.id.draw);
         NavigationView navigation = findViewById(R.id.navigation);
 
-        chart = findViewById(R.id.chart1);
-        setParamsChart();
-        chart = findViewById(R.id.chart2);
-        setParamsChart();
-        chart = findViewById(R.id.chart3);
-        setParamsChart();
-
-        timer = new Timer();
+        chart1 = findViewById(R.id.chart1);
+        chart2 = findViewById(R.id.chart2);
+        chart3 = findViewById(R.id.chart3);
 
         RelativeLayout openDrawer = findViewById(R.id.openDrawer);
 
@@ -132,32 +139,28 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        timer = new Timer();
     }
 
-    public void setParamsChart() {
+    public void setParamsChart1(ArrayList<ChartsModel> tripsModels) {
 
-        int numSubcolumns = 1;
-        int numColumns = 8;
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values;
+        List<SubcolumnValue> values ;
         List<AxisValue> axisValues = new ArrayList<>();
 
-        int[] value = {10000, 3500, 2000, 1500, 1500, 1000, 500, 100};
         int[] color = {R.color.redChart, R.color.orangeChart, R.color.yellowChart, R.color.deepGreenChart, R.color.greenChart, R.color.greenChart, R.color.deepClueChart, R.color.blueChart, R.color.lightBlueChart};
-        String[] city = {"مشهد", "خواف", "تربت جام", "تربت حیدریه", "فریمان", "گناباد", "نیشابور", "کاشمر", "تایباد"};
 
-        for (int i = 0; i < numColumns; ++i) {
-            values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue(value[i], MyApplication.currentActivity.getResources().getColor(color[i])));
-
-            axisValues.add(new AxisValue(i).setLabel(city[i]));
+        for (int i = 0; i < tripsModels.size(); ++i) {
+            values = new ArrayList<>();
+            values.add(new SubcolumnValue(tripsModels.get(i).getServiceCount(), MyApplication.currentActivity.getResources().getColor(color[i])));
+            axisValues.add(new AxisValue(i).setLabel(tripsModels.get(i).getCityName()));
             Column column = new Column(values);
             column.setHasLabels(hasLabels);
             columns.add(column);
         }
 
-        data = new ColumnChartData(columns);
+        data1 = new ColumnChartData(columns);
 
         if (hasAxes) {
             Axis axisX = new Axis(axisValues);
@@ -165,13 +168,87 @@ public class MainActivity extends AppCompatActivity {
             axisX.setHasLines(false);
             axisY.setHasLines(false);
 
-            data.setAxisXBottom(new Axis(axisValues));
+            data1.setAxisXBottom(new Axis(axisValues));
         } else {
-            data.setAxisXBottom(null);
-            data.setAxisYLeft(null);
+            data1.setAxisXBottom(null);
+            data1.setAxisYLeft(null);
         }
-        chart.setZoomEnabled(false);
-        chart.setColumnChartData(data);
+        chart1.setZoomEnabled(false);
+        chart1.setColumnChartData(data1);
+
+    }
+
+    public void setParamsChart2(ArrayList<ChartsModel> tripsModels) {
+
+        // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
+        List<Column> columns = new ArrayList<Column>();
+        List<SubcolumnValue> values;
+        List<AxisValue> axisValues = new ArrayList<>();
+
+        int[] color = {R.color.redChart, R.color.orangeChart, R.color.yellowChart, R.color.deepGreenChart, R.color.greenChart, R.color.greenChart, R.color.deepClueChart, R.color.blueChart, R.color.lightBlueChart};
+
+        for (int i = 0; i < tripsModels.size(); ++i) {
+            values = new ArrayList<>();
+            values.add(new SubcolumnValue(tripsModels.get(i).getServiceCount(), MyApplication.currentActivity.getResources().getColor(color[i])));
+
+            axisValues.add(new AxisValue(i).setLabel(tripsModels.get(i).getCityName()));
+            Column column = new Column(values);
+            column.setHasLabels(hasLabels);
+            columns.add(column);
+        }
+
+        data2 = new ColumnChartData(columns);
+
+        if (hasAxes) {
+            Axis axisX = new Axis(axisValues);
+            Axis axisY = new Axis();
+            axisX.setHasLines(false);
+            axisY.setHasLines(false);
+
+            data2.setAxisXBottom(new Axis(axisValues));
+        } else {
+            data2.setAxisXBottom(null);
+            data2.setAxisYLeft(null);
+        }
+        chart2.setZoomEnabled(false);
+        chart2.setColumnChartData(data2);
+
+    }
+
+    public void setParamsChart3(ArrayList<ChartsModel> tripsModels) {
+
+        // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
+        List<Column> columns = new ArrayList<Column>();
+        List<SubcolumnValue> values;
+        List<AxisValue> axisValues = new ArrayList<>();
+
+        int[] color = {R.color.redChart, R.color.orangeChart, R.color.yellowChart, R.color.deepGreenChart, R.color.greenChart, R.color.greenChart, R.color.deepClueChart, R.color.blueChart, R.color.lightBlueChart};
+
+        for (int i = 0; i < tripsModels.size(); ++i) {
+            values = new ArrayList<>();
+            values.add(new SubcolumnValue(tripsModels.get(i).getServiceCount(), MyApplication.currentActivity.getResources().getColor(color[i])));
+
+            axisValues.add(new AxisValue(i).setLabel(tripsModels.get(i).getCityName()));
+            Column column = new Column(values);
+            column.setHasLabels(hasLabels);
+            columns.add(column);
+        }
+
+        data3 = new ColumnChartData(columns);
+
+        if (hasAxes) {
+            Axis axisX = new Axis(axisValues);
+            Axis axisY = new Axis();
+            axisX.setHasLines(false);
+            axisY.setHasLines(false);
+
+            data3.setAxisXBottom(new Axis(axisValues));
+        } else {
+            data3.setAxisXBottom(null);
+            data3.setAxisYLeft(null);
+        }
+        chart3.setZoomEnabled(false);
+        chart3.setColumnChartData(data3);
 
     }
 
@@ -181,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.currentActivity = this;
         MyApplication.prefManager.setAppRun(true);
 
-//        timer.schedule(timerTask, 2000, 15000);
+        timer.schedule(timerTask, 0, 15000);
     }
 
     @Override
@@ -192,6 +269,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        if (timer != null)
+            timer.cancel();
         super.onPause();
         MyApplication.prefManager.setAppRun(false);
     }
@@ -205,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (timer != null)
+            timer.cancel();
         super.onDestroy();
         unbinder.unbind();
     }
@@ -233,11 +314,12 @@ public class MainActivity extends AppCompatActivity {
     TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
-            getSummery();
+            MyApplication.currentActivity.runOnUiThread(() -> getSummery());
         }
     };
 
     private void getSummery() {
+        loader.setVisibility(View.VISIBLE);
         RequestHelper.builder(EndPoints.SUMMERY)
                 .listener(summeryCallBack)
                 .get();
@@ -246,7 +328,77 @@ public class MainActivity extends AppCompatActivity {
     RequestHelper.Callback summeryCallBack = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(() -> {
+                loader.setVisibility(View.GONE);
+                try {
+                    JSONObject object = new JSONObject(args[0].toString());
+                    JSONObject summeryObj = object.getJSONObject("summery");
+                    String serviceCount = summeryObj.getString("serviceCount");
+                    String cancelServiceCount = summeryObj.getString("cancelServiceCount");
+                    String activeOperators = summeryObj.getString("activeOperators");
 
+                    txtCancelTrip.setText(cancelServiceCount);
+                    txtTripNum.setText(serviceCount);
+                    operatorNum.setText(activeOperators);
+
+                    chartsModels = new ArrayList<>();
+                    chartsModels2 = new ArrayList<>();
+                    chartsModels3 = new ArrayList<>();
+
+                    JSONArray todayTripsArr = object.getJSONArray("todayTrips");
+                    for (int i = 0; i < todayTripsArr.length(); i++) {
+                        ChartsModel model = new ChartsModel();
+                        JSONObject tripObj = todayTripsArr.getJSONObject(i);
+                        model.setCityName(tripObj.getString("CityName"));
+                        model.setServiceCount(tripObj.getInt("serviceCount"));
+                        chartsModels.add(model);
+                    }
+                    setParamsChart1(chartsModels);
+
+                    JSONArray waitingTripsArr = object.getJSONArray("waitingTrips");
+                    for (int i = 0; i < waitingTripsArr.length(); i++) {
+                        ChartsModel model = new ChartsModel();
+                        JSONObject waitingTripsObj = waitingTripsArr.getJSONObject(i);
+                        model.setServiceCount(waitingTripsObj.getInt("timedServiceCount"));
+                        model.setCityName(waitingTripsObj.getString("CityName"));
+                        chartsModels2.add(model);
+                    }
+                    setParamsChart2(chartsModels2);
+
+                    JSONArray activeDriversArr = object.getJSONArray("activeDrivers");
+                    for (int i = 0; i < activeDriversArr.length(); i++) {
+                        ChartsModel model = new ChartsModel();
+                        JSONObject driverObj = activeDriversArr.getJSONObject(i);
+                        model.setServiceCount(driverObj.getInt("driverCount"));
+                        model.setCityName(driverObj.getString("CityName"));
+                        chartsModels3.add(model);
+                    }
+                    setParamsChart3(chartsModels3);
+
+                } catch (Exception e) {
+                    new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
+                            .cancelable(false)
+                            .secondButton("بستن", null)
+                            .firstButton("تلاش مجدد", () -> getSummery())
+                            .type(3)
+                            .show();
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            loader.setVisibility(View.GONE);
+            new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
+                    .cancelable(false)
+                    .secondButton("بستن", null)
+                    .firstButton("تلاش مجدد", () -> getSummery())
+                    .type(3)
+                    .show();
+            super.onFailure(reCall, e);
         }
     };
+
+
 }

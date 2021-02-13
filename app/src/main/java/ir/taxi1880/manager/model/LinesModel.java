@@ -3,16 +3,16 @@ package ir.taxi1880.manager.model;
 public class LinesModel {
 
     private String name;
-    private String id;
+    private int id;
     private String number;
     private Boolean statusNew;
     private Boolean support;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

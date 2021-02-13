@@ -136,4 +136,10 @@ public class VerificationFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public void onPause() {
+        KeyBoardHelper.hideKeyboard();
+        super.onPause();
+    }
 }

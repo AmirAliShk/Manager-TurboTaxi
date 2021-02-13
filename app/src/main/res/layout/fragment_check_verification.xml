@@ -65,7 +65,8 @@
             android:text="کد ارسال شده به شماره"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorWhite"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:singleLine="true"/>
 
     </LinearLayout>
 
