@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
@@ -20,6 +23,19 @@ import ir.taxi1880.manager.helper.TypefaceUtil;
 public class ChangeQueueCapacityDialog {
 
     private static final String TAG = ChangeQueueCapacityDialog.class.getSimpleName();
+    Unbinder unbinder;
+
+    @BindView(R.id.btnClose)
+    ImageView imgClose;
+
+    @BindView(R.id.btnSubmit)
+    ImageView btnSubmit;
+
+    @BindView(R.id.txtTitle)
+    TextView txtTitle;
+
+    @BindView(R.id.numberPicker)
+    NumberPicker numberPicker;
 
     public interface Listener {
         void num(String num);
@@ -35,6 +51,7 @@ public class ChangeQueueCapacityDialog {
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.ExpandAnimation;
         dialog.setContentView(R.layout.dialog_change_queue_capacity);
+        unbinder = ButterKnife.bind(this, dialog);
         TypefaceUtil.overrideFonts(dialog.getWindow().getDecorView());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
@@ -44,11 +61,6 @@ public class ChangeQueueCapacityDialog {
         dialog.getWindow().setAttributes(wlp);
         dialog.setCancelable(true);
         this.listener = listener;
-
-        ImageView imgClose = dialog.findViewById(R.id.btnClose);
-        ImageView btnSubmit = dialog.findViewById(R.id.btnSubmit);
-        TextView txtTitle = dialog.findViewById(R.id.txtTitle);
-        NumberPicker numberPicker = dialog.findViewById(R.id.numberPicker);
 
         numberPicker.setVerticalFadingEdgeEnabled(true);
         numberPicker.setTypeface(MyApplication.IRANSANS_BOLD);

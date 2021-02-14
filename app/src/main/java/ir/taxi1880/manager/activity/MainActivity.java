@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
@@ -62,21 +64,51 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ChartsModel> chartsModels3;
 
     Timer timer;
-    private ColumnChartView chart1;
-    private ColumnChartView chart2;
-    private ColumnChartView chart3;
+
     private ColumnChartData data1;
     private ColumnChartData data2;
     private ColumnChartData data3;
     private boolean hasLabelForSelected = false;
     private int dataType = 0;
 
+    @BindView(R.id.txtCancelTrip)
     TextView txtCancelTrip;
+
+    @BindView(R.id.txtTripNum)
     TextView txtTripNum;
+
+    @BindView(R.id.operatorNum)
     TextView operatorNum;
+
+    @BindView(R.id.draw)
     DrawerLayout drawer;
+
+    @BindView(R.id.btnWeather)
     RelativeLayout rlBtnWeather;
+
+    @BindView(R.id.loader)
     AVLoadingIndicatorView loader;
+
+    @BindView(R.id.navigation)
+    NavigationView navigation;
+
+    @BindView(R.id.chart1)
+    ColumnChartView chart1;
+
+    @BindView(R.id.chart2)
+    ColumnChartView chart2;
+
+    @BindView(R.id.chart3)
+    ColumnChartView chart3;
+
+    @BindView(R.id.openDrawer)
+    RelativeLayout openDrawer;
+
+    @BindView(R.id.lines)
+    ImageView lines;
+
+    @BindView(R.id.queues)
+    ImageView queues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,40 +124,17 @@ public class MainActivity extends AppCompatActivity {
         }
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
-        TypefaceUtil.overrideFonts(txtCancelTrip, MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(txtTripNum, MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(operatorNum, MyApplication.IraSanSBold);
-
-        loader = findViewById(R.id.loader);
 
         getSummery();
-
-        rlBtnWeather = findViewById(R.id.btnWeather);
-        txtCancelTrip = findViewById(R.id.txtCancelTrip);
-        txtTripNum = findViewById(R.id.txtTripNum);
-        operatorNum = findViewById(R.id.operatorNum);
-
-        drawer = findViewById(R.id.draw);
-        NavigationView navigation = findViewById(R.id.navigation);
-
-        chart1 = findViewById(R.id.chart1);
-        chart2 = findViewById(R.id.chart2);
-        chart3 = findViewById(R.id.chart3);
-
-        RelativeLayout openDrawer = findViewById(R.id.openDrawer);
 
         openDrawer.setOnClickListener(view12 -> {
             drawer.openDrawer(Gravity.RIGHT);
         });
 
-        ImageView lines = findViewById(R.id.lines);
-
         lines.setOnClickListener(view1 -> {
             drawer.close();
             FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
         });
-
-        ImageView queues = findViewById(R.id.queues);
 
         queues.setOnClickListener(view1 -> {
             drawer.close();
@@ -136,17 +145,15 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
             MyApplication.currentActivity.startActivity(i);
-
         });
 
-        timer = new Timer();
     }
 
     public void setParamsChart1(ArrayList<ChartsModel> tripsModels) {
 
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values ;
+        List<SubcolumnValue> values;
         List<AxisValue> axisValues = new ArrayList<>();
 
         int[] color = {R.color.redChart, R.color.orangeChart, R.color.yellowChart, R.color.deepGreenChart, R.color.greenChart, R.color.greenChart, R.color.deepClueChart, R.color.blueChart, R.color.lightBlueChart};
@@ -257,20 +264,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         MyApplication.currentActivity = this;
         MyApplication.prefManager.setAppRun(true);
-
-        timer.schedule(timerTask, 0, 15000);
+        startGetAddressTimer();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
     }
 
     @Override
     protected void onPause() {
-        if (timer != null)
-            timer.cancel();
         super.onPause();
         MyApplication.prefManager.setAppRun(false);
     }
@@ -279,15 +282,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         MyApplication.currentActivity = this;
-
     }
 
     @Override
     protected void onDestroy() {
-        if (timer != null)
-            timer.cancel();
         super.onDestroy();
         unbinder.unbind();
+        stopGetAddressTimer();
     }
 
     @Override
@@ -310,13 +311,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-            MyApplication.currentActivity.runOnUiThread(() -> getSummery());
-        }
-    };
 
     private void getSummery() {
         loader.setVisibility(View.VISIBLE);
@@ -389,16 +383,49 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            loader.setVisibility(View.GONE);
-            new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
-                    .cancelable(false)
-                    .secondButton("بستن", null)
-                    .firstButton("تلاش مجدد", () -> getSummery())
-                    .type(3)
-                    .show();
-            super.onFailure(reCall, e);
+            MyApplication.handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loader.setVisibility(View.GONE);
+                    new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
+                            .cancelable(false)
+                            .secondButton("بستن", null)
+                            .firstButton("تلاش مجدد", () -> getSummery())
+                            .type(3)
+                            .show();
+                }
+            });
+                    super.onFailure(reCall, e);
         }
     };
 
+    private void stopGetAddressTimer() {
+        try {
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void startGetAddressTimer() {
+        try {
+            if (timer != null) {
+                return;
+            }
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    MyApplication.currentActivity.runOnUiThread(() -> {
+                        getSummery();
+                    });
+                }
+            }, 0, 15000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

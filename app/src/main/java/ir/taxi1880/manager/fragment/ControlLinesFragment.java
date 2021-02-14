@@ -22,6 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.LinesAdapter;
 import ir.taxi1880.manager.app.EndPoints;
@@ -33,8 +36,13 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 public class ControlLinesFragment extends Fragment {
 
     ArrayList<LinesModel> arrayLinesModel;
-    ListView linesList;
     LinesAdapter linesAdapter;
+    Unbinder unbinder;
+
+    @BindView(R.id.linesList)
+    ListView linesList;
+
+    @BindView(R.id.btnBack)
     ImageView btnBack;
 
     @Nullable
@@ -43,19 +51,17 @@ public class ControlLinesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_control_lines, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         TypefaceUtil.overrideFonts(view);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor("#2f2f2f"));
         }
+        unbinder = ButterKnife.bind(this, view);
 
-        linesList = view.findViewById(R.id.linesList);
         arrayLinesModel = new ArrayList<>();
 
         getLines();
 
-        btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
 
         return view;

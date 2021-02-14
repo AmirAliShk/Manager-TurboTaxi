@@ -14,6 +14,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
@@ -28,10 +31,18 @@ public class LinesAdapter extends BaseAdapter {
 
     private ArrayList<LinesModel> linesModels;
     LayoutInflater inflater;
-    SwitchButton sbNew;
-    SwitchButton sbSupport;
     SwitchButton sbThird;
     int position;
+    Unbinder unbinder;
+
+    @BindView(R.id.lineTitle)
+    TextView lineTitle;
+
+    @BindView(R.id.sbNew)
+    SwitchButton sbNew;
+
+    @BindView(R.id.sbSupport)
+    SwitchButton sbSupport;
 
     public LinesAdapter(ArrayList<LinesModel> linesModels) {
         this.linesModels = linesModels;
@@ -63,10 +74,7 @@ public class LinesAdapter extends BaseAdapter {
             myView = inflater.inflate(R.layout.item_line, viewGroup, false);
             TypefaceUtil.overrideFonts(myView);
         }
-
-        TextView lineTitle = myView.findViewById(R.id.lineTitle);
-        sbNew = myView.findViewById(R.id.sbNew);
-        sbSupport = myView.findViewById(R.id.sbSupport);
+        unbinder = ButterKnife.bind(this, myView);
 
         lineTitle.setText(currentLinesModel.getName());
         sbNew.setChecked(currentLinesModel.getNew());

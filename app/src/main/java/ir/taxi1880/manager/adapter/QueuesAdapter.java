@@ -12,6 +12,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
@@ -28,8 +31,20 @@ public class QueuesAdapter extends BaseAdapter {
     private ArrayList<QueuesModel> queuesModels;
     LayoutInflater inflater;
     String newCapacity;
-    TextView permittedNum;
     int position;
+    Unbinder unbinder;
+
+    @BindView(R.id.queueTitle)
+    TextView queueTitle;
+
+    @BindView(R.id.inLineNum)
+    TextView inLineNum;
+
+    @BindView(R.id.permittedNum)
+    TextView permittedNum;
+
+    @BindView(R.id.llLimitation)
+    LinearLayout llLimitation;
 
     public QueuesAdapter(ArrayList<QueuesModel> queuesModels) {
         this.queuesModels = queuesModels;
@@ -61,17 +76,11 @@ public class QueuesAdapter extends BaseAdapter {
             myView = inflater.inflate(R.layout.item_queue, viewGroup, false);
             TypefaceUtil.overrideFonts(myView);
         }
-
-        TextView queueTitle = myView.findViewById(R.id.queueTitle);
-        TextView inLineNum = myView.findViewById(R.id.inLineNum);
-        permittedNum = myView.findViewById(R.id.permittedNum);
-
-        LinearLayout llLimitation = myView.findViewById(R.id.llLimitation);
+        unbinder = ButterKnife.bind(this, myView);
 
         queueTitle.setText(currentQueuesModel.getName());
         inLineNum.setText(currentQueuesModel.getActiveMember());
         permittedNum.setText(currentQueuesModel.getCapacity());
-
 
         llLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
             newCapacity = num;
@@ -92,7 +101,6 @@ public class QueuesAdapter extends BaseAdapter {
     }
 
     RequestHelper.Callback queueInfoCallBack = new RequestHelper.Callback() {
-
         @Override
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
@@ -102,7 +110,6 @@ public class QueuesAdapter extends BaseAdapter {
 
                     String message = object.getString("message");
                     boolean status = object.getBoolean("status");
-
 
                     new GeneralDialog()
                             .message(message)
@@ -117,7 +124,6 @@ public class QueuesAdapter extends BaseAdapter {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             });
         }
 
@@ -125,7 +131,5 @@ public class QueuesAdapter extends BaseAdapter {
         public void onFailure(Runnable reCall, Exception e) {
             super.onFailure(reCall, e);
         }
-
     };
-
 }

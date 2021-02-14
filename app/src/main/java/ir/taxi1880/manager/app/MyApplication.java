@@ -72,7 +72,6 @@ public class MyApplication extends Application {
     context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
 
     initACRA();
-
   }
 
   private void initACRA() {

@@ -18,7 +18,6 @@ public class EndPoints {
           : "http://turbotaxi.ir";
 //          : "http://172.16.2.203";
 
-
   public static final String APIPort = (BuildConfig.DEBUG) ? "1881" : "1881";
   public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "1890" : "1890";
 
@@ -35,8 +34,7 @@ public class EndPoints {
   public static final String APP_INFO = WEBSERVICE_PATH ;
   public static final String GET_LINE = LINE_PATH ;
   public static final String GET_QUEUE = QUEUE_PATH ;
-  public static final String SUMMERY = SUMMERY_PATH ; //TODO check later
-
+  public static final String SUMMERY = SUMMERY_PATH ;
 
   /******************************** refresh token Api *********************************/
 

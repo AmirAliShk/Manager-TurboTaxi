@@ -22,6 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.LinesAdapter;
 import ir.taxi1880.manager.adapter.QueuesAdapter;
@@ -33,10 +36,15 @@ import ir.taxi1880.manager.model.QueuesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class ControlQueueFragment extends Fragment {
-    ImageView btnBack;
     ArrayList<QueuesModel> arrayQueuesModel;
-    ListView queuesList;
     QueuesAdapter queuesAdapter;
+    Unbinder unbinder;
+
+    @BindView(R.id.queuesList)
+    ListView queuesList;
+
+    @BindView(R.id.btnBack)
+    ImageView btnBack;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -45,21 +53,18 @@ public class ControlQueueFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_control_queues, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         TypefaceUtil.overrideFonts(view);
+        unbinder = ButterKnife.bind(this, view);
 
-        queuesList = view.findViewById(R.id.queuesList);
         arrayQueuesModel = new ArrayList<>();
 
         getQueue();
 
-        btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
-
-
 
         return view;
     }
 
-    private void getQueue(){
+    private void getQueue() {
         RequestHelper.builder(EndPoints.GET_QUEUE)
                 .listener(queueCallBack)
                 .get();
