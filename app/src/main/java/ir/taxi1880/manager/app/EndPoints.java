@@ -30,6 +30,8 @@ public class EndPoints {
   public static final String HAWKEYE_PATH = HAKWEYE_IP + ":" + HAWKEYE_APIPort + "/api/user/v1/";
   public static final String HAWKEYE_LOGIN_PATH = HAKWEYE_IP + ":" + HAWKEYE_APIPort + "/api/user/v1/login/phone/";
 
+  public static final String ACRA_PATH ="http://turbotaxi.ir:6061/api/v1/crashReport";
+
   public static final String APP_INFO = WEBSERVICE_PATH ;
   public static final String GET_LINE = LINE_PATH ;
   public static final String GET_QUEUE = QUEUE_PATH ;

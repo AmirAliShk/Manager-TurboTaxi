@@ -16,10 +16,18 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 
 
+import org.acra.ACRA;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.HttpSenderConfigurationBuilder;
+import org.acra.data.StringFormat;
+import org.acra.sender.HttpSender;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
+import ir.taxi1880.manager.BuildConfig;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 
@@ -62,6 +70,29 @@ public class MyApplication extends Application {
     Configuration config = new Configuration();
     config.locale = locale;
     context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+
+    initACRA();
+
+  }
+
+  private void initACRA() {
+    Map<String, String> authHeaderMap = new HashMap<>();
+    authHeaderMap.put("Authorization", MyApplication.prefManager.getAuthorization());
+    authHeaderMap.put("id_token", MyApplication.prefManager.getIdToken());
+
+    CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
+            .setBuildConfigClass(BuildConfig.class)
+            .setReportFormat(StringFormat.JSON);
+
+    HttpSenderConfigurationBuilder httpPluginConfigBuilder
+            = builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
+            .setUri(EndPoints.ACRA_PATH)
+            .setHttpMethod(HttpSender.Method.POST)
+            .setHttpHeaders(authHeaderMap)
+            .setEnabled(true);
+//        if (!BuildConfig.DEBUG)
+    ACRA.init(this, builder);
+
 
   }
 

@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import org.acra.ACRA;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,6 +70,9 @@ public class SplashActivity extends AppCompatActivity {
         }
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
+
+        ACRA.getErrorReporter().putCustomData("projectId", Constant.PUSH_PROJECT_ID);
+        ACRA.getErrorReporter().putCustomData("LineCode", MyApplication.prefManager.getUserCode() + "");
 
         MyApplication.handler.postDelayed(() -> {
             checkPermission();
