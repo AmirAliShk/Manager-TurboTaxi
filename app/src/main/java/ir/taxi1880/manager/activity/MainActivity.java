@@ -370,12 +370,6 @@ public class MainActivity extends AppCompatActivity {
                     setParamsChart3(chartsModels3);
 
                 } catch (Exception e) {
-                    new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
-                            .cancelable(false)
-                            .secondButton("بستن", null)
-                            .firstButton("تلاش مجدد", () -> getSummery())
-                            .type(3)
-                            .show();
                     e.printStackTrace();
                 }
             });
@@ -383,19 +377,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            MyApplication.handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    loader.setVisibility(View.GONE);
-                    new GeneralDialog().message("خطایی پیش آمده، لطفا دوباره امتحان کنید.")
-                            .cancelable(false)
-                            .secondButton("بستن", null)
-                            .firstButton("تلاش مجدد", () -> getSummery())
-                            .type(3)
-                            .show();
-                }
-            });
-                    super.onFailure(reCall, e);
+            if (loader != null){
+                MyApplication.handler.post(() -> loader.setVisibility(View.GONE));
+            }
         }
     };
 

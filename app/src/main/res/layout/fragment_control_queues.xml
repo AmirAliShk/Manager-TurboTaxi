@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
     android:clickable="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    >
 
     <LinearLayout
         android:id="@+id/action"
