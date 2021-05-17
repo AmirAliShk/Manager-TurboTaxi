@@ -57,8 +57,8 @@
         android:layout_height="80dp"
         android:layout_margin="5dp"
         android:background="@drawable/bg_ripple"
-        android:padding="12dp"
-        android:src="@drawable/ic_queue" />
+        android:padding="6dp"
+        android:src="@drawable/ic_system_summary" />
 
     <TextView
         android:layout_width="match_parent"
