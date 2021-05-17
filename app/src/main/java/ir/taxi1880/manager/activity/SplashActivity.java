@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import org.acra.ACRA;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
@@ -38,6 +40,7 @@ import ir.taxi1880.manager.helper.AppVersionHelper;
 import ir.taxi1880.manager.helper.ContinueProcessing;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.ScreenHelper;
+import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
@@ -49,6 +52,9 @@ public class SplashActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     Unbinder unbinder;
     SplashActivityCallback splashActivityCallback;
+
+    @BindView(R.id.txtVersionName)
+    TextView txtVersionName;
 
     public interface SplashActivityCallback {
         void onSuccess(boolean b);
@@ -69,6 +75,8 @@ public class SplashActivity extends AppCompatActivity {
         }
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
+
+        txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
 
         ACRA.getErrorReporter().putCustomData("projectId", Constant.PUSH_PROJECT_ID);
         ACRA.getErrorReporter().putCustomData("LineCode", MyApplication.prefManager.getUserCode() + "");
@@ -236,5 +244,11 @@ public class SplashActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

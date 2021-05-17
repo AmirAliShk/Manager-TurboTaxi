@@ -7,14 +7,14 @@ public class EndPoints {
 /*TODO : check apis and ports before release*/
 
   public static final String IP = (BuildConfig.DEBUG)
-          ? "http://172.16.2.203"
-//          ? "http://turbotaxi.ir"
+//          ? "http://172.16.2.203"
+          ? "http://turbotaxi.ir"
           : "http://turbotaxi.ir";
 //          : "http://172.16.2.203";
 
   public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
-          ? "http://172.16.2.201"
-//          ? "http://turbotaxi.ir"
+//          ? "http://172.16.2.201"
+          ? "http://turbotaxi.ir"
           : "http://turbotaxi.ir";
 //          : "http://172.16.2.203";
 
@@ -34,7 +34,7 @@ public class EndPoints {
   public static final String APP_INFO = WEBSERVICE_PATH ;
   public static final String GET_LINE = LINE_PATH ;
   public static final String GET_QUEUE = QUEUE_PATH ;
-  public static final String SUMMERY = SUMMERY_PATH ;
+  public static final String SUMMERY = SUMMERY_PATH + "summery";
 
   /******************************** refresh token Api *********************************/
 

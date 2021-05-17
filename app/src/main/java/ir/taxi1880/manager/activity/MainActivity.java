@@ -32,6 +32,7 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
@@ -39,6 +40,8 @@ import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
+import ir.taxi1880.manager.fragment.SystemSummeryFragment;
+import ir.taxi1880.manager.helper.AppVersionHelper;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
@@ -50,6 +53,8 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
+
+import static ir.taxi1880.manager.app.MyApplication.context;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.draw)
     DrawerLayout drawer;
 
-    @BindView(R.id.btnWeather)
-    RelativeLayout rlBtnWeather;
+    @BindView(R.id.txtVersionName)
+    TextView txtVersionName;
 
     @BindView(R.id.loader)
     AVLoadingIndicatorView loader;
@@ -101,14 +106,35 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.chart3)
     ColumnChartView chart3;
 
-    @BindView(R.id.openDrawer)
-    RelativeLayout openDrawer;
+    @OnClick(R.id.btnWeather)
+    void OnWeather() {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
+        MyApplication.currentActivity.startActivity(i);
+    }
 
-    @BindView(R.id.lines)
-    ImageView lines;
+    @OnClick(R.id.lines)
+    void onLines() {
+        drawer.close();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
+    }
 
-    @BindView(R.id.queues)
-    ImageView queues;
+    @OnClick(R.id.queues)
+    void onQueues() {
+        drawer.close();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
+    }
+
+    @OnClick(R.id.openDrawer)
+    void onDrawer() {
+        drawer.openDrawer(Gravity.RIGHT);
+    }
+
+    @OnClick(R.id.imgSystemSummery)
+    void onSystemSummery() {
+        drawer.close();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new SystemSummeryFragment()).setAddToBackStack(true).replace();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,27 +151,9 @@ public class MainActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
 
+        txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
+
         getSummery();
-
-        openDrawer.setOnClickListener(view12 -> {
-            drawer.openDrawer(Gravity.RIGHT);
-        });
-
-        lines.setOnClickListener(view1 -> {
-            drawer.close();
-            FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
-        });
-
-        queues.setOnClickListener(view1 -> {
-            drawer.close();
-            FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
-        });
-
-        rlBtnWeather.setOnClickListener(view13 -> {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
-            MyApplication.currentActivity.startActivity(i);
-        });
 
     }
 
@@ -313,8 +321,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSummery() {
-        loader.setVisibility(View.VISIBLE);
-        RequestHelper.builder(EndPoints.SUMMERY)
+        if (loader != null)
+            loader.setVisibility(View.VISIBLE);
+        RequestHelper.builder(EndPoints.SUMMERY_PATH)
                 .listener(summeryCallBack)
                 .get();
     }
@@ -323,7 +332,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
-                loader.setVisibility(View.GONE);
+                if (loader != null)
+                    loader.setVisibility(View.GONE);
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
                     JSONObject summeryObj = object.getJSONObject("summery");
@@ -377,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            if (loader != null){
+            if (loader != null) {
                 MyApplication.handler.post(() -> loader.setVisibility(View.GONE));
             }
         }
@@ -393,6 +403,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     private void startGetAddressTimer() {
         try {

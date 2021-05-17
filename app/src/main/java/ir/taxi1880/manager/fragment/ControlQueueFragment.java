@@ -1,6 +1,5 @@
 package ir.taxi1880.manager.fragment;
 
-import android.app.TimePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,12 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
-import ir.taxi1880.manager.adapter.LinesAdapter;
 import ir.taxi1880.manager.adapter.QueuesAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.helper.TypefaceUtil;
-import ir.taxi1880.manager.model.LinesModel;
 import ir.taxi1880.manager.model.QueuesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
@@ -102,4 +98,9 @@ public class ControlQueueFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }
