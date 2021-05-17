@@ -7,67 +7,264 @@
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/action"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:background="#2f2f2f"
+        android:elevation="3dp"
         android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_ripple"
+            android:src="@drawable/ic_back" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="خلاصه سیستم"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        <View
+            android:id="@+id/btnBack2"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_ripple" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+    </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        android:layout_margin="@dimen/_20sdp"
+        android:background="@drawable/bg_btn"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/lineTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_dialog_header"
+            android:gravity="center"
+            android:text="1880"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <TextView
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="9,400"
+                android:textColor="@color/lightBlueChart"
+                android:textSize="@dimen/_15sdp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="کل سفرها"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="1,000"
+                android:textColor="@color/blueChart"
+                android:textSize="@dimen/_15sdp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="سفرهای منتظر ایستگاه"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="70"
+                android:textColor="@color/deepClueChart"
+                android:textSize="@dimen/_15sdp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="تعداد اپراتورهای فعال ثبت ایستگاه"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="20"
+                android:textColor="@color/greenChart"
+                android:textSize="@dimen/_15sdp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="بیشترین زمان در انتظار"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="نسخه مدیریت"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp" />
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/bg_btn"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="64"
+            android:textColor="@color/deepGreenChart"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد شکایات بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/bg_btn"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="200"
+            android:textColor="@color/yellowChart"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد خطاهای بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/bg_btn"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="12"
+            android:textColor="@color/redChart"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد راننده بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+
+    </LinearLayout>
+
+
+
 </LinearLayout>
