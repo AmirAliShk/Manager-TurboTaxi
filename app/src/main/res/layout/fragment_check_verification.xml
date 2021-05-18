@@ -62,11 +62,11 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:gravity="center"
+            android:singleLine="true"
             android:text="کد ارسال شده به شماره"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorWhite"
-            android:textSize="22sp"
-            android:singleLine="true"/>
+            android:textSize="22sp" />
 
     </LinearLayout>
 

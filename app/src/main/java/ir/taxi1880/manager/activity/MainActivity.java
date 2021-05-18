@@ -153,8 +153,6 @@ public class MainActivity extends AppCompatActivity {
 
         txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
 
-        getSummery();
-
     }
 
     public void setParamsChart1(ArrayList<ChartsModel> tripsModels) {
@@ -301,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         try {
             if (getFragmentManager().getBackStackEntryCount() > 0 || getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 super.onBackPressed();
@@ -387,9 +384,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            if (loader != null) {
-                MyApplication.handler.post(() -> loader.setVisibility(View.GONE));
-            }
+            MyApplication.handler.post(() -> {
+                if (loader != null)
+                    loader.setVisibility(View.GONE);
+            });
         }
     };
 

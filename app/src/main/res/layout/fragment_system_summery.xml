@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
+    android:clickable="true"
     android:gravity="center_horizontal"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/action"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#2f2f2f"
@@ -20,10 +21,11 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:padding="7dp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -32,16 +34,16 @@
             android:gravity="center"
             android:text="خلاصه سیستم"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp"
+            android:textSize="27sp"
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/btnBack2"
+            android:id="@+id/imgRefresh"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:background="@drawable/bg_ripple"
             android:src="@drawable/ic_refresh"
-            android:padding="@dimen/_12sdp"/>
+            android:padding="16dp"/>
 
     </LinearLayout>
 
@@ -58,11 +60,10 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_dialog_header"
             android:gravity="center"
-            android:text="1880"
+            android:text="سرویس‌های در انتظار ارسال"
             android:textColor="@color/colorWhite"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,15 +71,14 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
 
-
             <TextView
+                android:id="@+id/txtAllWaitedTrip"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="9,400"
+                android:gravity="left"
                 android:textColor="@color/lightBlueChart"
                 android:textSize="@dimen/_15sdp" />
-
 
             <TextView
                 android:layout_width="0dp"
@@ -96,15 +96,14 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
 
-
             <TextView
+                android:id="@+id/txtTripWaitForStation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="1,000"
+                android:gravity="left"
                 android:textColor="@color/blueChart"
                 android:textSize="@dimen/_15sdp" />
-
 
             <TextView
                 android:layout_width="0dp"
@@ -114,7 +113,6 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15sdp" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -123,15 +121,14 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
 
-
             <TextView
+                android:id="@+id/txtActiveOperatorsForStation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
-                android:text="70"
+                android:gravity="left"
                 android:textColor="@color/deepClueChart"
                 android:textSize="@dimen/_15sdp" />
-
 
             <TextView
                 android:layout_width="0dp"
@@ -141,24 +138,23 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15sdp" />
 
-
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
 
-
             <TextView
+                android:id="@+id/txtMaxTripWaitedTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="20"
+                android:gravity="left"
                 android:textColor="@color/greenChart"
                 android:textSize="@dimen/_15sdp" />
-
 
             <TextView
                 android:layout_width="0dp"
@@ -168,7 +164,6 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15sdp" />
 
-
         </LinearLayout>
 
     </LinearLayout>
@@ -183,47 +178,14 @@
         android:orientation="horizontal"
         android:padding="@dimen/_10sdp">
 
-
         <TextView
+            android:id="@+id/txtMistake"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="64"
+            android:gravity="left"
             android:textColor="@color/deepGreenChart"
             android:textSize="@dimen/_15sdp" />
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="تعداد شکایات بررسی نشده"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_15sdp" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:background="@drawable/bg_btn"
-        android:orientation="horizontal"
-        android:padding="@dimen/_10sdp">
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="200"
-            android:textColor="@color/yellowChart"
-            android:textSize="@dimen/_15sdp" />
-
 
         <TextView
             android:layout_width="0dp"
@@ -233,6 +195,34 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_15sdp" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/bg_btn"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/txtComplaint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:textColor="@color/yellowChart"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد شکایات بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
 
     </LinearLayout>
 
@@ -246,15 +236,14 @@
         android:orientation="horizontal"
         android:padding="@dimen/_10sdp">
 
-
         <TextView
+            android:id="@+id/txtDriverRegistration"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="12"
+            android:gravity="left"
             android:textColor="@color/redChart"
             android:textSize="@dimen/_15sdp" />
-
 
         <TextView
             android:layout_width="0dp"
@@ -264,9 +253,6 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_15sdp" />
 
-
     </LinearLayout>
-
-
 
 </LinearLayout>

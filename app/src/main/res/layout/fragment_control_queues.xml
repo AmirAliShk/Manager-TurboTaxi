@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
     android:clickable="true"
-    android:orientation="vertical"
     android:layoutDirection="ltr"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/action"
@@ -22,7 +21,7 @@
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:src="@drawable/ic_back" />
 

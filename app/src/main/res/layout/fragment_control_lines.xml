@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/alsoBlack"
-    android:orientation="vertical"
+    android:clickable="true"
     android:layoutDirection="ltr"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/action"
@@ -22,10 +22,11 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:padding="7dp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -37,7 +38,6 @@
             android:textSize="30sp" />
 
         <View
-            android:id="@+id/btnBack2"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:background="@drawable/bg_ripple" />
@@ -49,7 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        tools:listitem="@layout/item_line"
-        />
+        tools:listitem="@layout/item_line" />
 
 </LinearLayout>

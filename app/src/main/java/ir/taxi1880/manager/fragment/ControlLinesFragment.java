@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.LinesAdapter;
@@ -42,8 +43,10 @@ public class ControlLinesFragment extends Fragment {
     @BindView(R.id.linesList)
     ListView linesList;
 
-    @BindView(R.id.btnBack)
-    ImageView btnBack;
+    @OnClick(R.id.btnBack)
+    void onBack() {
+        MyApplication.currentActivity.onBackPressed();
+    }
 
     @Nullable
     @Override
@@ -61,8 +64,6 @@ public class ControlLinesFragment extends Fragment {
         arrayLinesModel = new ArrayList<>();
 
         getLines();
-
-        btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
 
         return view;
     }
