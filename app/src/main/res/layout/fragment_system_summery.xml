@@ -35,11 +35,13 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <View
+        <ImageView
             android:id="@+id/btnBack2"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/bg_ripple" />
+            android:background="@drawable/bg_ripple"
+            android:src="@drawable/ic_refresh"
+            android:padding="@dimen/_12sdp"/>
 
     </LinearLayout>
 
