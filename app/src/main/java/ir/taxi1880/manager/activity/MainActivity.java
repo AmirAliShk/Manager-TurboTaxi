@@ -40,6 +40,7 @@ import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
+import ir.taxi1880.manager.fragment.RateFragment;
 import ir.taxi1880.manager.fragment.SystemSummeryFragment;
 import ir.taxi1880.manager.helper.AppVersionHelper;
 import ir.taxi1880.manager.helper.FragmentHelper;
@@ -117,6 +118,12 @@ public class MainActivity extends AppCompatActivity {
     void onLines() {
         drawer.close();
         FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
+    }
+
+    @OnClick(R.id.imgRate)
+    void onRate() {
+        drawer.close();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new RateFragment()).setAddToBackStack(true).replace();
     }
 
     @OnClick(R.id.queues)
