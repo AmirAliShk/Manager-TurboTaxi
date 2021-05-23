@@ -1,71 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
     android:clickable="true"
     android:gravity="center_horizontal"
-    android:layoutDirection="ltr"
-    android:orientation="vertical">
+    android:layoutDirection="rtl">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#2f2f2f"
-        android:elevation="3dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="56dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple"
-            android:padding="7dp"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="#2f2f2f"
+            android:elevation="3dp"
             android:gravity="center"
-            android:text="تعیین نرخ"
-            android:textColor="@color/colorWhite"
-            android:textSize="27sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
 
-        <RelativeLayout
-            android:id="@+id/llCity"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:gravity="center"
-            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/rlCity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <Spinner
+                    android:id="@+id/spCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_spinner"
+                    android:dropDownWidth="match_parent"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_drop_down" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="27sp"
+                android:textStyle="bold" />
 
             <ImageView
-                android:layout_width="20dp"
+                android:id="@+id/btnBack"
+                android:layout_width="56dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_drop_down" />
+                android:background="@drawable/bg_ripple"
+                android:padding="7dp"
+                android:src="@drawable/ic_back" />
 
-            <Spinner
-                android:id="@+id/spCity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/edit_text_style"
-                android:dropDownWidth="match_parent"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp" />
+        </LinearLayout>
 
-        </RelativeLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_rate">
+
+        </ListView>
 
     </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
-</LinearLayout>
+</RelativeLayout>

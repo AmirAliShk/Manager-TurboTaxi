@@ -1,7 +1,6 @@
 package ir.taxi1880.manager.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +24,12 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
-
-import static android.content.ContentValues.TAG;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class RateFragment extends Fragment {
 
@@ -89,9 +89,6 @@ public class RateFragment extends Fragment {
                     cityName = cityModels.get(position - 1).getCity();
                     cityLatinName = cityModels.get(position - 1).getCityLatin();
                     cityCode = cityModels.get(position - 1).getId();
-                    Log.i(TAG, "onItemSelected: " + cityName);
-                    Log.i(TAG, "onItemSelected: " + cityLatinName);
-                    Log.i(TAG, "onItemSelected: " + cityCode);
                 }
 
                 @Override
@@ -104,5 +101,96 @@ public class RateFragment extends Fragment {
         }
     }
 
+    private void getRates() {
+        RequestHelper.builder(EndPoints.GET_RATE + cityCode)
+                .listener(getRatesCallBack)
+                .get();
+    }
+
+    RequestHelper.Callback getRatesCallBack = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(() -> {
+                try {
+                    JSONObject object = new JSONObject(args[0].toString());
+
+                    String message = object.getString("message");
+                    boolean status = object.getBoolean("status");
+
+                    new GeneralDialog()
+                            .message(message)
+                            .cancelable(false)
+                            .firstButton("باشه", null)
+                            .type(2)
+                            .show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+        }
+    };
+
+    private void addRates() {
+        RequestHelper.builder(EndPoints.ADD_RATE)
+//        {post} /api/manager/v2/pricing/increaseRate increaseRate
+//        Params:
+//                * @apiParam {int} cityCode
+//                * @apiParam {int} fromHour
+//                * @apiParam {int} toHour
+//                * @apiParam {int} stopPricePercent
+//                * @apiParam {int} metrPricePercent
+//                * @apiParam {int} entryPricePercent
+//                * @apiParam {int} charterPricePercent
+//                * @apiParam {int} minPricePercent
+//                * @apiParam {varchar(50)} carClass seprate with ','
+                .addParam("cityCode", cityCode)
+                .addParam("fromHour", fromHour)
+                .addParam("toHour", toHour)
+                .addParam("stopPricePercent", stopPricePercent)
+                .addParam("metrPricePercent", metrPricePercent)
+                .addParam("entryPricePercent", entryPricePercent)
+                .addParam("charterPricePercent", charterPricePercent)
+                .addParam("minPricePercent", minPricePercent)
+                .addParam("carClass", carClass)
+                .listener(addRatesCallBack)
+                .post();
+    }
+
+    RequestHelper.Callback addRatesCallBack = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(() -> {
+                try {
+                    JSONObject object = new JSONObject(args[0].toString());
+
+                    String message = object.getString("message");
+                    boolean status = object.getBoolean("status");
+
+                    new GeneralDialog()
+                            .message(message)
+                            .cancelable(false)
+                            .firstButton("باشه", null)
+                            .type(2)
+                            .show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+        }
+    };
 
 }

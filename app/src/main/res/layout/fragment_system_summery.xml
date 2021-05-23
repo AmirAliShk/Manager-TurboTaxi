@@ -6,7 +6,7 @@
     android:background="@color/alsoBlack"
     android:clickable="true"
     android:gravity="center_horizontal"
-    android:layoutDirection="ltr"
+    android:layoutDirection="rtl"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,12 +20,12 @@
         android:paddingRight="25dp">
 
         <ImageView
-            android:id="@+id/btnBack"
+            android:id="@+id/imgRefresh"
             android:layout_width="56dp"
-            android:layout_height="match_parent"
+            android:layout_height="56dp"
             android:background="@drawable/bg_ripple"
-            android:src="@drawable/ic_back"
-            android:padding="7dp"/>
+            android:padding="16dp"
+            android:src="@drawable/ic_refresh" />
 
         <TextView
             android:layout_width="0dp"
@@ -38,12 +38,12 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imgRefresh"
+            android:id="@+id/btnBack"
             android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
-            android:src="@drawable/ic_refresh"
-            android:padding="16dp"/>
+            android:padding="7dp"
+            android:src="@drawable/ic_back" />
 
     </LinearLayout>
 
@@ -72,20 +72,20 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="کل سفرها"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
+
+            <TextView
                 android:id="@+id/txtAllWaitedTrip"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="left"
                 android:textColor="@color/lightBlueChart"
-                android:textSize="@dimen/_15sdp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="کل سفرها"
-                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15sdp" />
 
         </LinearLayout>
@@ -95,6 +95,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="سفرهای منتظر ایستگاه"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
 
             <TextView
                 android:id="@+id/txtTripWaitForStation"
@@ -105,14 +113,6 @@
                 android:textColor="@color/blueChart"
                 android:textSize="@dimen/_15sdp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="سفرهای منتظر ایستگاه"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_15sdp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -120,6 +120,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="تعداد اپراتورهای فعال ثبت ایستگاه"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
 
             <TextView
                 android:id="@+id/txtActiveOperatorsForStation"
@@ -130,14 +138,6 @@
                 android:textColor="@color/deepClueChart"
                 android:textSize="@dimen/_15sdp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="تعداد اپراتورهای فعال ثبت ایستگاه"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_15sdp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -148,20 +148,20 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="بیشترین زمان در انتظار"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sdp" />
+
+            <TextView
                 android:id="@+id/txtMaxTripWaitedTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="left"
                 android:textColor="@color/greenChart"
-                android:textSize="@dimen/_15sdp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="بیشترین زمان در انتظار"
-                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_15sdp" />
 
         </LinearLayout>
@@ -179,20 +179,20 @@
         android:padding="@dimen/_10sdp">
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد خطاهای بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
             android:id="@+id/txtMistake"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="left"
             android:textColor="@color/deepGreenChart"
-            android:textSize="@dimen/_15sdp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="تعداد خطاهای بررسی نشده"
-            android:textColor="@color/colorWhite"
             android:textSize="@dimen/_15sdp" />
 
     </LinearLayout>
@@ -206,6 +206,14 @@
         android:background="@drawable/bg_btn"
         android:orientation="horizontal"
         android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد شکایات بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
 
         <TextView
             android:id="@+id/txtComplaint"
@@ -216,14 +224,6 @@
             android:textColor="@color/yellowChart"
             android:textSize="@dimen/_15sdp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="تعداد شکایات بررسی نشده"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_15sdp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -237,20 +237,20 @@
         android:padding="@dimen/_10sdp">
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تعداد راننده بررسی نشده"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
             android:id="@+id/txtDriverRegistration"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="left"
             android:textColor="@color/redChart"
-            android:textSize="@dimen/_15sdp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="تعداد راننده بررسی نشده"
-            android:textColor="@color/colorWhite"
             android:textSize="@dimen/_15sdp" />
 
     </LinearLayout>

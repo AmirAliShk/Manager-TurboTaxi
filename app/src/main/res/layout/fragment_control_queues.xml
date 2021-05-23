@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
     android:clickable="true"
-    android:layoutDirection="ltr"
+    android:layoutDirection="rtl"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,12 +18,9 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple"
-            android:src="@drawable/ic_back" />
+        <View
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
 
         <TextView
             android:layout_width="0dp"
@@ -34,11 +31,12 @@
             android:textColor="@color/colorWhite"
             android:textSize="30sp" />
 
-        <View
-            android:id="@+id/btnBack2"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:background="@drawable/bg_ripple" />
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple"
+            android:src="@drawable/ic_back" />
 
     </LinearLayout>
 

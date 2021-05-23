@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
+    android:layoutDirection="rtl"
     android:orientation="vertical">
 
     <com.github.mmin18.widget.RealtimeBlurView
@@ -14,76 +15,376 @@
         app:realtimeOverlayColor="#8000" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/bg_also_black_gradient_edge"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_dialog_header"
-            android:gravity="center"
-            android:minWidth="330dp"
-            android:padding="@dimen/_8sdp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorWhite" />
-
         <LinearLayout
-            android:layout_width="330dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:gravity="top"
-            android:minWidth="330dp"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="sample"
-                android:textColor="@color/white" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="از ساعت "
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <EditText
+                    android:id="@+id/edtFromTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_20sdp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="0dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="تا ساعت "
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <EditText
+                    android:id="@+id/edtToTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_20sdp" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:layoutDirection="rtl"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/btnSubmit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_green_all"
-                android:padding="7dp"
-                android:src="@drawable/ic_tick" />
-
-            <View
-                android:layout_width="20dp"
-                android:layout_height="0dp" />
-
-            <ImageView
-                android:id="@+id/btnClose"
+            <LinearLayout
+                android:id="@+id/llCity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_btn_red_all"
-                android:padding="7dp"
-                android:src="@drawable/ic_close" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center_vertical"
+                        android:paddingRight="10dp"
+                        android:text="شهر"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_drop_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/spCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_spinner"
+                            android:dropDownWidth="match_parent"
+                            android:gravity="center"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="0dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="کلاس خودرو"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ir.taxi1880.manager.customView.MultiRowsRadioGroup xmlns:multi_line_radio_group="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/rgCarClass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    multi_line_radio_group:default_button="@string/unKnow"
+                    multi_line_radio_group:max_in_row="3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbUnknow"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorBlue"
+                            android:checked="true"
+                            android:text="اقتصادی"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <RadioButton
+                            android:id="@+id/rbEconomical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorBlue"
+                            android:text="تشریفات"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbTaxi"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorBlue"
+                            android:text="تاکسی"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <RadioButton
+                            android:id="@+id/rbFormality"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/colorBlue"
+                            android:text="ممتاز"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    </LinearLayout>
+
+                </ir.taxi1880.manager.customView.MultiRowsRadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="متر"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <EditText
+                    android:id="@+id/edtMeter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_20sdp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="0dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="توقف"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <EditText
+                    android:id="@+id/edtStop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_20sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="در اختیار"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <EditText
+                    android:id="@+id/edtDisposal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_20sdp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="0dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="حداقل"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <EditText
+                    android:id="@+id/edtMinimum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/_20sdp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_circle_left_blue"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

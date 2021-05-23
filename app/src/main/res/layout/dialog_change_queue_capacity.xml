@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
+    android:layoutDirection="rtl"
     android:orientation="vertical">
 
     <com.github.mmin18.widget.RealtimeBlurView
@@ -14,9 +15,11 @@
         app:realtimeOverlayColor="#8000" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/bg_also_black_gradient_edge"
         android:orientation="vertical">
 
@@ -45,8 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:np_dividerColor="@color/grayMedium"
-                app:np_dividerType="side_lines"
                 app:np_dividerLength="@dimen/_10sdp"
+                app:np_dividerType="side_lines"
                 app:np_fadingEdgeEnabled="true"
                 app:np_fadingEdgeStrength="@android:integer/config_shortAnimTime"
                 app:np_itemSpacing="@dimen/_10sdp"

@@ -9,12 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -37,7 +33,6 @@ import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.fragment.RateFragment;
@@ -327,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
     private void getSummery() {
         if (loader != null)
             loader.setVisibility(View.VISIBLE);
-        RequestHelper.builder(EndPoints.SUMMERY_PATH)
+        RequestHelper.builder(EndPoints.MANAGER_PATH)
                 .listener(summeryCallBack)
                 .get();
     }

@@ -7,6 +7,7 @@
     android:background="@color/alsoBlack"
     android:clickable="true"
     android:gravity="right"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
     android:paddingLeft="40dp"
     android:paddingRight="40dp"
