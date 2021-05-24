@@ -2,16 +2,12 @@ package ir.taxi1880.manager.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,7 +35,6 @@ import ir.taxi1880.manager.fragment.LoginFragment;
 import ir.taxi1880.manager.helper.AppVersionHelper;
 import ir.taxi1880.manager.helper.ContinueProcessing;
 import ir.taxi1880.manager.helper.FragmentHelper;
-import ir.taxi1880.manager.helper.ScreenHelper;
 import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -146,7 +141,7 @@ public class SplashActivity extends AppCompatActivity {
                     .add();
         } else {
             RequestHelper.builder(EndPoints.APP_INFO)
-                    .addPath(new AppVersionHelper(context).getVerionCode() + "")
+                    .addPath(new AppVersionHelper(context).getVersionCode() + "")
                     .listener(onAppInfo)
                     .get();
         }

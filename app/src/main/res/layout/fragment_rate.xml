@@ -39,8 +39,7 @@
                     android:background="@drawable/bg_spinner"
                     android:dropDownWidth="match_parent"
                     android:gravity="center"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:padding="8dp"/>
 
                 <ImageView
                     android:layout_width="30dp"
@@ -70,6 +69,7 @@
         </LinearLayout>
 
         <ListView
+            android:id="@+id/rateList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_rate">

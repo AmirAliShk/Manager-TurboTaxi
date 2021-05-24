@@ -26,7 +26,7 @@ public class AppVersionHelper {
         }
     }
 
-    public int getVerionCode() {
+    public int getVersionCode() {
         return pInfo.versionCode;
     }
 

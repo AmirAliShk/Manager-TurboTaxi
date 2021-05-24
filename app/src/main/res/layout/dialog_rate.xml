@@ -2,9 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:gravity="center"
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
@@ -18,15 +17,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/bg_also_black_gradient_edge"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -51,7 +54,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:numeric="signed"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
             </LinearLayout>
@@ -82,7 +88,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:numeric="signed"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
             </LinearLayout>
 
@@ -91,7 +100,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -170,16 +181,15 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_15sdp" />
 
-                <ir.taxi1880.manager.customView.MultiRowsRadioGroup xmlns:multi_line_radio_group="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/rgCarClass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:id="@+id/llCarClass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:padding="5dp"
-                    multi_line_radio_group:default_button="@string/unKnow"
-                    multi_line_radio_group:max_in_row="3">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -187,24 +197,25 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <RadioButton
-                            android:id="@+id/rbUnknow"
+                        <CheckBox
+                            android:id="@+id/chbEconomical"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:buttonTint="@color/colorBlue"
-                            android:checked="true"
                             android:text="اقتصادی"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white" />
 
-                        <RadioButton
-                            android:id="@+id/rbEconomical"
+                        <CheckBox
+                            android:id="@+id/chbCeremonies"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:buttonTint="@color/colorBlue"
                             android:text="تشریفات"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -214,27 +225,29 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <RadioButton
-                            android:id="@+id/rbTaxi"
+                        <CheckBox
+                            android:id="@+id/chbTaxi"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:buttonTint="@color/colorBlue"
                             android:text="تاکسی"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white" />
 
-                        <RadioButton
-                            android:id="@+id/rbFormality"
+                        <CheckBox
+                            android:id="@+id/chbFormality"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:buttonTint="@color/colorBlue"
                             android:text="ممتاز"
-                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
-                </ir.taxi1880.manager.customView.MultiRowsRadioGroup>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -243,7 +256,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -268,7 +283,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:numeric="signed"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
             </LinearLayout>
@@ -299,7 +317,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:numeric="signed"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
             </LinearLayout>
@@ -309,7 +330,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -334,7 +358,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:numeric="signed"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
             </LinearLayout>
@@ -365,26 +392,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:numeric="signed"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="130dp"
+            android:background="@drawable/bg_circle_left_blue"
+            android:gravity="center"
+            android:text="ثبت"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:background="@drawable/bg_circle_left_blue"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
 </RelativeLayout>

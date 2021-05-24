@@ -2,16 +2,7 @@ package ir.taxi1880.manager.model;
 
 public class CityModel {
   private int id;
-  private String city;
-  private String cityLatin;
-
-  public String getCityLatin() {
-    return cityLatin;
-  }
-
-  public void setCityLatin(String cityLatin) {
-    this.cityLatin = cityLatin;
-  }
+  private String cityName;
 
   public int getId() {
     return id;
@@ -21,11 +12,11 @@ public class CityModel {
     this.id = id;
   }
 
-  public String getCity() {
-    return city;
+  public String getCityName() {
+    return cityName;
   }
 
-  public void setCity(String city) {
-    this.city = city;
+  public void setCityName(String cityName) {
+    this.cityName = cityName;
   }
 }

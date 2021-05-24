@@ -4,10 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kyleduo.switchbutton.SwitchButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -19,41 +23,62 @@ import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.dialog.GeneralDialog;
+import ir.taxi1880.manager.dialog.RateDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
+import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 import static ir.taxi1880.manager.app.MyApplication.context;
 
 public class RateAdapter extends BaseAdapter {
 
-    private ArrayList<CityModel> cityModels;//todo
+    private ArrayList<RateModel> rateModels;
     LayoutInflater inflater;
     int position;
     Unbinder unbinder;
+    int id;
 
-    @BindView(R.id.lineTitle)
-    TextView lineTitle;
+    @BindView(R.id.llRateItem)
+    LinearLayout llRateItem;
 
-    @BindView(R.id.sbNew)
-    SwitchButton sbNew;
+    @BindView(R.id.txtFromTime)
+    TextView txtFromTime;
 
-    @BindView(R.id.sbSupport)
-    SwitchButton sbSupport;
+    @BindView(R.id.txtToTime)
+    TextView txtToTime;
 
-    public RateAdapter(ArrayList<CityModel> cityModels) {//todo
-        this.cityModels = cityModels;
+    @BindView(R.id.txtStop)
+    TextView txtStop;
+
+    @BindView(R.id.txtMeter)
+    TextView txtMeter;
+
+    @BindView(R.id.txtMinimumPrice)
+    TextView txtMinimumPrice;
+
+    @BindView(R.id.txtDisposal)
+    TextView txtDisposal;
+
+    @BindView(R.id.txtCarClass)
+    TextView txtCarClass;
+
+    @BindView(R.id.imgDelete)
+    ImageView imgDelete;
+
+    public RateAdapter(ArrayList<RateModel> rateModels) {
+        this.rateModels = rateModels;
         this.inflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return cityModels.size();
+        return rateModels.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return cityModels.get(i);
+        return rateModels.get(i);
     }
 
     @Override
@@ -65,7 +90,7 @@ public class RateAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View myView = view;
 
-        CityModel currentLinesModel = cityModels.get(i);//todo
+        RateModel rateModel = rateModels.get(i);
 
         if (myView == null) {
             myView = inflater.inflate(R.layout.item_rate, viewGroup, false);
@@ -73,19 +98,45 @@ public class RateAdapter extends BaseAdapter {
         }
         unbinder = ButterKnife.bind(this, myView);
 
-//        sbSupport.setChecked(currentLinesModel.getSupport());
+        txtFromTime.setText(rateModel.getFromHour() + "");
+        txtToTime.setText(rateModel.getToHour() + "");
+        txtStop.setText(rateModel.getStopPricePercent() + "");
+        txtMeter.setText(rateModel.getMeterPricePercent() + "");
+        txtMinimumPrice.setText(rateModel.getMinPricePercent() + "");
+        txtDisposal.setText(rateModel.getCharterPricePercent() + "");
 
-        sbNew.setOnCheckedChangeListener((compoundButton, b) -> {
-//            getLineInfo(currentLinesModel.getId(), sbSupport.isChecked(), b);
-//            sbThird = sbNew;
+        String carClass = "";
+        try {
+            JSONArray carArr = new JSONArray(rateModel.getCarClass());
+            for (int c = 0; c < carArr.length(); c++) {
+                JSONObject carObj = carArr.getJSONObject(c);
+                if (c == 0) {
+                    carClass = carClass + carObj.getString("ClassName");
+                } else {
+                    carClass = carClass + " ," + carObj.getString("ClassName");
+                }
+            }
+            txtCarClass.setText(carClass);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        id = rateModel.getId();
+
+        llRateItem.setOnClickListener((view1) -> {
+            new RateDialog()
+                    .show(rateModel.getId(), rateModel.getCityCode(), rateModel.getFromHour(), rateModel.getToHour(), rateModel.getStopPricePercent(), rateModel.getMeterPricePercent(), rateModel.getEntryPricePercent(), rateModel.getCharterPricePercent(), rateModel.getMinPricePercent());
             position = i;
         });
 
-        sbSupport.setOnCheckedChangeListener((compoundButton, b) -> {
-//            getLineInfo(currentLinesModel.getId(), b, sbNew.isChecked());
-//            sbThird = sbSupport;
-            position = i;
-        });
+        imgDelete.setOnClickListener((view1 -> {
+            new GeneralDialog()
+                    .message("آیا میخواهید این مدل قیمت دهی را حذف کنید؟")
+                    .firstButton("بله", () -> deleteRates())
+                    .secondButton("خیر", null)
+                    .show();
+        }));
 
         return myView;
     }
@@ -93,7 +144,7 @@ public class RateAdapter extends BaseAdapter {
 
     private void deleteRates() {
         RequestHelper.builder(EndPoints.DELETE_RATE)
-                .addParam("IncreaseRateId", IncreaseRateId)
+                .addParam("increaseRateId", id)
                 .listener(deleteRatesCallBack)
                 .delete();
     }
@@ -105,8 +156,8 @@ public class RateAdapter extends BaseAdapter {
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
 
+                    boolean success = object.getBoolean("success");
                     String message = object.getString("message");
-                    boolean status = object.getBoolean("status");
 
                     new GeneralDialog()
                             .message(message)

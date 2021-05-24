@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -23,21 +24,29 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.adapter.QueuesAdapter;
+import ir.taxi1880.manager.adapter.RateAdapter;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
+import ir.taxi1880.manager.model.QueuesModel;
+import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class RateFragment extends Fragment {
 
     Unbinder unbinder;
     ArrayList<CityModel> cityModels;
+    ArrayList<RateModel> rateModels;
+    RateAdapter rateAdapter;
     private String cityName = "";
-    private String cityLatinName = "";
     private int cityCode;
+
+    @BindView(R.id.rateList)
+    ListView rateList;
 
     @BindView(R.id.spCity)
     Spinner spCity;
@@ -55,53 +64,68 @@ public class RateFragment extends Fragment {
         TypefaceUtil.overrideFonts(view);
         unbinder = ButterKnife.bind(this, view);
 
-        MyApplication.handler.postDelayed(() -> initCitySpinner(), 200);
+        MyApplication.handler.postDelayed(() -> getCity(), 200);
 
         return view;
     }
 
-    private void initCitySpinner() {
-        cityModels = new ArrayList<>();
-        ArrayList<String> cityList = new ArrayList<String>();
-        try {
-            JSONArray cityArr = new JSONArray();//todo
-            cityList.add(0, "انتخاب نشده");
-            for (int i = 0; i < cityArr.length(); i++) {
-                JSONObject cityObj = cityArr.getJSONObject(i);
-                CityModel cityModel = new CityModel();
-                cityModel.setCity(cityObj.getString("cityname"));
-                cityModel.setId(cityObj.getInt("cityid"));
-                cityModel.setCityLatin(cityObj.getString("latinName"));
-                cityModels.add(cityModel);
-                cityList.add(i + 1, cityObj.getString("cityname"));
-            }
-            if (spCity == null) return;
-            spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
-            spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 0) {
-                        cityName = null;
-                        cityLatinName = null;
-                        cityCode = -1;
-                        return;
-                    }
-                    cityName = cityModels.get(position - 1).getCity();
-                    cityLatinName = cityModels.get(position - 1).getCityLatin();
-                    cityCode = cityModels.get(position - 1).getId();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void getCity() {
+        RequestHelper.builder(EndPoints.CITY)
+                .listener(getCityCallBack)
+                .get();
     }
 
-    private void getRates() {
+    RequestHelper.Callback getCityCallBack = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(() -> {
+                try {
+                    cityModels = new ArrayList<>();
+                    ArrayList<String> cityList = new ArrayList<String>();
+                    JSONArray citiesArr = new JSONArray(args[0].toString());
+                    cityList.add(0, "انتخاب نشده");
+                    for (int i = 0; i < citiesArr.length(); i++) {
+                        JSONObject citiesObj = citiesArr.getJSONObject(i);
+                        CityModel cityModel = new CityModel();
+                        cityModel.setId(citiesObj.getInt("CityId"));
+                        cityModel.setCityName(citiesObj.getString("CityName"));
+                        cityModels.add(cityModel);
+                        cityList.add(i + 1, citiesObj.getString("CityName"));
+                    }
+                    if (spCity == null) return;
+                    spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
+                    spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if (position == 0) {
+                                cityName = null;
+                                cityCode = -1;
+                                return;
+                            }
+                            cityName = cityModels.get(position - 1).getCityName();
+                            cityCode = cityModels.get(position - 1).getId();
+                            getRates(cityCode);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+        }
+
+    };
+
+    private void getRates(int cityCode) {
         RequestHelper.builder(EndPoints.GET_RATE + cityCode)
                 .listener(getRatesCallBack)
                 .get();
@@ -112,19 +136,37 @@ public class RateFragment extends Fragment {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
+                    rateModels = new ArrayList<RateModel>();
                     JSONObject object = new JSONObject(args[0].toString());
-
+                    boolean success = object.getBoolean("success");
                     String message = object.getString("message");
-                    boolean status = object.getBoolean("status");
+                    if (success) {
+                        JSONArray dataArr = object.getJSONArray("data");
+                        for (int i = 0; i < dataArr.length(); i++) {
+                            JSONObject dataObj = dataArr.getJSONObject(i);
+                            RateModel model = new RateModel();
 
-                    new GeneralDialog()
-                            .message(message)
-                            .cancelable(false)
-                            .firstButton("باشه", null)
-                            .type(2)
-                            .show();
+                            model.setId(dataObj.getInt("id"));
+                            model.setFromHour(dataObj.getInt("fromHour"));
+                            model.setToHour(dataObj.getInt("toHour"));
+                            model.setStopPricePercent(dataObj.getInt("stopPricePercent"));
+                            model.setMeterPricePercent(dataObj.getInt("metrPricePercent"));
+                            model.setEntryPricePercent(dataObj.getInt("entryPricePercent"));
+                            model.setCharterPricePercent(dataObj.getInt("charterPricePercent"));
+                            model.setMinPricePercent(dataObj.getInt("minPricePercent"));
+                            model.setCityCode(dataObj.getInt("cityCode"));
+                            model.setCarClass(dataObj.getString("carClass"));
 
-                } catch (Exception e) {
+                            rateModels.add(model);
+                        }
+
+                        if (rateModels.size() == 0) {
+                        } else {
+                            rateAdapter = new RateAdapter(rateModels);
+                            rateList.setAdapter(rateAdapter);
+                        }
+                    }
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -151,14 +193,14 @@ public class RateFragment extends Fragment {
 //                * @apiParam {int} minPricePercent
 //                * @apiParam {varchar(50)} carClass seprate with ','
                 .addParam("cityCode", cityCode)
-                .addParam("fromHour", fromHour)
-                .addParam("toHour", toHour)
-                .addParam("stopPricePercent", stopPricePercent)
-                .addParam("metrPricePercent", metrPricePercent)
-                .addParam("entryPricePercent", entryPricePercent)
-                .addParam("charterPricePercent", charterPricePercent)
-                .addParam("minPricePercent", minPricePercent)
-                .addParam("carClass", carClass)
+//                .addParam("fromHour", fromHour)
+//                .addParam("toHour", toHour)
+//                .addParam("stopPricePercent", stopPricePercent)
+//                .addParam("metrPricePercent", metrPricePercent)
+//                .addParam("entryPricePercent", entryPricePercent)
+//                .addParam("charterPricePercent", charterPricePercent)
+//                .addParam("minPricePercent", minPricePercent)
+//                .addParam("carClass", carClass)
                 .listener(addRatesCallBack)
                 .post();
     }

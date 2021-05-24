@@ -33,6 +33,7 @@ public class EndPoints {
     public static final String GET_LINE = MANAGER_PATH + "line";
     public static final String GET_QUEUE = MANAGER_PATH + "queue";
     public static final String SUMMERY = MANAGER_PATH + "summery";
+    public static final String CITY = MANAGER_PATH + "getCity";
 
     /******************************** refresh token Api *********************************/
 
@@ -43,8 +44,8 @@ public class EndPoints {
 
     /******************************** change rate Api *********************************/
 
-    public static final String PRICING = MANAGER_PATH + "pricing";
-    public static final String GET_RATE = PRICING + "getIncreaseRate";
+    public static final String PRICING = MANAGER_PATH + "pricing/";
+    public static final String GET_RATE = PRICING + "getIncreaseRate/";
     public static final String EDIT_RATE = PRICING + "editIncreaseRate";
     public static final String DELETE_RATE = PRICING + "deleteIncreaseRate";
     public static final String ADD_RATE = PRICING + "increaseRate";

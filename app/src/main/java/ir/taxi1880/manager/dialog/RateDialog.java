@@ -6,10 +6,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import org.json.JSONObject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
@@ -21,8 +24,27 @@ public class RateDialog {
 
     Unbinder unbinder;
     static Dialog dialog;
+    int increaseRateId;
+    int cityCode;
+    int fromHour;
+    int toHour;
+    int stopPricePercent;
+    int meterPricePercent;
+    int entryPricePercent;
+    int charterPricePercent;
+    int minPricePercent;
+    int carClass;
 
-    public void show() {//todo
+    @OnClick(R.id.btnSubmit)
+    void onSubmit() {
+        editRate();
+    }
+
+    @BindView(R.id.llCarClass)
+    LinearLayout llCarClass;
+
+    public void show(int increaseRateId, int cityCode, int fromHour, int toHour, int stopPricePercent, int meterPricePercent, int entryPricePercent, int charterPricePercent, int minPricePercent) {
+
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())
             return;
         dialog = new Dialog(MyApplication.currentActivity);
@@ -39,6 +61,17 @@ public class RateDialog {
         dialog.getWindow().setAttributes(wlp);
         dialog.setCancelable(true);
 
+        this.increaseRateId = increaseRateId;
+        this.cityCode = cityCode;
+        this.fromHour = fromHour;
+        this.toHour = toHour;
+        this.stopPricePercent = stopPricePercent;
+        this.meterPricePercent = meterPricePercent;
+        this.entryPricePercent = entryPricePercent;
+        this.charterPricePercent = charterPricePercent;
+        this.minPricePercent = minPricePercent;
+
+
         dialog.show();
     }
 
@@ -46,7 +79,7 @@ public class RateDialog {
         RequestHelper.builder(EndPoints.EDIT_RATE)
 //            {put} /api/manager/v2/pricing/editIncreaseRate
 //Params:
-//* @apiParam {int} increaseRateId
+// * @apiParam {int} increaseRateId
 // * @apiParam {int} cityCode
 // * @apiParam {int} fromHour
 // * @apiParam {int} toHour
@@ -62,7 +95,7 @@ public class RateDialog {
                 .addParam("fromHour", fromHour)
                 .addParam("toHour", toHour)
                 .addParam("stopPricePercent", stopPricePercent)
-                .addParam("metrPricePercent", metrPricePercent)
+                .addParam("metrPricePercent", meterPricePercent)
                 .addParam("entryPricePercent", entryPricePercent)
                 .addParam("charterPricePercent", charterPricePercent)
                 .addParam("minPricePercent", minPricePercent)
