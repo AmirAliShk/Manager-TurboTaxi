@@ -38,6 +38,7 @@ public class PrefManager {
     private static final String REFRESH_TOKEN = "refreshToken";
     private static final String REPETITION_TIME = "repetitionTime";
     private static final String KEY_ACTIVATION_REMAINING_TIME = "activationRemainingTime";
+    private static final String CITY = "city";
 
     public PrefManager(Context context) {
         this._context = context;
@@ -189,5 +190,13 @@ public class PrefManager {
         return pref.getLong(KEY_ACTIVATION_REMAINING_TIME, getRepetitionTime());
     }
 
+    public void setCity(String city) {
+        Log.d("LOG", "setCity: " + city);
+        editor.putString(CITY, city);
+        editor.commit();
+    }
 
+    public String getCity() {
+        return pref.getString(CITY, "");
+    }
 }

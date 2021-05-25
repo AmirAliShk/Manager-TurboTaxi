@@ -108,19 +108,19 @@
             <LinearLayout
                 android:id="@+id/llCity"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="0.75"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="0.5"
                         android:gravity="center_vertical"
                         android:paddingRight="10dp"
@@ -137,27 +137,25 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.75"
                     android:gravity="center">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
                         <Spinner
                             android:id="@+id/spCity"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="match_parent"
                             android:background="@drawable/bg_spinner"
                             android:dropDownWidth="match_parent"
                             android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp" />
-
-                    </RelativeLayout>
+                            android:padding="8dp" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.25"/>
 
             </LinearLayout>
 
@@ -273,12 +271,12 @@
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
-                    android:text="متر"
+                    android:text="توقف"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_15sdp" />
 
                 <EditText
-                    android:id="@+id/edtMeter"
+                    android:id="@+id/edtStop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -307,12 +305,12 @@
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
-                    android:text="توقف"
+                    android:text="متر"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_15sdp" />
 
                 <EditText
-                    android:id="@+id/edtStop"
+                    android:id="@+id/edtMeter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -348,12 +346,12 @@
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
-                    android:text="در اختیار"
+                    android:text="حداقل"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_15sdp" />
 
                 <EditText
-                    android:id="@+id/edtDisposal"
+                    android:id="@+id/edtMinimum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -382,12 +380,12 @@
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
-                    android:text="حداقل"
+                    android:text="در اختیار"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_15sdp" />
 
                 <EditText
-                    android:id="@+id/edtMinimum"
+                    android:id="@+id/edtDisposal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -408,16 +406,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="130dp"
             android:layout_marginRight="130dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/bg_circle_left_blue"
             android:gravity="center"
             android:text="ثبت"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
-            android:layout_marginBottom="10dp"
             android:textStyle="bold" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package ir.taxi1880.manager.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +33,9 @@ import ir.taxi1880.manager.adapter.RateAdapter;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.app.PrefManager;
 import ir.taxi1880.manager.dialog.GeneralDialog;
+import ir.taxi1880.manager.dialog.RateDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
 import ir.taxi1880.manager.model.QueuesModel;
@@ -43,8 +48,8 @@ public class RateFragment extends Fragment {
     ArrayList<CityModel> cityModels;
     ArrayList<RateModel> rateModels;
     RateAdapter rateAdapter;
-    private String cityName = "";
-    private int cityCode;
+    static String cityName = "";
+    static int cityCode;
 
     @BindView(R.id.rateList)
     ListView rateList;
@@ -54,6 +59,20 @@ public class RateFragment extends Fragment {
 
     @BindView(R.id.vfRate)
     ViewFlipper vfRate;
+
+    @BindView(R.id.fabAdd)
+    FloatingActionButton fabAdd;
+
+    @OnClick(R.id.fabAdd)
+    void onAdd() {
+        new RateDialog()
+                .show(null, new RateDialog.RateDialogListener() {
+                    @Override
+                    public void rateModel(RateModel model) {
+
+                    }
+                });  // TODO check null value
+    }
 
     @OnClick(R.id.btnBack)
     void onBack() {
@@ -69,7 +88,7 @@ public class RateFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         if (vfRate != null)
             vfRate.setDisplayedChild(0);
-
+        fabAdd.setVisibility(View.GONE);
         MyApplication.handler.postDelayed(() -> getCity(), 200);
 
         return view;
@@ -89,6 +108,7 @@ public class RateFragment extends Fragment {
                     cityModels = new ArrayList<>();
                     ArrayList<String> cityList = new ArrayList<String>();
                     JSONArray citiesArr = new JSONArray(args[0].toString());
+                    MyApplication.prefManager.setCity(args[0].toString());
                     cityList.add(0, "انتخاب نشده");
                     for (int i = 0; i < citiesArr.length(); i++) {
                         JSONObject citiesObj = citiesArr.getJSONObject(i);
@@ -99,6 +119,7 @@ public class RateFragment extends Fragment {
                         cityList.add(i + 1, citiesObj.getString("CityName"));
                     }
                     if (spCity == null) return;
+
                     spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
                     spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -110,6 +131,7 @@ public class RateFragment extends Fragment {
                             }
                             cityName = cityModels.get(position - 1).getCityName();
                             cityCode = cityModels.get(position - 1).getId();
+
                             getRates(cityCode);
                         }
 
@@ -149,6 +171,7 @@ public class RateFragment extends Fragment {
                     boolean success = object.getBoolean("success");
                     String message = object.getString("message");
                     if (success) {
+                        fabAdd.setVisibility(View.VISIBLE);
                         JSONArray dataArr = object.getJSONArray("data");
                         for (int i = 0; i < dataArr.length(); i++) {
                             JSONObject dataObj = dataArr.getJSONObject(i);
@@ -190,62 +213,8 @@ public class RateFragment extends Fragment {
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             super.onFailure(reCall, e);
-        }
-    };
-
-    private void addRates() {
-        RequestHelper.builder(EndPoints.ADD_RATE)
-//        {post} /api/manager/v2/pricing/increaseRate increaseRate
-//        Params:
-//                * @apiParam {int} cityCode
-//                * @apiParam {int} fromHour
-//                * @apiParam {int} toHour
-//                * @apiParam {int} stopPricePercent
-//                * @apiParam {int} metrPricePercent
-//                * @apiParam {int} entryPricePercent
-//                * @apiParam {int} charterPricePercent
-//                * @apiParam {int} minPricePercent
-//                * @apiParam {varchar(50)} carClass seprate with ','
-                .addParam("cityCode", cityCode)
-//                .addParam("fromHour", fromHour)
-//                .addParam("toHour", toHour)
-//                .addParam("stopPricePercent", stopPricePercent)
-//                .addParam("metrPricePercent", metrPricePercent)
-//                .addParam("entryPricePercent", entryPricePercent)
-//                .addParam("charterPricePercent", charterPricePercent)
-//                .addParam("minPricePercent", minPricePercent)
-//                .addParam("carClass", carClass)
-                .listener(addRatesCallBack)
-                .post();
-    }
-
-    RequestHelper.Callback addRatesCallBack = new RequestHelper.Callback() {
-        @Override
-        public void onResponse(Runnable reCall, Object... args) {
-            MyApplication.handler.post(() -> {
-                try {
-                    JSONObject object = new JSONObject(args[0].toString());
-
-                    String message = object.getString("message");
-                    boolean status = object.getBoolean("status");
-
-                    new GeneralDialog()
-                            .message(message)
-                            .cancelable(false)
-                            .firstButton("باشه", null)
-                            .type(2)
-                            .show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            });
-        }
-
-        @Override
-        public void onFailure(Runnable reCall, Exception e) {
-            super.onFailure(reCall, e);
+            if (vfRate != null)
+                vfRate.setDisplayedChild(4);
         }
     };
 

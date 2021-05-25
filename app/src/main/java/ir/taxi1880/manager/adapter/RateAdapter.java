@@ -126,7 +126,12 @@ public class RateAdapter extends BaseAdapter {
 
         llRateItem.setOnClickListener((view1) -> {
             new RateDialog()
-                    .show(rateModel.getId(), rateModel.getCityCode(), rateModel.getFromHour(), rateModel.getToHour(), rateModel.getStopPricePercent(), rateModel.getMeterPricePercent(), rateModel.getEntryPricePercent(), rateModel.getCharterPricePercent(), rateModel.getMinPricePercent());
+                    .show(rateModel, new RateDialog.RateDialogListener() {
+                        @Override
+                        public void rateModel(RateModel model) {
+
+                        }
+                    });
             position = i;
         });
 
