@@ -71,7 +71,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/bg_ripple"
         android:padding="6dp"
-        android:src="@drawable/ic_system_summary" />
+        android:src="@drawable/ic_rate" />
 
     <TextView
         android:layout_width="match_parent"
