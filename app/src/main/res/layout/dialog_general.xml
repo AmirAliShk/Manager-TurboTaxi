@@ -70,12 +70,12 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/btnSecond"
+                    android:id="@+id/btnFirst"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_circle_green_all"
+                    android:background="@drawable/bg_circle_left_blue"
                     android:gravity="center"
                     android:paddingBottom="5dip"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -89,12 +89,12 @@
                     android:layout_height="match_parent" />
 
                 <Button
-                    android:id="@+id/btnFirst"
+                    android:id="@+id/btnSecond"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_circle_left_blue"
+                    android:background="@drawable/bg_circle_green_all"
                     android:gravity="center"
                     android:paddingBottom="5dip"
                     android:textAppearance="?android:attr/textAppearanceMedium"

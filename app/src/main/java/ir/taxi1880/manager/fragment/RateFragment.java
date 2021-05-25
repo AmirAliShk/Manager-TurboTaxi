@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,6 +52,9 @@ public class RateFragment extends Fragment {
     @BindView(R.id.spCity)
     Spinner spCity;
 
+    @BindView(R.id.vfRate)
+    ViewFlipper vfRate;
+
     @OnClick(R.id.btnBack)
     void onBack() {
         MyApplication.currentActivity.onBackPressed();
@@ -63,6 +67,8 @@ public class RateFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         TypefaceUtil.overrideFonts(view);
         unbinder = ButterKnife.bind(this, view);
+        if (vfRate != null)
+            vfRate.setDisplayedChild(0);
 
         MyApplication.handler.postDelayed(() -> getCity(), 200);
 
@@ -126,6 +132,8 @@ public class RateFragment extends Fragment {
     };
 
     private void getRates(int cityCode) {
+        if (vfRate != null)
+            vfRate.setDisplayedChild(1);
         RequestHelper.builder(EndPoints.GET_RATE + cityCode)
                 .listener(getRatesCallBack)
                 .get();
@@ -161,13 +169,19 @@ public class RateFragment extends Fragment {
                         }
 
                         if (rateModels.size() == 0) {
+                            if (vfRate != null)
+                                vfRate.setDisplayedChild(3);
                         } else {
+                            if (vfRate != null)
+                                vfRate.setDisplayedChild(2);
                             rateAdapter = new RateAdapter(rateModels);
                             rateList.setAdapter(rateAdapter);
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    if (vfRate != null)
+                        vfRate.setDisplayedChild(4);
                 }
 
             });

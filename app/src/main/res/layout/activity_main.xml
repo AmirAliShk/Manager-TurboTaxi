@@ -45,13 +45,14 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_baseline_dehaze_24" />
+
                 </LinearLayout>
 
             </RelativeLayout>
 
-            <TextView
+            <View
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="0.9" />
 
             <com.wang.avi.AVLoadingIndicatorView
@@ -63,9 +64,9 @@
                 android:visibility="gone"
                 app:indicatorColor="#508dff " />
 
-            <TextView
+            <View
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="0.9" />
 
             <RelativeLayout
@@ -288,9 +289,10 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
 
+        </ScrollView>
+
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
