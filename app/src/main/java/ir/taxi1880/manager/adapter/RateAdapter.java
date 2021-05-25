@@ -135,6 +135,7 @@ public class RateAdapter extends BaseAdapter {
                     .message("آیا میخواهید این مدل قیمت دهی را حذف کنید؟")
                     .firstButton("بله", () -> deleteRates())
                     .secondButton("خیر", null)
+                    .type(1)
                     .show();
         }));
 
