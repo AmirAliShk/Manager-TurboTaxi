@@ -51,10 +51,19 @@
 
             </RelativeLayout>
 
+            <ImageView
+                android:id="@+id/imgRefresh"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_ripple"
+                android:padding="16dp"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_refresh" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.1"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="27sp"
@@ -99,7 +108,8 @@
                 android:id="@+id/rateList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_rate" />
+                tools:listitem="@layout/item_rate"
+                android:divider="@null"/>
 
             <TextView
                 android:layout_width="match_parent"

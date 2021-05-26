@@ -1,7 +1,6 @@
 package ir.taxi1880.manager.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,22 +22,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
-import ir.taxi1880.manager.adapter.QueuesAdapter;
 import ir.taxi1880.manager.adapter.RateAdapter;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.app.PrefManager;
-import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.dialog.RateDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
-import ir.taxi1880.manager.model.QueuesModel;
 import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
@@ -46,32 +40,25 @@ public class RateFragment extends Fragment {
 
     Unbinder unbinder;
     ArrayList<CityModel> cityModels;
-    ArrayList<RateModel> rateModels;
-    RateAdapter rateAdapter;
-    static String cityName = "";
-    static int cityCode;
+    static ArrayList<RateModel> rateModels;
+    static RateAdapter rateAdapter;
+    String cityName = "";
+    int cityCode;
 
-    @BindView(R.id.rateList)
-    ListView rateList;
-
-    @BindView(R.id.spCity)
-    Spinner spCity;
-
-    @BindView(R.id.vfRate)
-    ViewFlipper vfRate;
-
-    @BindView(R.id.fabAdd)
-    FloatingActionButton fabAdd;
+    static ViewFlipper vfRate;
+    static FloatingActionButton fabAdd;
+    static ListView rateList;
+    public static Spinner spCity1;
 
     @OnClick(R.id.fabAdd)
     void onAdd() {
         new RateDialog()
-                .show(null, new RateDialog.RateDialogListener() {
-                    @Override
-                    public void rateModel(RateModel model) {
+                .show(null);
+    }
 
-                    }
-                });  // TODO check null value
+    @OnClick(R.id.imgRefresh)
+    void onRefresh(){
+        getRates(cityCode);
     }
 
     @OnClick(R.id.btnBack)
@@ -86,10 +73,16 @@ public class RateFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         TypefaceUtil.overrideFonts(view);
         unbinder = ButterKnife.bind(this, view);
+        rateList = view.findViewById(R.id.rateList);
+        vfRate = view.findViewById(R.id.vfRate);
+        fabAdd = view.findViewById(R.id.fabAdd);
+        spCity1 = view.findViewById(R.id.spCity);
+
         if (vfRate != null)
             vfRate.setDisplayedChild(0);
         fabAdd.setVisibility(View.GONE);
-        MyApplication.handler.postDelayed(() -> getCity(), 200);
+
+        getCity();
 
         return view;
     }
@@ -105,40 +98,8 @@ public class RateFragment extends Fragment {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
-                    cityModels = new ArrayList<>();
-                    ArrayList<String> cityList = new ArrayList<String>();
-                    JSONArray citiesArr = new JSONArray(args[0].toString());
                     MyApplication.prefManager.setCity(args[0].toString());
-                    cityList.add(0, "انتخاب نشده");
-                    for (int i = 0; i < citiesArr.length(); i++) {
-                        JSONObject citiesObj = citiesArr.getJSONObject(i);
-                        CityModel cityModel = new CityModel();
-                        cityModel.setId(citiesObj.getInt("CityId"));
-                        cityModel.setCityName(citiesObj.getString("CityName"));
-                        cityModels.add(cityModel);
-                        cityList.add(i + 1, citiesObj.getString("CityName"));
-                    }
-                    if (spCity == null) return;
-
-                    spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
-                    spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            if (position == 0) {
-                                cityName = null;
-                                cityCode = -1;
-                                return;
-                            }
-                            cityName = cityModels.get(position - 1).getCityName();
-                            cityCode = cityModels.get(position - 1).getId();
-
-                            getRates(cityCode);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                        }
-                    });
+                    initCity();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -153,15 +114,63 @@ public class RateFragment extends Fragment {
 
     };
 
-    private void getRates(int cityCode) {
-        if (vfRate != null)
-            vfRate.setDisplayedChild(1);
-        RequestHelper.builder(EndPoints.GET_RATE + cityCode)
-                .listener(getRatesCallBack)
-                .get();
+    public void initCity() {
+        cityModels = new ArrayList<>();
+        ArrayList<String> cityList = new ArrayList<String>();
+        try {
+            JSONArray cityArr = new JSONArray(MyApplication.prefManager.getCity());
+            cityList.add(0, "انتخاب نشده");
+            for (int i = 0; i < cityArr.length(); i++) {
+                JSONObject citiesObj = cityArr.getJSONObject(i);
+                CityModel cityModel = new CityModel();
+                cityModel.setId(citiesObj.getInt("CityId"));
+                cityModel.setCityName(citiesObj.getString("CityName"));
+                cityModels.add(cityModel);
+                cityList.add(i + 1, citiesObj.getString("CityName"));
+            }
+            if (spCity1 == null) return;
+
+            spCity1.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
+            spCity1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 0) {
+                        cityName = null;
+                        cityCode = -1;
+                        return;
+                    }
+                    cityName = cityModels.get(position - 1).getCityName();
+                    cityCode = cityModels.get(position - 1).getId();
+
+//                    getRates(cityCode);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    RequestHelper.Callback getRatesCallBack = new RequestHelper.Callback() {
+    public static void getRates(int cityCode) {
+        if (cityCode == 0 || cityCode == -1 ) {
+            if (vfRate != null) {
+                vfRate.setDisplayedChild(0);
+            }
+        } else {
+            if (vfRate != null)
+                vfRate.setDisplayedChild(1);
+            RequestHelper.builder(EndPoints.GET_RATE + cityCode)
+                    .listener(getRatesCallBack)
+                    .get();
+        }
+
+    }
+
+    static RequestHelper.Callback getRatesCallBack = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
@@ -218,4 +227,8 @@ public class RateFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

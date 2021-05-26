@@ -13,13 +13,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,10 +29,15 @@ import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.fragment.RateFragment;
+import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
 import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
+
+import static ir.taxi1880.manager.fragment.RateFragment.getRates;
+import static ir.taxi1880.manager.fragment.RateFragment.spCity1;
 
 public class RateDialog {
 
@@ -47,19 +52,11 @@ public class RateDialog {
     int entryPricePercent;
     int charterPricePercent;
     int minPricePercent;
-    int carClass;
-    CityModel cityModel;
-    RateModel rateModel;
     String carType = "";
     private String cityName = "";
     private int cityCode2;
     ArrayList<CityModel> cityModels;
-
-    public interface RateDialogListener {
-        void rateModel(RateModel model);
-    }
-
-    RateDialogListener listener;
+    String strCarClass = "";
 
     RateModel model;
 
@@ -101,18 +98,25 @@ public class RateDialog {
 
     @OnClick(R.id.btnSubmit)
     void onSubmit() {
-        //TODO check condition here
-
-        listener.rateModel(rateModel);
-
-        if (model != null) {
-            editRate();
-        } else if (model == null) {
-            addRates();
+        if (edtFromTime.getText() == null ||
+                edtToTime.getText() == null ||
+                spCity.getSelectedItemId() == 0 ||
+                edtMeter.getText() == null ||
+                edtStop.getText() == null ||
+                edtDisposal.getText() == null ||
+                edtMinimum.getText() == null
+                || strCarClass.equals("")) {
+            MyApplication.Toast("لطفا تمام فیلد ها رو کامل کنید.", Toast.LENGTH_SHORT);
+        } else {
+            if (model != null) {
+                editRate();
+            } else if (model == null) {
+                addRates();
+            }
         }
     }
 
-    public void show(RateModel model, RateDialogListener listener) {
+    public void show(RateModel model) {
 
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())
             return;
@@ -130,7 +134,6 @@ public class RateDialog {
         dialog.getWindow().setAttributes(wlp);
         dialog.setCancelable(true);
 
-        this.listener = listener;
         this.model = model;
         if (model != null) {
             this.increaseRateId = model.getId();
@@ -156,22 +159,44 @@ public class RateDialog {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            if (carType.matches("اقتصادی"))
+            if (carType.contains("اقتصادي")) {
                 chbEconomical.setChecked(true);
+                if (strCarClass.equals("")) {
+                    strCarClass = "1";
+                } else {
+                    strCarClass += ",1";
+                }
+            }
 
-            if (carType.matches("تشریفات"))
-                chbCeremonies.setChecked(true);
-
-            if (carType.matches("تاکسی"))
-                chbTaxi.setChecked(true);
-
-            if (carType.matches("ممتاز"))
+            if (carType.contains("ممتاز")) {
                 chbFormality.setChecked(true);
+                if (strCarClass.equals("")) {
+                    strCarClass = "2";
+                } else {
+                    strCarClass += ",2";
+                }
+            }
+
+            if (carType.contains("تشريفات")) {
+                chbCeremonies.setChecked(true);
+                if (strCarClass.equals("")) {
+                    strCarClass = "3";
+                } else {
+                    strCarClass += ",3";
+                }
+            }
+
+            if (carType.contains("تاکسي")) {
+                chbTaxi.setChecked(true);
+                if (strCarClass.equals("")) {
+                    strCarClass = "4";
+                } else {
+                    strCarClass += ",4";
+                }
+            }
 
             edtFromTime.setText(fromHour + "");
             edtToTime.setText(toHour + "");
-            spCity.setSelection(cityCode);
             edtMeter.setText(meterPricePercent + "");
             edtStop.setText(stopPricePercent + "");
             edtDisposal.setText(charterPricePercent + "");
@@ -203,46 +228,82 @@ public class RateDialog {
                     }
                     cityName = cityModels.get(position - 1).getCityName();
                     cityCode2 = cityModels.get(position - 1).getId();
-//                    getRates(cityCode);//todo
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-
+            spCity.setSelection(cityCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        chbEconomical.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (chbEconomical.isChecked()) {
+                if (strCarClass.equals("")) {
+                    strCarClass = "1";
+                } else {
+                    strCarClass += ",1";
+                }
+            } else {
+               strCarClass =   strCarClass.replace("1", "");
+            }
+        });
+
+        chbCeremonies.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (chbCeremonies.isChecked()) {
+                if (strCarClass.equals("")) {
+                    strCarClass = "3";
+                } else {
+                    strCarClass += ",3";
+                }
+            } else {
+                strCarClass =  strCarClass.replace(",3", "");
+            }
+        });
+
+        chbTaxi.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                if (strCarClass.equals("")) {
+                    strCarClass = "4";
+                } else {
+                    strCarClass += ",4";
+                }
+            } else {
+              strCarClass =  strCarClass.replace(",4", "");
+            }
+        });
+
+        chbFormality.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (chbFormality.isChecked()) {
+                if (strCarClass.equals("")) {
+                    strCarClass = "2";
+                } else {
+                    strCarClass += ",2";
+                }
+            } else {
+                strCarClass =  strCarClass.replace(",2", "");
+            }
+        });
+
+        edtFromTime.requestFocus();
+        MyApplication.handler.postDelayed(() -> KeyBoardHelper.showKeyboard(MyApplication.context), 300);
         dialog.show();
     }
 
     private void editRate() {
         RequestHelper.builder(EndPoints.EDIT_RATE)
-//            {put} /api/manager/v2/pricing/editIncreaseRate
-//Params:
-// * @apiParam {int} increaseRateId
-// * @apiParam {int} cityCode
-// * @apiParam {int} fromHour
-// * @apiParam {int} toHour
-// * @apiParam {int} stopPricePercent
-// * @apiParam {int} metrPricePercent
-// * @apiParam {int} entryPricePercent
-// * @apiParam {int} charterPricePercent
-// * @apiParam {int} minPricePercent
-// * @apiParam {varchar(50)} carClass  seprate with ','
-
-                .addParam("increaseRateId", increaseRateId)
-                .addParam("cityCode", cityCode)
-                .addParam("fromHour", fromHour)
-                .addParam("toHour", toHour)
-                .addParam("stopPricePercent", stopPricePercent)
-                .addParam("metrPricePercent", meterPricePercent)
-                .addParam("entryPricePercent", entryPricePercent)
-                .addParam("charterPricePercent", charterPricePercent)
-                .addParam("minPricePercent", minPricePercent)
-                .addParam("carClass", carClass)
+                .addParam("increaseRateId", increaseRateId + "")
+                .addParam("cityCode", spCity.getSelectedItemId())
+                .addParam("fromHour", edtFromTime.getText())
+                .addParam("toHour", edtToTime.getText())
+                .addParam("stopPricePercent", edtStop.getText())
+                .addParam("metrPricePercent", edtMeter.getText())
+                .addParam("charterPricePercent", edtDisposal.getText())
+                .addParam("minPricePercent", edtMinimum.getText())
+                .addParam("entryPricePercent", 0)
+                .addParam("carClass", strCarClass)
                 .listener(editaRateCallBack)
                 .put();
     }
@@ -255,15 +316,16 @@ public class RateDialog {
                     JSONObject object = new JSONObject(args[0].toString());
 
                     String message = object.getString("message");
-                    boolean status = object.getBoolean("status");
-
+                    boolean success = object.getBoolean("success");
+                    spCity1.setSelection((int) spCity.getSelectedItemId());
+                    getRates((int) spCity.getSelectedItemId());
                     new GeneralDialog()
                             .message(message)
                             .cancelable(false)
                             .firstButton("باشه", null)
                             .type(2)
                             .show();
-
+                    dismiss();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -277,20 +339,8 @@ public class RateDialog {
         }
     };
 
-
     private void addRates() {
         RequestHelper.builder(EndPoints.ADD_RATE)
-//        {post} /api/manager/v2/pricing/increaseRate increaseRate
-//        Params:
-//                * @apiParam {int} cityCode
-//                * @apiParam {int} fromHour
-//                * @apiParam {int} toHour
-//                * @apiParam {int} stopPricePercent
-//                * @apiParam {int} metrPricePercent
-//                * @apiParam {int} entryPricePercent
-//                * @apiParam {int} charterPricePercent
-//                * @apiParam {int} minPricePercent
-//                * @apiParam {varchar(50)} carClass seprate with ','
                 .addParam("cityCode", spCity.getSelectedItemId())
                 .addParam("fromHour", edtFromTime.getText())
                 .addParam("toHour", edtToTime.getText())
@@ -298,9 +348,11 @@ public class RateDialog {
                 .addParam("metrPricePercent", edtMeter.getText())
                 .addParam("charterPricePercent", edtDisposal.getText())
                 .addParam("minPricePercent", edtMinimum.getText())
-                .addParam("carClass", carClass)//todo
+                .addParam("entryPricePercent", 0)
+                .addParam("carClass", strCarClass)
                 .listener(addRatesCallBack)
                 .post();
+
     }
 
     RequestHelper.Callback addRatesCallBack = new RequestHelper.Callback() {
@@ -311,14 +363,25 @@ public class RateDialog {
                     JSONObject object = new JSONObject(args[0].toString());
 
                     String message = object.getString("message");
-                    boolean status = object.getBoolean("status");
-
-                    new GeneralDialog()
-                            .message(message)
-                            .cancelable(false)
-                            .firstButton("باشه", null)
-                            .type(2)
-                            .show();
+                    boolean success = object.getBoolean("success");
+                    spCity1.setSelection((int) spCity.getSelectedItemId());
+                    getRates((int) spCity.getSelectedItemId());
+                    if (success) {
+                        new GeneralDialog()
+                                .message(message)
+                                .cancelable(false)
+                                .firstButton("باشه", null)
+                                .type(2)
+                                .show();
+                    } else {
+                        new GeneralDialog()
+                                .message(message)
+                                .cancelable(false)
+                                .firstButton("باشه", null)
+                                .type(3)
+                                .show();
+                    }
+                    dismiss();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -332,4 +395,18 @@ public class RateDialog {
             super.onFailure(reCall, e);
         }
     };
+
+    private static void dismiss() {
+        try {
+            Log.i("TAG", "dismiss run");
+            if (dialog != null) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                KeyBoardHelper.hideKeyboard();
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "dismiss: " + e.getMessage());
+        }
+        dialog = null;
+    }
 }

@@ -55,7 +55,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:numeric="signed"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtToTime"
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
@@ -89,7 +90,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:numeric="signed"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/edtStop"
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
@@ -141,21 +143,21 @@
                     android:layout_weight="0.75"
                     android:gravity="center">
 
-                        <Spinner
-                            android:id="@+id/spCity"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/bg_spinner"
-                            android:dropDownWidth="match_parent"
-                            android:gravity="center"
-                            android:padding="8dp" />
+                    <Spinner
+                        android:id="@+id/spCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_spinner"
+                        android:dropDownWidth="match_parent"
+                        android:gravity="center"
+                        android:padding="8dp" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.25"/>
+                    android:layout_weight="0.25" />
 
             </LinearLayout>
 
@@ -282,7 +284,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:numeric="signed"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtMeter"
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
@@ -316,7 +319,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:numeric="signed"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/edtMinimum"
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
@@ -357,7 +361,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:numeric="signed"
+                    android:inputType="numberDecimal"
+                    android:nextFocusLeft="@id/edtDisposal"
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
@@ -391,7 +396,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:gravity="center"
-                    android:numeric="signed"
+                    android:inputType="numberDecimal"
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />

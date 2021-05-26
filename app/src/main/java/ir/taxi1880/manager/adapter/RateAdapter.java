@@ -30,6 +30,7 @@ import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 import static ir.taxi1880.manager.app.MyApplication.context;
+import static ir.taxi1880.manager.fragment.RateFragment.getRates;
 
 public class RateAdapter extends BaseAdapter {
 
@@ -37,8 +38,7 @@ public class RateAdapter extends BaseAdapter {
     LayoutInflater inflater;
     int position;
     Unbinder unbinder;
-    int id;
-
+    RateModel rateModel;
     @BindView(R.id.llRateItem)
     LinearLayout llRateItem;
 
@@ -90,7 +90,7 @@ public class RateAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View myView = view;
 
-        RateModel rateModel = rateModels.get(i);
+        rateModel = rateModels.get(i);
 
         if (myView == null) {
             myView = inflater.inflate(R.layout.item_rate, viewGroup, false);
@@ -122,23 +122,17 @@ public class RateAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        id = rateModel.getId();
 
         llRateItem.setOnClickListener((view1) -> {
             new RateDialog()
-                    .show(rateModel, new RateDialog.RateDialogListener() {
-                        @Override
-                        public void rateModel(RateModel model) {
-
-                        }
-                    });
+                    .show(rateModel);
             position = i;
         });
 
         imgDelete.setOnClickListener((view1 -> {
             new GeneralDialog()
                     .message("آیا میخواهید این مدل قیمت دهی را حذف کنید؟")
-                    .firstButton("بله", () -> deleteRates())
+                    .firstButton("بله", () -> deleteRates(rateModel.getId()))
                     .secondButton("خیر", null)
                     .type(1)
                     .show();
@@ -148,7 +142,7 @@ public class RateAdapter extends BaseAdapter {
     }
 
 
-    private void deleteRates() {
+    private void deleteRates(int id) {
         RequestHelper.builder(EndPoints.DELETE_RATE)
                 .addParam("increaseRateId", id)
                 .listener(deleteRatesCallBack)
@@ -164,7 +158,11 @@ public class RateAdapter extends BaseAdapter {
 
                     boolean success = object.getBoolean("success");
                     String message = object.getString("message");
-
+                    if (success) {
+                        rateModels.remove(position);
+                        notifyDataSetChanged();
+                        getRates(rateModel.getCityCode());
+                    }
                     new GeneralDialog()
                             .message(message)
                             .cancelable(false)
