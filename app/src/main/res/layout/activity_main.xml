@@ -55,14 +55,28 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.9" />
 
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/loader"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:visibility="gone"
-                app:indicatorColor="#508dff " />
+            <ViewFlipper
+                android:id="@+id/vfLoader"
+                android:layout_width="56dp"
+                android:layout_height="56dp">
+
+                <ImageView
+                    android:id="@+id/imgRefresh"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_ripple"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_refresh" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    app:indicatorColor="#fff " />
+
+            </ViewFlipper>
+
 
             <View
                 android:layout_width="0dp"

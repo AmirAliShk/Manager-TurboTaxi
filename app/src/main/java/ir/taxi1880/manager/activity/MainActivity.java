@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ChartsModel> chartsModels2;
     ArrayList<ChartsModel> chartsModels3;
 
-    Timer timer;
-
     private ColumnChartData data1;
     private ColumnChartData data2;
     private ColumnChartData data3;
@@ -87,9 +86,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.txtVersionName)
     TextView txtVersionName;
 
-    @BindView(R.id.loader)
-    AVLoadingIndicatorView loader;
-
+    @BindView(R.id.vfLoader)
+    ViewFlipper vfLoader;
     @BindView(R.id.navigation)
     NavigationView navigation;
 
@@ -138,6 +136,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentHelper.toFragment(MyApplication.currentActivity, new SystemSummeryFragment()).setAddToBackStack(true).replace();
     }
 
+    @OnClick(R.id.imgRefresh)
+    void onRefresh() {
+        getSummery();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
         unbinder = ButterKnife.bind(this, view);
         TypefaceUtil.overrideFonts(view);
-
+        getSummery();
         txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
 
     }
@@ -272,7 +275,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         MyApplication.currentActivity = this;
         MyApplication.prefManager.setAppRun(true);
-        startGetAddressTimer();
     }
 
     @Override
@@ -296,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        stopGetAddressTimer();
     }
 
     @Override
@@ -320,8 +321,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSummery() {
-        if (loader != null)
-            loader.setVisibility(View.VISIBLE);
+        if (vfLoader != null)
+            vfLoader.setDisplayedChild(1);
         RequestHelper.builder(EndPoints.MANAGER_PATH)
                 .listener(summeryCallBack)
                 .get();
@@ -331,8 +332,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
-                if (loader != null)
-                    loader.setVisibility(View.GONE);
+                if (vfLoader != null)
+                    vfLoader.setDisplayedChild(0);
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
                     JSONObject summeryObj = object.getJSONObject("summery");
@@ -380,6 +381,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    if (vfLoader != null)
+                        vfLoader.setDisplayedChild(0);
+                    MyApplication.Toast("خطایی پیش آمده، لطفا دوباره امتحان کنید.", Toast.LENGTH_SHORT);
                 }
             });
         }
@@ -387,40 +391,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             MyApplication.handler.post(() -> {
-                if (loader != null)
-                    loader.setVisibility(View.GONE);
+                if (vfLoader != null)
+                    vfLoader.setDisplayedChild(0);
+                MyApplication.Toast("خطایی پیش آمده، لطفا دوباره امتحان کنید.", Toast.LENGTH_SHORT);
             });
         }
     };
 
-    private void stopGetAddressTimer() {
-        try {
-            if (timer != null) {
-                timer.cancel();
-                timer = null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void startGetAddressTimer() {
-        try {
-            if (timer != null) {
-                return;
-            }
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    MyApplication.currentActivity.runOnUiThread(() -> {
-                        getSummery();
-                    });
-                }
-            }, 0, 15000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
