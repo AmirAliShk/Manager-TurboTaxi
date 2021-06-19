@@ -37,6 +37,7 @@ import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.fragment.RateFragment;
+import ir.taxi1880.manager.fragment.RecordTripCostFragment;
 import ir.taxi1880.manager.fragment.SystemSummeryFragment;
 import ir.taxi1880.manager.helper.AppVersionHelper;
 import ir.taxi1880.manager.helper.FragmentHelper;
@@ -123,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
     void onQueues() {
         drawer.close();
         FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
+    }
+
+    @OnClick(R.id.imgTripSubmit)
+    void onTrip() {
+        drawer.close();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new RecordTripCostFragment()).setAddToBackStack(true).replace();
     }
 
     @OnClick(R.id.openDrawer)
