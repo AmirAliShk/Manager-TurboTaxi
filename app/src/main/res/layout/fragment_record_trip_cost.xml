@@ -11,33 +11,34 @@
 
 
     <LinearLayout
-        android:id="@+id/action"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#2f2f2f"
         android:elevation="3dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="25dp"
         android:paddingRight="25dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgAddTypeOfTrip"
-            android:layout_width="56dp"
-            android:layout_height="match_parent"
+        <ImageView
+            android:id="@+id/imgaddtypeoftrip"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/bg_ripple"
-            android:padding="7dp"
-            android:src="@drawable/ic_add_white" />
+            android:padding="16dp"
+            android:src="@drawable/ic_add" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
             android:gravity="center"
-            android:text="ثبت هزینه سفر"
+            android:text="تست هزینه سفر"
             android:textColor="@color/colorWhite"
-            android:textSize="30dp" />
+            android:textSize="27sp"
+            android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/btnBack"
             android:layout_width="56dp"
             android:layout_height="match_parent"
@@ -67,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            tools:listitem="@layout/record_trip_cost_item" />
+            tools:listitem="@layout/item_record_trip_cost" />
 
         <TextView
             android:layout_width="match_parent"
