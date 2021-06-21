@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/blrview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:realtimeBlurRadius="20dp"
@@ -31,37 +32,6 @@
         android:paddingLeft="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:text="نام مسیر"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_weight="1"
-                android:text="نوع خودرو"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="0.25"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_drop_down" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,12 +44,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:text="نام مسیر"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/edtNameWayRTCDialog"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
@@ -87,7 +65,6 @@
                     android:padding="10dp"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
-
             </LinearLayout>
 
             <View
@@ -95,49 +72,44 @@
                 android:layout_height="0dp" />
 
             <LinearLayout
+                android:id="@+id/llCarType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:text="نوع خودرو"
+                        android:textColor="@color/white"
+                        android:textSize="22sp" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.25"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_drop_down" />
+
+                </LinearLayout>
 
                 <Spinner
+                    android:id="@+id/spCarType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_spinner"
                     android:dropDownWidth="match_parent"
                     android:gravity="center"
-                    android:padding="23dp" />
+                    android:padding="12dp" />
 
             </LinearLayout>
-
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:text="مبدا"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:text="مقصد"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-
 
         </LinearLayout>
 
@@ -153,14 +125,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:text="مبدا"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
 
                 <EditText
                     android:id="@+id/originRTCDialog"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:maxLines="2"
                     android:padding="10dp"
@@ -177,13 +155,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:text="مقصد"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/destRTCDialog"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@drawable/bg_spinner"
                     android:maxLines="2"
                     android:padding="10dp"
@@ -212,6 +197,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/imgCancelDialog"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
         android:src="@drawable/ic_close"

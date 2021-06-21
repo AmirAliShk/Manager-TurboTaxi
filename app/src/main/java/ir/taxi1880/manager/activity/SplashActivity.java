@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,6 +49,7 @@ public class SplashActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     Unbinder unbinder;
     SplashActivityCallback splashActivityCallback;
+
 
     @BindView(R.id.txtVersionName)
     TextView txtVersionName;
@@ -141,6 +143,7 @@ public class SplashActivity extends AppCompatActivity {
                     .setAddToBackStack(false)
                     .add();
         } else {
+            Log.i("Splash Response","args[0].toString()");
             RequestHelper.builder(EndPoints.APP_INFO)
                     .addPath(new AppVersionHelper(context).getVersionCode() + "")
                     .listener(onAppInfo)
@@ -154,10 +157,15 @@ public class SplashActivity extends AppCompatActivity {
             MyApplication.handler.post(() -> {
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
+
+                    Log.i("Splash Response",args[0].toString());
+
                     Boolean block = object.getBoolean("isBlock");
                     boolean updateAvailable = object.getBoolean("updateAvailable");
                     boolean forceUpdate = object.getBoolean("forceUpdate");
                     String updateUrl = object.getString("updateUrl");
+                    MyApplication.prefManager.setCarType("[{\"id\":0,\"name\":\"نامشخص\"},{\"id\":1,\"name\":\"اقتصادي\"},{\"id\":2,\"name\":\"ممتاز\"},{\"id\":3,\"name\":\"تشريفات\"},{\"id\":4,\"name\":\"تاکسي\"}]");
+
 
                     if (block) {
                         new GeneralDialog()

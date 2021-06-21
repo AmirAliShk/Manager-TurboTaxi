@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.ItemTestTripCostBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.TripCostModel;
 
@@ -23,6 +24,7 @@ public class RecordTripCostAdapter extends BaseAdapter {
     int position;
     TripCostModel tripCostModel;
     Unbinder unbinder;
+    ItemTestTripCostBinding binding;
 
     @BindView(R.id.wayRTCItem)
     TextView wayTxt;
@@ -69,7 +71,7 @@ public class RecordTripCostAdapter extends BaseAdapter {
         tripCostModel = tripCostModels.get(i);
 
         if (myView == null) {
-            myView = inflater.inflate(R.layout.record_trip_cost_item, viewGroup, false);
+            myView = inflater.inflate(R.layout.item_test_trip_cost, viewGroup, false);
             TypefaceUtil.overrideFonts(myView);
         }
 
@@ -83,5 +85,27 @@ public class RecordTripCostAdapter extends BaseAdapter {
         priceTxt.setText(tripCostModel.getPrice());
 
         return myView;
+
+
+//        View myView = view;
+//
+//        tripCostModel = tripCostModels.get(i);
+//
+//        if (myView == null) {
+//            binding = RecordTripCostItemBinding.inflate(inflater);
+////            myView = inflater.inflate(R.layout.record_trip_cost_item, viewGroup, false);
+//            TypefaceUtil.overrideFonts(binding.getRoot());
+//        }
+//
+//
+//
+//        binding.wayRTCItem.setText(tripCostModel.getWayName());
+//        binding.originRTCItem.setText(tripCostModel.getOrigin());
+//        binding.destRTCItem.setText(tripCostModel.getDest());
+//        binding.timeRTCItem.setText(tripCostModel.getTime());
+//        binding.distanceRTCItem.setText(tripCostModel.getDistance());
+//        binding.priceRTCItem.setText(tripCostModel.getPrice());
+//
+//        return binding.getRoot();
     }
 }

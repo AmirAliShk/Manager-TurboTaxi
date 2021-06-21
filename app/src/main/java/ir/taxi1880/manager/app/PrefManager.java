@@ -39,6 +39,7 @@ public class PrefManager {
     private static final String REPETITION_TIME = "repetitionTime";
     private static final String KEY_ACTIVATION_REMAINING_TIME = "activationRemainingTime";
     private static final String CITY = "city";
+    private static final String CAR_TYPE = "CarType";
 
     public PrefManager(Context context) {
         this._context = context;
@@ -198,5 +199,18 @@ public class PrefManager {
 
     public String getCity() {
         return pref.getString(CITY, "");
+    }
+
+
+    public void setCarType(String carType)
+    {
+        Log.d("LOG", "setTypeOfCity: " + carType);
+        editor.putString(CAR_TYPE,carType);
+        editor.commit();
+    }
+
+    public String getCarType()
+    {
+        return pref.getString(CAR_TYPE,"");
     }
 }

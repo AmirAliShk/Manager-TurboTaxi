@@ -1,12 +1,30 @@
 package ir.taxi1880.manager.model;
 
 public class TripCostModel {
+    int id;
     String wayName;
-    String origin;
-    String dest;
+    int origin;
+    int dest;
     String distance;
     String time;
     String price;
+    int carType;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCarType() {
+        return carType;
+    }
+
+    public void setCarType(int carType) {
+        this.carType = carType;
+    }
 
     public String getWayName() {
         return wayName;
@@ -16,19 +34,19 @@ public class TripCostModel {
         this.wayName = wayName;
     }
 
-    public String getOrigin() {
+    public int getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(int origin) {
         this.origin = origin;
     }
 
-    public String getDest() {
+    public int getDest() {
         return dest;
     }
 
-    public void setDest(String dest) {
+    public void setDest(int dest) {
         this.dest = dest;
     }
 

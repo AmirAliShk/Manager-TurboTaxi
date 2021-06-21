@@ -49,5 +49,6 @@ public class EndPoints {
     public static final String EDIT_RATE = PRICING + "editIncreaseRate";
     public static final String DELETE_RATE = PRICING + "deleteIncreaseRate";
     public static final String ADD_RATE = PRICING + "increaseRate";
+    public static final String TYPE_OF_WAY = PRICING + "test";
 
 }

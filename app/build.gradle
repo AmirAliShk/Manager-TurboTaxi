@@ -16,6 +16,16 @@ android {
         renderscriptSupportModeEnabled true
     }
 
+    viewBinding.enabled = true
+
+//    buildFeatures {
+//        viewBinding true
+//    }
+
+//    viewBinding {
+//        enabled = true
+//    }
+
 //47421ParsiaN47421
 
     buildTypes {
