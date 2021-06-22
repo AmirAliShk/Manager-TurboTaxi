@@ -18,19 +18,26 @@ import java.util.ArrayList;
 
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.databinding.DialogTripCostDialogBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CarTypeModel;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class AddTripCostDialog {
 
     Dialog dialog;
     DialogTripCostDialogBinding binding;
+    Listener listener;
 
     int carType;
 
-    public void show() {
+    public interface Listener {
+        void onGetData(boolean isCreated);
+    }
+
+    public void show(Listener listener) {
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())
             return;
 
@@ -49,6 +56,8 @@ public class AddTripCostDialog {
 
         dialog.getWindow().setAttributes(wlp);
         dialog.setCancelable(true);
+
+        this.listener = listener;
         initCarSpinner();
 
         binding.imgCancelDialog.setOnClickListener(view -> {
@@ -58,6 +67,7 @@ public class AddTripCostDialog {
             dialog.dismiss();
         });
         binding.llCarType.setOnClickListener(view -> binding.spCarType.performClick());
+
         binding.btnSubmit.setOnClickListener(view -> {
             String wayName = binding.edtNameWayRTCDialog.getText().toString().trim();
             String origin = binding.originRTCDialog.getText().toString().trim();
@@ -81,16 +91,19 @@ public class AddTripCostDialog {
             }
 
             if (carType == 0) {
-                MyApplication.Toast("مقصد را کامل کنیدdgfcgcg", 2);
+                MyApplication.Toast("نوع ماشین را انتخاب کنید", 2);
                 return;
 
             }
 
-
-            MyApplication.Toast("با موفقیت ثبت گردید", 2);
-            dialog.dismiss();
+            RequestHelper.builder(EndPoints.TRIP_COST_TEST)
+                    .addParam("fromStation",Integer.parseInt(origin))
+                    .addParam("toStation",Integer.parseInt(dest))
+                    .addParam("carType",carType)
+                    .addParam("name", wayName)
+                    .listener(addListener)
+                    .post();
         });
-
 
         dialog.show();
     }
@@ -133,6 +146,53 @@ public class AddTripCostDialog {
             e.printStackTrace();
         }
     }
+
+
+    RequestHelper.Callback addListener = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(()->
+            {
+                try {
+                    JSONObject addObj = new JSONObject(args[0].toString());
+                    boolean success = addObj.getBoolean("success");
+                    String message = addObj.getString("message");
+
+                    if (success)
+                    {
+                        dialog.dismiss();
+                        listener.onGetData(true);
+                        new GeneralDialog()
+                                .type(2)
+                                .message(message)
+                                .secondButton("بستن", null)
+                                .show();
+
+                    }
+                    else
+                    {
+                        new GeneralDialog()
+                                .type(3)
+                                .message(message)
+                                .secondButton("بستن", null)
+                                .show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            });
+
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+//            MyApplication.handler.post()
+        }
+    };
 
 //    private void addTripCostType()
 //    {

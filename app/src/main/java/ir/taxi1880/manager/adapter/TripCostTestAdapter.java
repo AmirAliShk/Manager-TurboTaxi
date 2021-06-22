@@ -17,7 +17,7 @@ import ir.taxi1880.manager.databinding.ItemTestTripCostBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.TripCostModel;
 
-public class RecordTripCostAdapter extends BaseAdapter {
+public class TripCostTestAdapter extends BaseAdapter {
 
     ArrayList<TripCostModel> tripCostModels;
     LayoutInflater inflater;
@@ -44,7 +44,7 @@ public class RecordTripCostAdapter extends BaseAdapter {
     @BindView(R.id.priceRTCItem)
     TextView priceTxt;
 
-    public RecordTripCostAdapter(ArrayList<TripCostModel> tripCostModels) {
+    public TripCostTestAdapter(ArrayList<TripCostModel> tripCostModels) {
         this.tripCostModels = tripCostModels;
         this.inflater = LayoutInflater.from(MyApplication.context);
     }
