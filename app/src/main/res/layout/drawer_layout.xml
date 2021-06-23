@@ -84,7 +84,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/bg_ripple"
         android:padding="6dp"
-        android:src="@drawable/ic_add_white" />
+        android:src="@drawable/cost_test" />
 
 <!--    <TextView-->
 <!--        android:layout_width="match_parent"-->

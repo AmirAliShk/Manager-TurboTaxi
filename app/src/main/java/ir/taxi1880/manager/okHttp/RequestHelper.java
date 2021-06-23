@@ -255,7 +255,7 @@ public class RequestHelper implements okhttp3.Callback {
         RequestBody body = RequestBody.create(JSON, params.toString());
         req = new Request.Builder()
                 .url(url)
-                .delete()
+                .delete(body)
                 .build();
 
         request();

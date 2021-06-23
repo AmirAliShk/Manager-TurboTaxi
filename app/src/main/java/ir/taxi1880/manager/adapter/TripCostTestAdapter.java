@@ -75,12 +75,14 @@ public class TripCostTestAdapter extends BaseAdapter {
 
         binding.llmainItem.setOnClickListener(view1 -> {
             i=position;
+            Log.i("DeleteTSTAdapter:","id =" + i);
         });
         binding.imgDelete.setOnClickListener(view1 -> {
+            Log.i("DeleteTSTAdapter:","nfl");
             new GeneralDialog()
                     .type(1)
                     .message("آیا از حذف این مورد مطمپن هستید؟")
-                    .firstButton("بله",()->deleteItem(tripCostModel.getId()))
+                    .firstButton("بله",()->deleteItem(tripCostModels.get(position).getId()))
                     .secondButton("خیر",null)
                     .show();
         });
@@ -89,8 +91,9 @@ public class TripCostTestAdapter extends BaseAdapter {
     }
 
     private void deleteItem(int id) {
-        RequestHelper.builder(EndPoints.DELETE_TRIP_COST_TEST)
-                .addParam("id",id)
+        Log.i("rEZa","HI" + id);
+        RequestHelper.builder(EndPoints.TRIP_COST_TEST)
+                .addParam("id",id+"")
                 .listener(deleteIdListener)
                 .delete();
 
@@ -104,19 +107,20 @@ public class TripCostTestAdapter extends BaseAdapter {
                     JSONObject object = new JSONObject(args[0].toString());
                     Log.i("DeleteTSTAdapter:",args[0].toString());
 
-                    boolean success = object.getBoolean("status");
+                    boolean success = object.getBoolean("success");
                     String message = object.getString("message");
 
                     if (success)
                     {
-                        tripCostModels.remove(i);
-                        notifyDataSetChanged();
 
                         new GeneralDialog()
                                 .type(2)
                                 .message(message)
                                 .firstButton("باشه",null)
                                 .show();
+
+                        tripCostModels.remove(i);
+                        notifyDataSetChanged();
                     }
                     else{
                         new GeneralDialog()
@@ -137,7 +141,8 @@ public class TripCostTestAdapter extends BaseAdapter {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            super.onFailure(reCall, e);
+
+            Log.i("rEZa","HIFail");super.onFailure(reCall, e);
         }
     };
 

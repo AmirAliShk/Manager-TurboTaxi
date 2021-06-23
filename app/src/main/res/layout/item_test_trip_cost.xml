@@ -212,7 +212,7 @@
                         android:textSize="@dimen/_15sdp" />
 
                     <TextView
-                        android:id="@id/cityItem"
+                        android:id="@+id/cityItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

@@ -50,6 +50,5 @@ public class EndPoints {
     public static final String DELETE_RATE = PRICING + "deleteIncreaseRate";
     public static final String ADD_RATE = PRICING + "increaseRate";
     public static final String TRIP_COST_TEST = PRICING + "test";
-    public static final String DELETE_TRIP_COST_TEST = PRICING + "test/";
 
 }
