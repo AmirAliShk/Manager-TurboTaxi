@@ -193,15 +193,4 @@ public class AddTripCostDialog {
 //            MyApplication.handler.post()
         }
     };
-
-//    private void addTripCostType()
-//    {
-//        RequestHelper.builder(EndPoints.TYPE_OF_WAY)
-//                .addParam()
-//                .addParam()
-//                .listener()
-//                .post();
-//    }
-
-
 }

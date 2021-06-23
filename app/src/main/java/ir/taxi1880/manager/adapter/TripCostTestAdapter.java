@@ -1,48 +1,36 @@
 package ir.taxi1880.manager.adapter;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.databinding.ItemTestTripCostBinding;
+import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.TripCostModel;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class TripCostTestAdapter extends BaseAdapter {
 
-    ArrayList<TripCostModel> tripCostModels;
-    LayoutInflater inflater;
-    int position;
-    TripCostModel tripCostModel;
-    Unbinder unbinder;
-    ItemTestTripCostBinding binding;
+    private ArrayList<TripCostModel> tripCostModels;
+    private LayoutInflater inflater;
+    private TripCostModel tripCostModel;
+    private ItemTestTripCostBinding binding;
 
-    @BindView(R.id.wayRTCItem)
-    TextView wayTxt;
+    private String StringCarType;
+    private int i;
 
-    @BindView(R.id.originRTCItem)
-    TextView originTxt;
-
-    @BindView(R.id.destRTCItem)
-    TextView destTxt;
-
-    @BindView(R.id.timeRTCItem)
-    TextView timeTxt;
-
-    @BindView(R.id.distanceRTCItem)
-    TextView distanceTxt;
-
-    @BindView(R.id.priceRTCItem)
-    TextView priceTxt;
 
     public TripCostTestAdapter(ArrayList<TripCostModel> tripCostModels) {
         this.tripCostModels = tripCostModels;
@@ -64,48 +52,115 @@ public class TripCostTestAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint({"SetTextI18n", "ViewHolder"})
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View myView = view;
+    public View getView(int position, View view, ViewGroup viewGroup) {
 
-        tripCostModel = tripCostModels.get(i);
-
-        if (myView == null) {
-            myView = inflater.inflate(R.layout.item_test_trip_cost, viewGroup, false);
-            TypefaceUtil.overrideFonts(myView);
-        }
-
-        unbinder = ButterKnife.bind(this, myView);
-
-        wayTxt.setText(tripCostModel.getWayName());
-        originTxt.setText(tripCostModel.getOrigin());
-        destTxt.setText(tripCostModel.getDest());
-        timeTxt.setText(tripCostModel.getTime());
-        distanceTxt.setText(tripCostModel.getDistance());
-        priceTxt.setText(tripCostModel.getPrice());
-
-        return myView;
+        tripCostModel = tripCostModels.get(position);
+        binding = ItemTestTripCostBinding.inflate(inflater, viewGroup, false);
+        TypefaceUtil.overrideFonts(binding.getRoot());
+        TypefaceUtil.overrideFonts(binding.labelPriceItem,MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts(binding.priceItem,MyApplication.IraSanSBold);
 
 
-//        View myView = view;
-//
-//        tripCostModel = tripCostModels.get(i);
-//
-//        if (myView == null) {
-//            binding = RecordTripCostItemBinding.inflate(inflater);
-////            myView = inflater.inflate(R.layout.record_trip_cost_item, viewGroup, false);
-//            TypefaceUtil.overrideFonts(binding.getRoot());
-//        }
-//
-//
-//
-//        binding.wayRTCItem.setText(tripCostModel.getWayName());
-//        binding.originRTCItem.setText(tripCostModel.getOrigin());
-//        binding.destRTCItem.setText(tripCostModel.getDest());
+        binding.wayItem.setText(""+tripCostModel.getWayName());
+        binding.originItem.setText("ایستگاه "+tripCostModel.getOrigin());
+        binding.destItem.setText("ایستگاه "+tripCostModel.getDest());
+
+
+        binding.carTypeItem.setText(getCarType(tripCostModel.getCarType()));
 //        binding.timeRTCItem.setText(tripCostModel.getTime());
 //        binding.distanceRTCItem.setText(tripCostModel.getDistance());
 //        binding.priceRTCItem.setText(tripCostModel.getPrice());
-//
-//        return binding.getRoot();
+
+        binding.llmainItem.setOnClickListener(view1 -> {
+            i=position;
+        });
+        binding.imgDelete.setOnClickListener(view1 -> {
+            new GeneralDialog()
+                    .type(1)
+                    .message("آیا از حذف این مورد مطمپن هستید؟")
+                    .firstButton("بله",()->deleteItem(tripCostModel.getId()))
+                    .secondButton("خیر",null)
+                    .show();
+        });
+
+        return binding.getRoot();
     }
+
+    private void deleteItem(int id) {
+        RequestHelper.builder(EndPoints.DELETE_TRIP_COST_TEST)
+                .addParam("id",id)
+                .listener(deleteIdListener)
+                .delete();
+
+    }
+
+    RequestHelper.Callback deleteIdListener = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(()-> {
+                try {
+                    JSONObject object = new JSONObject(args[0].toString());
+                    Log.i("DeleteTSTAdapter:",args[0].toString());
+
+                    boolean success = object.getBoolean("status");
+                    String message = object.getString("message");
+
+                    if (success)
+                    {
+                        tripCostModels.remove(i);
+                        notifyDataSetChanged();
+
+                        new GeneralDialog()
+                                .type(2)
+                                .message(message)
+                                .firstButton("باشه",null)
+                                .show();
+                    }
+                    else{
+                        new GeneralDialog()
+                                .type(3)
+                                .message(message)
+                                .firstButton("باشه",null)
+                                .show();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+        }
+    };
+
+
+    private String getCarType(int carType) {
+        try {
+            JSONArray carTypeArray = new JSONArray(MyApplication.prefManager.getCarType());
+            for (int i = 0; i < carTypeArray.length(); i++) {
+                JSONObject object = carTypeArray.getJSONObject(i);
+
+                if (carType == object.getInt("id"))
+                {
+                    StringCarType = object.getString("name");
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return StringCarType;
+    }
+
 }
+

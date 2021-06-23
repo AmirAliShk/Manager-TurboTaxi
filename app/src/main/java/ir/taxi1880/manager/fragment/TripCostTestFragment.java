@@ -1,6 +1,7 @@
 package ir.taxi1880.manager.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import ir.taxi1880.manager.adapter.TripCostTestAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+
 import ir.taxi1880.manager.databinding.FragmentRecordTripCostBinding;
 import ir.taxi1880.manager.dialog.AddTripCostDialog;
 import ir.taxi1880.manager.dialog.GeneralDialog;
@@ -66,7 +68,7 @@ public class TripCostTestFragment extends Fragment {
         RequestHelper.builder(EndPoints.TRIP_COST_TEST)
                 .listener(getTypeOfWay)
                 .addPath("0")
-                .addPath("0")
+                .addPath("-1")
                 .get();
     }
 
@@ -77,6 +79,9 @@ public class TripCostTestFragment extends Fragment {
                 try {
                     tripCostModels = new ArrayList<>();
                     JSONObject JsonObj = new JSONObject(args[0].toString());
+
+                    Log.i("Salam",args[0].toString());
+
                     boolean success = JsonObj.getBoolean("success");
                     String message = JsonObj.getString("message");
                     if (success) {
@@ -84,13 +89,14 @@ public class TripCostTestFragment extends Fragment {
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject dataObj = data.getJSONObject(i);
                             TripCostModel tripCostModel = new TripCostModel();
+
                             tripCostModel.setId(dataObj.getInt("id"));
                             tripCostModel.setWayName(dataObj.getString("name"));
                             tripCostModel.setOrigin(dataObj.getInt("fromStation"));
                             tripCostModel.setDest(dataObj.getInt("toStation"));
                             tripCostModel.setCarType(dataObj.getInt("carType"));
-                            tripCostModel.setPrice(dataObj.getString("sellingPrice"));
-                            int carType = dataObj.getInt("carType");
+//                            tripCostModel.setPrice(dataObj.getString("sellingPrice"));
+//                            int carType = dataObj.getInt("carType");
                             tripCostModels.add(tripCostModel);
                         }
 
