@@ -1,5 +1,6 @@
 package ir.taxi1880.manager.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import ir.taxi1880.manager.adapter.TripCostTestAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-
 import ir.taxi1880.manager.databinding.FragmentRecordTripCostBinding;
 import ir.taxi1880.manager.dialog.AddTripCostDialog;
 import ir.taxi1880.manager.dialog.GeneralDialog;
@@ -28,9 +28,10 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class TripCostTestFragment extends Fragment {
 
-    ArrayList<TripCostModel> tripCostModels;
-    TripCostTestAdapter tripCostAdapter;
-    FragmentRecordTripCostBinding binding;
+    static ArrayList<TripCostModel> tripCostModels;
+    static TripCostTestAdapter tripCostAdapter;
+    @SuppressLint("StaticFieldLeak")
+    static FragmentRecordTripCostBinding binding;
 
 
     @Override
@@ -39,13 +40,12 @@ public class TripCostTestFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment.
         binding = FragmentRecordTripCostBinding.inflate(getLayoutInflater());
         TypefaceUtil.overrideFonts(binding.getRoot());
 
-        getData();
+        getTripCost();
 
         binding.btnBack.setOnClickListener(view -> {
             MyApplication.currentActivity.onBackPressed();
@@ -54,7 +54,7 @@ public class TripCostTestFragment extends Fragment {
         binding.imgaddtypeoftrip.setOnClickListener(view -> {
             new AddTripCostDialog().show(isCreated -> {
                 if (isCreated) {
-                    getData();
+                    getTripCost();
                 }
             });
         });
@@ -64,15 +64,19 @@ public class TripCostTestFragment extends Fragment {
     }
 
 
-    private void getData() {
-        RequestHelper.builder(EndPoints.TRIP_COST_TEST)
-                .listener(getTypeOfWay)
-                .addPath("0")
-                .addPath("-1")
-                .get();
+    public static void getTripCost() {
+        if (tripCostModels == null) {
+            binding.vfTCT.setDisplayedChild(0);
+        } else
+            binding.vfTCT.setDisplayedChild(0);
+            RequestHelper.builder(EndPoints.TRIP_COST_TEST)
+                    .listener(TRIPCostListener)
+                    .addPath("0")
+                    .addPath("-1")
+                    .get();
     }
 
-    RequestHelper.Callback getTypeOfWay = new RequestHelper.Callback() {
+    static RequestHelper.Callback TRIPCostListener = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
@@ -80,7 +84,7 @@ public class TripCostTestFragment extends Fragment {
                     tripCostModels = new ArrayList<>();
                     JSONObject JsonObj = new JSONObject(args[0].toString());
 
-                    Log.i("Salam",args[0].toString());
+                    Log.i("Salam", args[0].toString());
 
                     boolean success = JsonObj.getBoolean("success");
                     String message = JsonObj.getString("message");
@@ -95,6 +99,9 @@ public class TripCostTestFragment extends Fragment {
                             tripCostModel.setOrigin(dataObj.getInt("fromStation"));
                             tripCostModel.setDest(dataObj.getInt("toStation"));
                             tripCostModel.setCarType(dataObj.getInt("carType"));
+                            tripCostModel.setDistance(dataObj.getInt("distance"));
+                            tripCostModel.setTime(dataObj.getInt("duration"));
+                            tripCostModel.setPrice(dataObj.getInt("tripPrice"));
 //                            tripCostModel.setPrice(dataObj.getString("sellingPrice"));
 //                            int carType = dataObj.getInt("carType");
                             tripCostModels.add(tripCostModel);
@@ -112,13 +119,13 @@ public class TripCostTestFragment extends Fragment {
                     }
 
                     if (tripCostModels.size() == 0) {
-                        binding.vfRTC.setDisplayedChild(1);
+                        binding.vfTCT.setDisplayedChild(2);
                     } else {
-                        binding.vfRTC.setDisplayedChild(0);
+                        binding.vfTCT.setDisplayedChild(1);
                     }
 
                 } catch (JSONException e) {
-                    binding.vfRTC.setDisplayedChild(2);
+                    binding.vfTCT.setDisplayedChild(2);
                     e.printStackTrace();
                 }
             });

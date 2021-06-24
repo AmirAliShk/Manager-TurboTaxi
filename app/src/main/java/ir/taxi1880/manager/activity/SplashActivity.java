@@ -143,7 +143,7 @@ public class SplashActivity extends AppCompatActivity {
                     .setAddToBackStack(false)
                     .add();
         } else {
-            Log.i("Splash Response","args[0].toString()");
+            Log.i("TAF","args[0].toString()");
             RequestHelper.builder(EndPoints.APP_INFO)
                     .addPath(new AppVersionHelper(context).getVersionCode() + "")
                     .listener(onAppInfo)
@@ -158,12 +158,14 @@ public class SplashActivity extends AppCompatActivity {
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
 
-                    Log.i("Splash Response",args[0].toString());
+                    Log.i("TAF",args[0].toString());
 
                     Boolean block = object.getBoolean("isBlock");
                     boolean updateAvailable = object.getBoolean("updateAvailable");
                     boolean forceUpdate = object.getBoolean("forceUpdate");
                     String updateUrl = object.getString("updateUrl");
+                    Log.i("TAF",args[0].toString());
+
                     MyApplication.prefManager.setCarType("[{\"id\":0,\"name\":\"نامشخص\"},{\"id\":1,\"name\":\"اقتصادي\"},{\"id\":2,\"name\":\"ممتاز\"},{\"id\":3,\"name\":\"تشريفات\"},{\"id\":4,\"name\":\"تاکسي\"}]");
 
 

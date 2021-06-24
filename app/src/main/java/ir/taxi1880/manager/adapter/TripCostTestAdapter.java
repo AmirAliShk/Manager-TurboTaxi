@@ -15,8 +15,10 @@ import java.util.ArrayList;
 
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+
 import ir.taxi1880.manager.databinding.ItemTestTripCostBinding;
 import ir.taxi1880.manager.dialog.GeneralDialog;
+import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.TripCostModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -60,18 +62,21 @@ public class TripCostTestAdapter extends BaseAdapter {
         binding = ItemTestTripCostBinding.inflate(inflater, viewGroup, false);
         TypefaceUtil.overrideFonts(binding.getRoot());
         TypefaceUtil.overrideFonts(binding.labelPriceItem,MyApplication.IraSanSBold);
-        TypefaceUtil.overrideFonts(binding.priceItem,MyApplication.IraSanSBold);
+        TypefaceUtil.overrideFonts((binding.priceItem),MyApplication.IraSanSBold);
+
+
 
 
         binding.wayItem.setText(""+tripCostModel.getWayName());
         binding.originItem.setText("ایستگاه "+tripCostModel.getOrigin());
         binding.destItem.setText("ایستگاه "+tripCostModel.getDest());
-
-
         binding.carTypeItem.setText(getCarType(tripCostModel.getCarType()));
-//        binding.timeRTCItem.setText(tripCostModel.getTime());
-//        binding.distanceRTCItem.setText(tripCostModel.getDistance());
-//        binding.priceRTCItem.setText(tripCostModel.getPrice());
+        binding.timeItem.setText(tripCostModel.getTime()+" دقیقه");
+        binding.distanceItem.setText(tripCostModel.getDistance()+"");
+
+        String persianPrice=tripCostModel.getPrice()+"";
+        StringHelper.toPersianDigits(persianPrice);
+        binding.priceItem.setText(persianPrice+" تومان");
 
         binding.llmainItem.setOnClickListener(view1 -> {
             i=position;

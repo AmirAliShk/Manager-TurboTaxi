@@ -49,19 +49,19 @@
     </LinearLayout>
 
     <ViewFlipper
-        android:id="@+id/vfRTC"
+        android:id="@+id/vfTCT"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-<!--        <com.wang.avi.AVLoadingIndicatorView-->
-<!--            android:id="@+id/loader"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:padding="10dp"-->
-<!--            android:visibility="gone"-->
-<!--            app:indicatorColor="#508dff " />-->
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loader"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:visibility="gone"
+            app:indicatorColor="#508dff " />
 
         <ListView
             android:id="@+id/tripCostList"

@@ -5,9 +5,9 @@ public class TripCostModel {
     String wayName;
     int origin;
     int dest;
-    String distance;
-    String time;
-    String price;
+    int distance;
+    int time;
+    int price;
     int carType;
 
     public int getId() {
@@ -50,27 +50,27 @@ public class TripCostModel {
         this.dest = dest;
     }
 
-    public String getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }
