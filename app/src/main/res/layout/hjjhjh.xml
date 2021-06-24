@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/alsoBlack"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:id="@+id/llRateItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/bg_btn"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.17"
+                android:gravity="center_vertical"
+                android:text="نام مسیر"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="right"
+                android:text="طولانی"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="مبدا"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/originItem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="right"
+                android:text="199"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="مقصد"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/txtToTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="178"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="زمان"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/txtStop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="12:30"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="مسافت"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/txtMeter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:gravity="center_vertical"
+                android:text="نوع خودرو"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/txtMinimumPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="0.75"
+                android:gravity="center_vertical"
+                android:text="تاکسی"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:gravity="center_vertical"
+                android:text="شهر"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/txtDisposal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:gravity="center_vertical"
+                android:text="حیدریه"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelPriceItem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.17"
+                android:gravity="center_vertical"
+                android:text="هزینه"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/priceItem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="right|center_vertical"
+                android:text="14000 تومان"
+                android:textColor="@color/colorBlue"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left">
+
+            <ViewFlipper
+                android:id="@+id/vfDelete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_spinner">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_delete" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/loader"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    app:indicatorColor="#e84d48" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
