@@ -94,7 +94,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|bottom"
         android:text="نسخه"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
@@ -103,7 +103,7 @@
         android:id="@+id/txtVersionName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|bottom"
         android:textColor="#e94d48"
         android:textSize="18sp" />
 

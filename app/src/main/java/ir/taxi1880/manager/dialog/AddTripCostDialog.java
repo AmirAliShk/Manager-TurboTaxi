@@ -20,7 +20,8 @@ import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
-import ir.taxi1880.manager.databinding.DialogTripCostDialogBinding;
+import ir.taxi1880.manager.databinding.DialogTripCostBinding;
+
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CarTypeModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -28,7 +29,7 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 public class AddTripCostDialog {
 
     Dialog dialog;
-    DialogTripCostDialogBinding binding;
+    DialogTripCostBinding binding;
     Listener listener;
 
     int carType;
@@ -44,7 +45,7 @@ public class AddTripCostDialog {
         dialog = new Dialog(MyApplication.currentActivity);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.ExpandAnimation;
-        binding = DialogTripCostDialogBinding.inflate(LayoutInflater.from(MyApplication.context));
+        binding = DialogTripCostBinding.inflate(LayoutInflater.from(MyApplication.context));
         dialog.setContentView(binding.getRoot());
         TypefaceUtil.overrideFonts(binding.getRoot());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -64,7 +65,7 @@ public class AddTripCostDialog {
             dialog.dismiss();
         });
         binding.blrview.setOnClickListener(view -> {
-            dialog.dismiss();
+            return;
         });
         binding.llCarType.setOnClickListener(view -> binding.spCarType.performClick());
 

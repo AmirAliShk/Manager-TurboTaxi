@@ -68,21 +68,19 @@ public class TripCostTestAdapter extends BaseAdapter {
 
 
         binding.wayItem.setText(""+tripCostModel.getWayName());
-        binding.originItem.setText("ایستگاه "+tripCostModel.getOrigin());
-        binding.destItem.setText("ایستگاه "+tripCostModel.getDest());
+        binding.originItem.setText(""+tripCostModel.getOrigin());
+        binding.destItem.setText(""+tripCostModel.getDest());
         binding.carTypeItem.setText(getCarType(tripCostModel.getCarType()));
-        binding.timeItem.setText(tripCostModel.getTime()+" دقیقه");
-        binding.distanceItem.setText(tripCostModel.getDistance()+"");
-
-        String persianPrice=tripCostModel.getPrice()+"";
-        StringHelper.toPersianDigits(persianPrice);
-        binding.priceItem.setText(persianPrice+" تومان");
+        binding.timeItem.setText(tripCostModel.getTime()+"");
+        binding.distanceItem.setText(StringHelper.setComma(tripCostModel.getDistance()+"")+"");
+        binding.priceItem.setText(StringHelper.toPersianDigits(StringHelper.setComma(tripCostModel.getPrice()+""))+" تومان");
 
         binding.llmainItem.setOnClickListener(view1 -> {
             i=position;
             Log.i("DeleteTSTAdapter:","id =" + i);
         });
-        binding.imgDelete.setOnClickListener(view1 -> {
+        binding.vfDelete.setDisplayedChild(1);
+        binding.vfDelete.setOnClickListener(view1 -> {
             Log.i("DeleteTSTAdapter:","nfl");
             new GeneralDialog()
                     .type(1)
@@ -96,7 +94,7 @@ public class TripCostTestAdapter extends BaseAdapter {
     }
 
     private void deleteItem(int id) {
-        Log.i("rEZa","HI" + id);
+        binding.vfDelete.setDisplayedChild(0);
         RequestHelper.builder(EndPoints.TRIP_COST_TEST)
                 .addParam("id",id+"")
                 .listener(deleteIdListener)
@@ -124,6 +122,7 @@ public class TripCostTestAdapter extends BaseAdapter {
                                 .firstButton("باشه",null)
                                 .show();
 
+                        binding.vfDelete.setDisplayedChild(1);
                         tripCostModels.remove(i);
                         notifyDataSetChanged();
                     }
@@ -133,11 +132,13 @@ public class TripCostTestAdapter extends BaseAdapter {
                                 .message(message)
                                 .firstButton("باشه",null)
                                 .show();
+                        binding.vfDelete.setDisplayedChild(1);
 
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    binding.vfDelete.setDisplayedChild(1);
                 }
 
             });
@@ -146,8 +147,9 @@ public class TripCostTestAdapter extends BaseAdapter {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-
-            Log.i("rEZa","HIFail");super.onFailure(reCall, e);
+            MyApplication.handler.post(()->{
+                binding.vfDelete.setDisplayedChild(1);
+            });
         }
     };
 
