@@ -62,9 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasAxes = true;
     private boolean hasLabels = true;
 
-
-
-
     ArrayList<ChartsModel> chartsModels;
     ArrayList<ChartsModel> chartsModels2;
     ArrayList<ChartsModel> chartsModels3;
