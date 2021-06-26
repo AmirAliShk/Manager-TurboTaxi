@@ -18,6 +18,7 @@ import ir.taxi1880.manager.app.MyApplication;
 
 import ir.taxi1880.manager.databinding.ItemTestTripCostBinding;
 import ir.taxi1880.manager.dialog.GeneralDialog;
+import ir.taxi1880.manager.fragment.TripCostTestFragment;
 import ir.taxi1880.manager.helper.StringHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.TripCostModel;
@@ -30,7 +31,6 @@ public class TripCostTestAdapter extends BaseAdapter {
     private TripCostModel tripCostModel;
     private ItemTestTripCostBinding binding;
 
-    private String StringCarType;
     private int i;
 
 
@@ -65,15 +65,14 @@ public class TripCostTestAdapter extends BaseAdapter {
         TypefaceUtil.overrideFonts((binding.priceItem),MyApplication.IraSanSBold);
 
 
-
-
-        binding.wayItem.setText(""+tripCostModel.getWayName());
-        binding.originItem.setText(""+tripCostModel.getOrigin());
-        binding.destItem.setText(""+tripCostModel.getDest());
-        binding.carTypeItem.setText(getCarType(tripCostModel.getCarType()));
+        binding.wayItem.setText(tripCostModel.getWayName());
+        binding.originItem.setText(tripCostModel.getOrigin()+"");
+        binding.destItem.setText(tripCostModel.getDest()+"");
+        binding.carTypeItem.setText(tripCostModel.getCarType());
         binding.timeItem.setText(tripCostModel.getTime()+"");
-        binding.distanceItem.setText(StringHelper.setComma(tripCostModel.getDistance()+"")+"");
-        binding.priceItem.setText(StringHelper.toPersianDigits(StringHelper.setComma(tripCostModel.getPrice()+""))+" تومان");
+        binding.cityItem.setText(tripCostModel.getCity());
+        binding.distanceItem.setText(tripCostModel.getDistance());
+        binding.priceItem.setText(StringHelper.toPersianDigits(tripCostModel.getPrice()));
 
         binding.llmainItem.setOnClickListener(view1 -> {
             i=position;
@@ -81,7 +80,6 @@ public class TripCostTestAdapter extends BaseAdapter {
         });
         binding.vfDelete.setDisplayedChild(1);
         binding.vfDelete.setOnClickListener(view1 -> {
-            Log.i("DeleteTSTAdapter:","nfl");
             new GeneralDialog()
                     .type(1)
                     .message("آیا از حذف این مورد مطمپن هستید؟")
@@ -123,8 +121,7 @@ public class TripCostTestAdapter extends BaseAdapter {
                                 .show();
 
                         binding.vfDelete.setDisplayedChild(1);
-                        tripCostModels.remove(i);
-                        notifyDataSetChanged();
+                        TripCostTestFragment.getTripCost();
                     }
                     else{
                         new GeneralDialog()
@@ -152,27 +149,5 @@ public class TripCostTestAdapter extends BaseAdapter {
             });
         }
     };
-
-
-    private String getCarType(int carType) {
-        try {
-            JSONArray carTypeArray = new JSONArray(MyApplication.prefManager.getCarType());
-            for (int i = 0; i < carTypeArray.length(); i++) {
-                JSONObject object = carTypeArray.getJSONObject(i);
-
-                if (carType == object.getInt("id"))
-                {
-                    StringCarType = object.getString("name");
-                }
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return StringCarType;
-    }
-
 }
 

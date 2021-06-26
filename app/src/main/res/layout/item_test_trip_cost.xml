@@ -39,7 +39,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="right"
-                android:text="طولانی"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -67,7 +66,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="right"
-                android:text="199"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -86,7 +84,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="center_vertical"
-                android:text="178"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -113,7 +110,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="center_vertical"
-                android:text="12:30"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -132,7 +129,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="center_vertical"
-                android:text="2"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -160,7 +156,6 @@
                 android:layout_marginRight="@dimen/_5sdp"
                 android:layout_weight="0.75"
                 android:gravity="center_vertical"
-                android:text="تاکسی"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -174,12 +169,11 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-                android:id="@+id/txtDisposal"
+                android:id="@+id/cityItem"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.75"
                 android:gravity="center_vertical"
-                android:text="حیدریه"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
@@ -207,7 +201,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="right|center_vertical"
-                android:text="14000 تومان"
                 android:textColor="@color/colorBlue"
                 android:textSize="@dimen/_17ssp"
                 android:textStyle="bold" />

@@ -157,35 +157,45 @@ public class SplashActivity extends AppCompatActivity {
             MyApplication.handler.post(() -> {
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
+//                    Log.i("TAF",args[0].toString());
 
-                    Log.i("TAF",args[0].toString());
+                    boolean success = object.getBoolean("success");
+                    if (success)
+                    {
+                        JSONObject data = object.getJSONObject("data");
+                        String result = data.getString("result");
 
-                    Boolean block = object.getBoolean("isBlock");
-                    boolean updateAvailable = object.getBoolean("updateAvailable");
-                    boolean forceUpdate = object.getBoolean("forceUpdate");
-                    String updateUrl = object.getString("updateUrl");
-                    Log.i("TAF",args[0].toString());
+                        JSONObject getJResult = new JSONObject(result);
 
-                    MyApplication.prefManager.setCarType("[{\"id\":0,\"name\":\"نامشخص\"},{\"id\":1,\"name\":\"اقتصادي\"},{\"id\":2,\"name\":\"ممتاز\"},{\"id\":3,\"name\":\"تشريفات\"},{\"id\":4,\"name\":\"تاکسي\"}]");
+                        boolean block = getJResult.getBoolean("isBlock");
+                        boolean updateAvailable = getJResult.getBoolean("updateAvailable");
+                        boolean forceUpdate = getJResult.getBoolean("forceUpdate");
+                        String updateUrl = getJResult.getString("updateUrl");
+                        MyApplication.prefManager.setCarType(getJResult.getJSONArray("carClass")+"");
+//                        Log.i("TAF carClass",MyApplication.prefManager.getCarType());
 
+                        if (block) {
+                            new GeneralDialog()
+                                    .message("اکانت شما توسط سیستم مسدود شده است")
+                                    .firstButton("خروج از برنامه", () -> MyApplication.currentActivity.finish())
+                                    .type(3)
+                                    .show();
+                            return;
+                        }
 
-                    if (block) {
-                        new GeneralDialog()
-                                .message("اکانت شما توسط سیستم مسدود شده است")
-                                .firstButton("خروج از برنامه", () -> MyApplication.currentActivity.finish())
-                                .type(3)
-                                .show();
-                        return;
+                        continueProcessing();
+
+                        if (updateAvailable) {
+                            updatePart(forceUpdate, updateUrl);
+                            return;
+
+                        }
+                        if (splashActivityCallback != null)
+                            splashActivityCallback.onSuccess(true);
                     }
 
-                    continueProcessing();
 
-                    if (updateAvailable) {
-                        updatePart(forceUpdate, updateUrl);
-                        return;
-                    }
-                    if (splashActivityCallback != null)
-                        splashActivityCallback.onSuccess(true);
+
                 } catch (JSONException e) {
                     if (splashActivityCallback != null)
                         splashActivityCallback.onSuccess(false);

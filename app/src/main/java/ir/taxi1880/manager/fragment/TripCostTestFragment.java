@@ -98,10 +98,12 @@ public class TripCostTestFragment extends Fragment {
                             tripCostModel.setWayName(dataObj.getString("name"));
                             tripCostModel.setOrigin(dataObj.getInt("fromStation"));
                             tripCostModel.setDest(dataObj.getInt("toStation"));
-                            tripCostModel.setCarType(dataObj.getInt("carType"));
-                            tripCostModel.setDistance(dataObj.getInt("distance"));
-                            tripCostModel.setTime(dataObj.getInt("duration"));
-                            tripCostModel.setPrice(dataObj.getInt("tripPrice"));
+                            tripCostModel.setCarType(dataObj.getString("ClassName"));
+                            tripCostModel.setDistance(dataObj.getString("distance"));
+                            tripCostModel.setTime(dataObj.getString("duration"));
+                            tripCostModel.setPrice(dataObj.getString("tripPrice"));
+                            tripCostModel.setCity(dataObj.getString("cityName"));
+
 //                            tripCostModel.setPrice(dataObj.getString("sellingPrice"));
 //                            int carType = dataObj.getInt("carType");
                             tripCostModels.add(tripCostModel);
@@ -125,7 +127,7 @@ public class TripCostTestFragment extends Fragment {
                     }
 
                 } catch (JSONException e) {
-                    binding.vfTCT.setDisplayedChild(2);
+                    binding.vfTCT.setDisplayedChild(3);
                     e.printStackTrace();
                 }
             });
@@ -135,7 +137,10 @@ public class TripCostTestFragment extends Fragment {
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            super.onFailure(reCall, e);
+            MyApplication.handler.post(()->
+            {
+                binding.vfTCT.setDisplayedChild(3);
+            });
         }
 
     };

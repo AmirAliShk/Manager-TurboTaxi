@@ -5,10 +5,20 @@ public class TripCostModel {
     String wayName;
     int origin;
     int dest;
-    int distance;
-    int time;
-    int price;
-    int carType;
+    String distance;
+    String time;
+    String price;
+    String carType;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    String city;
 
     public int getId() {
         return id;
@@ -18,11 +28,11 @@ public class TripCostModel {
         this.id = id;
     }
 
-    public int getCarType() {
+    public String getCarType() {
         return carType;
     }
 
-    public void setCarType(int carType) {
+    public void setCarType(String carType) {
         this.carType = carType;
     }
 
@@ -50,27 +60,27 @@ public class TripCostModel {
         this.dest = dest;
     }
 
-    public int getDistance() {
+    public String getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }
