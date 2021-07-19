@@ -197,7 +197,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_spinner"
                 android:padding="8dp"
-                android:src="@drawable/ic_info" />
+                android:src="@drawable/ic_edit" />
 
         </LinearLayout>
 

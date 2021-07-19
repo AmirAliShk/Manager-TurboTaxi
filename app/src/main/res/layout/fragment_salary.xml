@@ -1,10 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
-    android:clickable="true"
-    android:gravity="center"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context=".fragment.RecordTripCostFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#2f2f2f"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <ImageView
+            android:id="@+id/imgaddtypeoftrip"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_ripple"
+            android:padding="16dp"
+            android:src="@drawable/ic_add" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="حقوق"
+            android:textColor="@color/colorWhite"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple"
+            android:padding="7dp"
+            android:src="@drawable/ic_back" />
+
+    </LinearLayout>
+
+    <ViewFlipper
+        android:id="@+id/vfTCT"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+<!--        <com.wang.avi.AVLoadingIndicatorView-->
+<!--            android:id="@+id/loader"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:visibility="gone"-->
+<!--            app:indicatorColor="#508dff " />-->
+
+        <ListView
+            android:id="@+id/tripCostList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            tools:listitem="@layout/item_salary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="موردی موجود نیست !"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="خطا در بارگیری اطلاعات لطفا مجدد امتحان کنید."
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp" />
+
+    </ViewFlipper>
+
+</LinearLayout>
