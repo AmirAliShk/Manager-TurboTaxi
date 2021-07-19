@@ -13,20 +13,22 @@ import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
+import ir.taxi1880.manager.databinding.FragmentRecordTripCostBinding;
+import ir.taxi1880.manager.databinding.FragmentSalaryBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 
 public class SalaryFragment extends Fragment {
-    Unbinder unbinder;
 
+    FragmentSalaryBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_salary, container, false);
+        binding = FragmentSalaryBinding.inflate(getLayoutInflater());
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        TypefaceUtil.overrideFonts(view);
-        unbinder = ButterKnife.bind(this, view);
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
-        return view;
+
+        return binding.getRoot();
     }
 }

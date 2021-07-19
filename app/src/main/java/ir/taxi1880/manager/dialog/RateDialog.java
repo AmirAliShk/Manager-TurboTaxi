@@ -116,6 +116,11 @@ public class RateDialog {
         }
     }
 
+    @OnClick(R.id.imgCancelDialog)
+    void onCancel(){
+        dismiss();
+    }
+
     public void show(RateModel model) {
 
         if (MyApplication.currentActivity == null || MyApplication.currentActivity.isFinishing())

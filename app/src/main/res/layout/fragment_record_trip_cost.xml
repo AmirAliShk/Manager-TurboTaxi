@@ -7,7 +7,7 @@
     android:background="@color/alsoBlack"
     android:layoutDirection="rtl"
     android:orientation="vertical"
-    tools:context=".fragment.RecordTripCostFragment">
+    tools:context=".fragment.TripCostTestFragment">
 
 
     <LinearLayout
