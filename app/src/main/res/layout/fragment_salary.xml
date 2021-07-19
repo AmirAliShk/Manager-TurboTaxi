@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/alsoBlack"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
-    tools:context=".fragment.RecordTripCostFragment">
-
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,11 +19,11 @@
         android:paddingRight="25dp">
 
         <ImageView
-            android:id="@+id/imgaddtypeoftrip"
+            android:id="@+id/imgAddSalaryPlan"
             android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
-            android:padding="16dp"
+            android:padding="15dp"
             android:src="@drawable/ic_add" />
 
         <TextView
@@ -49,22 +47,20 @@
     </LinearLayout>
 
     <ViewFlipper
-        android:id="@+id/vfTCT"
+        android:id="@+id/vfSalary"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-<!--        <com.wang.avi.AVLoadingIndicatorView-->
-<!--            android:id="@+id/loader"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:padding="10dp"-->
-<!--            android:visibility="gone"-->
-<!--            app:indicatorColor="#508dff " />-->
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:visibility="gone"
+            app:indicatorColor="#508dff " />
 
         <ListView
-            android:id="@+id/tripCostList"
+            android:id="@+id/salaryList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"

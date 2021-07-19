@@ -10,16 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
-import ir.taxi1880.manager.databinding.FragmentRecordTripCostBinding;
+import java.util.ArrayList;
+
+import ir.taxi1880.manager.adapter.SalaryAdapter;
+import ir.taxi1880.manager.app.EndPoints;
+import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.databinding.FragmentSalaryBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
+import ir.taxi1880.manager.model.SalaryModel;
+import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class SalaryFragment extends Fragment {
 
     FragmentSalaryBinding binding;
+
+    ArrayList<SalaryModel> salaryModels;
+
+    SalaryAdapter salaryAdapter;
 
     @Nullable
     @Override
@@ -28,7 +35,44 @@ public class SalaryFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         TypefaceUtil.overrideFonts(binding.getRoot());
 
+        getSalary();
 
         return binding.getRoot();
     }
+
+    public void getSalary() {
+        if (binding.vfSalary != null) {
+            binding.vfSalary.setDisplayedChild(0);
+        }
+
+        RequestHelper.builder(EndPoints.CITY)
+                .addParam("", "")
+                .listener(salaryCallBack)
+                .get();
+    }
+
+    RequestHelper.Callback salaryCallBack = new RequestHelper.Callback() {
+        @Override
+        public void onResponse(Runnable reCall, Object... args) {
+            MyApplication.handler.post(() -> {
+                try {
+
+
+
+                    salaryAdapter = new SalaryAdapter(salaryModels);
+                    binding.salaryList.setAdapter(salaryAdapter);
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(Runnable reCall, Exception e) {
+            super.onFailure(reCall, e);
+        }
+    };
 }

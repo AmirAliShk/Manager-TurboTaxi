@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,14 +9,12 @@
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
-        android:id="@+id/llmainItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_18sdp"
         android:background="@drawable/bg_btn"
         android:orientation="vertical"
         android:padding="@dimen/_15sdp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +32,7 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-                android:id="@+id/originItem"
+                android:id="@+id/txtFromTime"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
@@ -53,7 +50,7 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-                android:id="@+id/destItem"
+                android:id="@+id/txtToTime"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
@@ -78,7 +75,7 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-                android:id="@+id/timeItem"
+                android:id="@+id/txtCheckMistake"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
@@ -96,6 +93,7 @@
                 android:src="@drawable/ic_precent" />
 
             <TextView
+                android:id="@+id/txtCheckMistakePercent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
@@ -121,7 +119,7 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-                android:id="@+id/carTypeItem"
+                android:id="@+id/txtTripRegister"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -138,13 +136,13 @@
                 android:src="@drawable/ic_precent" />
 
             <TextView
+                android:id="@+id/txtTripRegisterPercent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
-
 
         </LinearLayout>
 
@@ -164,10 +162,9 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-
+                android:id="@+id/txtDetermination"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="0.5"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
@@ -182,13 +179,13 @@
                 android:src="@drawable/ic_precent" />
 
             <TextView
+                android:id="@+id/txtDeterminationPercent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
-
 
         </LinearLayout>
 
@@ -208,6 +205,7 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
+                android:id="@+id/txtDriverCall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
@@ -224,13 +222,13 @@
                 android:src="@drawable/ic_precent" />
 
             <TextView
+                android:id="@+id/txtDriverCallPercent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
-
 
         </LinearLayout>
 
@@ -250,7 +248,7 @@
                 android:textSize="@dimen/_15ssp" />
 
             <TextView
-
+                android:id="@+id/txtCheckComplaint"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -267,6 +265,7 @@
                 android:src="@drawable/ic_precent" />
 
             <TextView
+                android:id="@+id/txtCheckComplaintPercent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
@@ -275,7 +274,6 @@
                 android:textSize="@dimen/_16ssp" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -294,6 +292,7 @@
                 android:src="@drawable/ic_delete" />
 
             <ImageView
+                android:id="@+id/imgEdit"
                 android:layout_width="56dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_spinner"

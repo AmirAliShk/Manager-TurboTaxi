@@ -167,7 +167,6 @@ public class RateFragment extends Fragment {
                     .listener(getRatesCallBack)
                     .get();
         }
-
     }
 
     static RequestHelper.Callback getRatesCallBack = new RequestHelper.Callback() {

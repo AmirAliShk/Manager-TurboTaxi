@@ -141,7 +141,6 @@ public class RateAdapter extends BaseAdapter {
         return myView;
     }
 
-
     private void deleteRates(int id) {
         RequestHelper.builder(EndPoints.DELETE_RATE)
                 .addParam("increaseRateId", id)

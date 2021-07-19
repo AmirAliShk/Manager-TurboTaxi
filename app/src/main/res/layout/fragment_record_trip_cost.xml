@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:context=".fragment.TripCostTestFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -52,7 +51,6 @@
         android:id="@+id/vfTCT"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/loader"

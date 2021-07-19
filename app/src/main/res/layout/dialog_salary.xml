@@ -19,7 +19,6 @@
         android:layout_centerInParent="true">
 
         <LinearLayout
-            android:id="@+id/dialogg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -102,10 +101,10 @@
                         android:paddingRight="10dp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_20sdp" />
+
                 </LinearLayout>
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +116,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
@@ -133,8 +132,8 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_precent" />
 
-
                 <EditText
+                    android:id="@+id/edtCheckMistakePercent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -146,9 +145,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,7 +157,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
@@ -176,8 +173,8 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_precent" />
 
-
                 <EditText
+                    android:id="@+id/edtTripRegisterPercent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -188,7 +185,6 @@
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
-
 
             </LinearLayout>
 
@@ -202,7 +198,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
@@ -218,8 +214,8 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_precent" />
 
-
                 <EditText
+                    android:id="@+id/edtDeterminationPercent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -230,7 +226,6 @@
                     android:paddingRight="10dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
-
 
             </LinearLayout>
 
@@ -244,7 +239,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
@@ -260,8 +255,8 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_precent" />
 
-
                 <EditText
+                    android:id="@+id/edtDriverCallsPercent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -273,9 +268,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -287,7 +280,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
                     android:paddingRight="10dp"
@@ -303,8 +296,8 @@
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_precent" />
 
-
                 <EditText
+                    android:id="@+id/edtCheckComplaintPercent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.25"
@@ -316,18 +309,16 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp" />
 
-
             </LinearLayout>
-
 
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/bg_circle_left_blue"
                 android:gravity="center"
                 android:text="ثبت"
