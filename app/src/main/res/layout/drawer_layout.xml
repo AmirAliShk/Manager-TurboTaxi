@@ -88,6 +88,19 @@
 
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgSalary"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_ripple"
+        android:padding="6dp"
+        android:src="@drawable/cost_test" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.05" />
 

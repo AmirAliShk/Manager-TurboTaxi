@@ -37,6 +37,7 @@ import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.fragment.RateFragment;
+import ir.taxi1880.manager.fragment.SalaryFragment;
 import ir.taxi1880.manager.fragment.SystemSummeryFragment;
 import ir.taxi1880.manager.fragment.TripCostTestFragment;
 import ir.taxi1880.manager.helper.AppVersionHelper;
@@ -141,6 +142,12 @@ public class MainActivity extends AppCompatActivity {
     void onSystemSummery() {
         drawer.close();
         FragmentHelper.toFragment(MyApplication.currentActivity, new SystemSummeryFragment()).setAddToBackStack(true).replace();
+    }
+
+    @OnClick(R.id.imgSalary)
+    void onSalary() {
+        drawer.close();
+        FragmentHelper.toFragment(MyApplication.currentActivity, new SalaryFragment()).setAddToBackStack(true).replace();
     }
 
     @OnClick(R.id.imgRefresh)
