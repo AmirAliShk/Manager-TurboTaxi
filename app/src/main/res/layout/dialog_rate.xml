@@ -13,13 +13,23 @@
         app:realtimeBlurRadius="20dp"
         app:realtimeOverlayColor="#8000" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
     <LinearLayout
+        android:id="@+id/dialogg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/_10sdp"
         android:background="@drawable/bg_also_black_gradient_edge"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_20sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -416,5 +426,19 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgCancelDialog"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/bg_circle_red_all"
+            android:padding="@dimen/_7sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf=""
+            android:layout_margin="2dp"/>
+
+
+    </RelativeLayout>
 
 </RelativeLayout>
