@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/alsoBlack"
     android:layoutDirection="rtl"
     android:orientation="vertical"
@@ -201,7 +201,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_weight="0.65"
                 android:gravity="center_vertical"
                 android:text="تماس پاسخ دادن"
                 android:textColor="@color/grayLight"
@@ -210,7 +210,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.35"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
@@ -280,9 +280,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:gravity="left"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_10sdp">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imgDelete"
@@ -297,7 +297,7 @@
                 android:layout_width="56dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_spinner"
-                android:padding="8dp"
+                android:padding="3dp"
                 android:src="@drawable/ic_edit" />
 
         </LinearLayout>

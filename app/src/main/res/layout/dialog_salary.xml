@@ -115,44 +115,80 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="بررسی خطا"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="center_vertical"
-                        android:paddingRight="10dp"
-                        android:text="توقف"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <EditText
-                        android:id="@+id/edtStop"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/bg_spinner"
-                        android:gravity="center"
-                        android:inputType="numberDecimal"
-                        android:nextFocusRight="@id/edtMeter"
-                        android:paddingRight="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_20sdp" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.25"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_3sdp"
-                        android:src="@drawable/ic_precent" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_precent" />
 
 
-                </LinearLayout>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtMeter"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="ثبت سفر"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_precent" />
+
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtMeter"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp" />
+
 
             </LinearLayout>
 
@@ -162,75 +198,127 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="تعیین محدوده"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="center_vertical"
-                        android:paddingRight="10dp"
-                        android:text="حداقل"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_15sdp" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_precent" />
 
-                    <EditText
-                        android:id="@+id/edtMinimum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_spinner"
-                        android:gravity="center"
-                        android:inputType="numberDecimal"
-                        android:nextFocusLeft="@id/edtDisposal"
-                        android:paddingRight="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_20sdp" />
 
-                </LinearLayout>
-
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="0dp" />
-
-                <LinearLayout
+                <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_weight="0.25"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtMeter"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="center_vertical"
-                        android:paddingRight="10dp"
-                        android:text="در اختیار"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_15sdp" />
-
-                    <EditText
-                        android:id="@+id/edtDisposal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_spinner"
-                        android:gravity="center"
-                        android:inputType="numberDecimal"
-                        android:paddingRight="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_20sdp" />
-
-                </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="تماس پاسخ دادن"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_precent" />
+
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtMeter"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:text="بررسی شکایات"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_15sdp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_precent" />
+
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:background="@drawable/bg_spinner"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:nextFocusRight="@id/edtMeter"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btnSubmit"
