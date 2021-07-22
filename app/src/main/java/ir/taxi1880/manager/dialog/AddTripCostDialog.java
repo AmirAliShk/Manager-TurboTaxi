@@ -3,6 +3,7 @@ package ir.taxi1880.manager.dialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.databinding.DialogTripCostBinding;
 
+import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CarTypeModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
@@ -31,7 +33,6 @@ public class AddTripCostDialog {
     Dialog dialog;
     DialogTripCostBinding binding;
     Listener listener;
-
     int carType;
 
     public interface Listener {
@@ -98,9 +99,9 @@ public class AddTripCostDialog {
             }
 
             RequestHelper.builder(EndPoints.TRIP_COST_TEST)
-                    .addParam("fromStation",Integer.parseInt(origin))
-                    .addParam("toStation",Integer.parseInt(dest))
-                    .addParam("carType",carType)
+                    .addParam("fromStation", Integer.parseInt(origin))
+                    .addParam("toStation", Integer.parseInt(dest))
+                    .addParam("carType", carType)
                     .addParam("name", wayName)
                     .listener(addListener)
                     .post();
@@ -148,19 +149,16 @@ public class AddTripCostDialog {
         }
     }
 
-
     RequestHelper.Callback addListener = new RequestHelper.Callback() {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
-            MyApplication.handler.post(()->
-            {
+            MyApplication.handler.post(() -> {
                 try {
                     JSONObject addObj = new JSONObject(args[0].toString());
                     boolean success = addObj.getBoolean("success");
                     String message = addObj.getString("message");
 
-                    if (success)
-                    {
+                    if (success) {
                         dialog.dismiss();
                         listener.onGetData(true);
                         new GeneralDialog()
@@ -169,9 +167,7 @@ public class AddTripCostDialog {
                                 .secondButton("بستن", null)
                                 .show();
 
-                    }
-                    else
-                    {
+                    } else {
                         new GeneralDialog()
                                 .type(3)
                                 .message(message)
@@ -183,7 +179,6 @@ public class AddTripCostDialog {
                     e.printStackTrace();
                 }
 
-
             });
 
         }
@@ -194,4 +189,18 @@ public class AddTripCostDialog {
 //            MyApplication.handler.post()
         }
     };
+
+    private void dismiss() {
+        try {
+            Log.i("TAG", "dismiss run");
+            if (dialog != null) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                KeyBoardHelper.hideKeyboard();
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "dismiss: " + e.getMessage());
+        }
+        dialog = null;
+    }
 }

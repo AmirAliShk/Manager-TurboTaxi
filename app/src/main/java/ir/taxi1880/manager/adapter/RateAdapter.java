@@ -124,9 +124,10 @@ public class RateAdapter extends BaseAdapter {
 
 
         llRateItem.setOnClickListener((view1) -> {
+
             new RateDialog()
                     .show(rateModel);
-            position = i;
+
         });
 
         imgDelete.setOnClickListener((view1 -> {
@@ -136,6 +137,7 @@ public class RateAdapter extends BaseAdapter {
                     .secondButton("خیر", null)
                     .type(1)
                     .show();
+            position = i;
         }));
 
         return myView;

@@ -51,4 +51,7 @@ public class EndPoints {
     public static final String ADD_RATE = PRICING + "increaseRate";
     public static final String TRIP_COST_TEST = PRICING + "test";
 
+    /******************************** change salary Api *********************************/
+    public static final String SALARY = MANAGER_PATH + "salary";
+
 }

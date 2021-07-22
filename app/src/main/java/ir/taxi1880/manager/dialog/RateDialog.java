@@ -117,7 +117,7 @@ public class RateDialog {
     }
 
     @OnClick(R.id.imgCancelDialog)
-    void onCancel(){
+    void onCancel() {
         dismiss();
     }
 
@@ -252,7 +252,7 @@ public class RateDialog {
                     strCarClass += ",1";
                 }
             } else {
-               strCarClass =   strCarClass.replace("1", "");
+                strCarClass = strCarClass.replace("1", "");
             }
         });
 
@@ -264,7 +264,7 @@ public class RateDialog {
                     strCarClass += ",3";
                 }
             } else {
-                strCarClass =  strCarClass.replace(",3", "");
+                strCarClass = strCarClass.replace(",3", "");
             }
         });
 
@@ -276,7 +276,7 @@ public class RateDialog {
                     strCarClass += ",4";
                 }
             } else {
-              strCarClass =  strCarClass.replace(",4", "");
+                strCarClass = strCarClass.replace(",4", "");
             }
         });
 
@@ -288,7 +288,7 @@ public class RateDialog {
                     strCarClass += ",2";
                 }
             } else {
-                strCarClass =  strCarClass.replace(",2", "");
+                strCarClass = strCarClass.replace(",2", "");
             }
         });
 
