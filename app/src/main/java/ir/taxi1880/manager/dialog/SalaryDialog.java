@@ -75,6 +75,9 @@ public class SalaryDialog {
     }
 
     public void editSalary() {
+        if (binding.vfSubmit != null) {
+            binding.vfSubmit.setDisplayedChild(1);
+        }
         RequestHelper.builder(EndPoints.SALARY)
                 .addParam("id", model.getId())
                 .addParam("fromHour", StringHelper.toEnglishDigits(binding.edtFromTime.getText() + ""))

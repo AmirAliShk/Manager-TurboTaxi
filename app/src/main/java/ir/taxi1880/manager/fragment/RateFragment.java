@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,7 +47,7 @@ public class RateFragment extends Fragment {
 
     static ViewFlipper vfRate;
     static FloatingActionButton fabAdd;
-    static ListView rateList;
+    static RecyclerView rateList;
     public static Spinner spCity1;
 
     @OnClick(R.id.fabAdd)
@@ -205,7 +205,7 @@ public class RateFragment extends Fragment {
                         } else {
                             if (vfRate != null)
                                 vfRate.setDisplayedChild(2);
-                            rateAdapter = new RateAdapter(rateModels);
+                            rateAdapter = new RateAdapter(MyApplication.currentActivity,rateModels);
                             rateList.setAdapter(rateAdapter);
                         }
                     }

@@ -1,14 +1,12 @@
 package ir.taxi1880.manager.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.kyleduo.switchbutton.SwitchButton;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,94 +14,51 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.ItemRateBinding;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.dialog.RateDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
-import ir.taxi1880.manager.model.CityModel;
 import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
-import static ir.taxi1880.manager.app.MyApplication.context;
 import static ir.taxi1880.manager.fragment.RateFragment.getRates;
 
-public class RateAdapter extends BaseAdapter {
+public class RateAdapter extends RecyclerView.Adapter<RateAdapter.ViewHolder> {
 
-    private ArrayList<RateModel> rateModels;
+    Context context;
     LayoutInflater inflater;
-    int position;
-    Unbinder unbinder;
+    ArrayList<RateModel> rateModelArrayList;
     RateModel rateModel;
-    @BindView(R.id.llRateItem)
-    LinearLayout llRateItem;
+    ItemRateBinding binding;
 
-    @BindView(R.id.txtFromTime)
-    TextView txtFromTime;
-
-    @BindView(R.id.txtToTime)
-    TextView txtToTime;
-
-    @BindView(R.id.txtStop)
-    TextView txtStop;
-
-    @BindView(R.id.txtMeter)
-    TextView txtMeter;
-
-    @BindView(R.id.txtMinimumPrice)
-    TextView txtMinimumPrice;
-
-    @BindView(R.id.txtDisposal)
-    TextView txtDisposal;
-
-    @BindView(R.id.txtCarClass)
-    TextView txtCarClass;
-
-    @BindView(R.id.imgDelete)
-    ImageView imgDelete;
-
-    public RateAdapter(ArrayList<RateModel> rateModels) {
-        this.rateModels = rateModels;
+    public RateAdapter(Context context, ArrayList<RateModel> salaryModelArrayList) {
+        this.rateModelArrayList = salaryModelArrayList;
         this.inflater = LayoutInflater.from(context);
     }
 
+    @NonNull
     @Override
-    public int getCount() {
-        return rateModels.size();
+    public RateAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        binding = ItemRateBinding.inflate(inflater, parent, false);
+        rateModel = rateModelArrayList.get(viewType);
+        TypefaceUtil.overrideFonts(binding.getRoot());
+
+        return new ViewHolder(binding.getRoot());
     }
 
     @Override
-    public Object getItem(int i) {
-        return rateModels.get(i);
-    }
+    public void onBindViewHolder(@NonNull RateAdapter.ViewHolder holder, int position) {
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
+        RateModel rateModel = rateModelArrayList.get(position);
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View myView = view;
-
-        rateModel = rateModels.get(i);
-
-        if (myView == null) {
-            myView = inflater.inflate(R.layout.item_rate, viewGroup, false);
-            TypefaceUtil.overrideFonts(myView);
-        }
-        unbinder = ButterKnife.bind(this, myView);
-
-        txtFromTime.setText(rateModel.getFromHour() + "");
-        txtToTime.setText(rateModel.getToHour() + "");
-        txtStop.setText(rateModel.getStopPricePercent() + "");
-        txtMeter.setText(rateModel.getMeterPricePercent() + "");
-        txtMinimumPrice.setText(rateModel.getMinPricePercent() + "");
-        txtDisposal.setText(rateModel.getCharterPricePercent() + "");
+        binding.txtFromTime.setText(rateModel.getFromHour() + "");
+        binding.txtToTime.setText(rateModel.getToHour() + "");
+        binding.txtStop.setText(rateModel.getStopPricePercent() + "");
+        binding.txtMeter.setText(rateModel.getMeterPricePercent() + "");
+        binding.txtMinimumPrice.setText(rateModel.getMinPricePercent() + "");
+        binding.txtDisposal.setText(rateModel.getCharterPricePercent() + "");
 
         String carClass = "";
         try {
@@ -116,31 +71,30 @@ public class RateAdapter extends BaseAdapter {
                     carClass = carClass + " ," + carObj.getString("ClassName");
                 }
             }
-            txtCarClass.setText(carClass);
-
+            binding.txtCarClass.setText(carClass);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        binding.llRateItem.setOnClickListener((view1) -> new RateDialog().show(rateModel));
 
-        llRateItem.setOnClickListener((view1) -> {
+        binding.imgDelete.setOnClickListener((view1 -> new GeneralDialog()
+                .message("آیا میخواهید این مدل قیمت دهی را حذف کنید؟")
+                .firstButton("بله", () -> deleteRates(rateModel.getId()))
+                .secondButton("خیر", null)
+                .type(1)
+                .show()));
+    }
 
-            new RateDialog()
-                    .show(rateModel);
+    @Override
+    public int getItemCount() {
+        return rateModelArrayList.size();
+    }
 
-        });
-
-        imgDelete.setOnClickListener((view1 -> {
-            new GeneralDialog()
-                    .message("آیا میخواهید این مدل قیمت دهی را حذف کنید؟")
-                    .firstButton("بله", () -> deleteRates(rateModel.getId()))
-                    .secondButton("خیر", null)
-                    .type(1)
-                    .show();
-            position = i;
-        }));
-
-        return myView;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
     }
 
     private void deleteRates(int id) {
@@ -160,7 +114,6 @@ public class RateAdapter extends BaseAdapter {
                     boolean success = object.getBoolean("success");
                     String message = object.getString("message");
                     if (success) {
-                        rateModels.remove(position);
                         notifyDataSetChanged();
                         getRates(rateModel.getCityCode());
                     }

@@ -21,7 +21,6 @@ import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.databinding.FragmentSalaryBinding;
 import ir.taxi1880.manager.dialog.SalaryDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
-import ir.taxi1880.manager.model.QueuesModel;
 import ir.taxi1880.manager.model.SalaryModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
@@ -93,7 +92,7 @@ public class SalaryFragment extends Fragment {
                         if (binding.vfSalary != null) {
                             binding.vfSalary.setDisplayedChild(1);
                         }
-                        salaryAdapter = new SalaryAdapter(salaryModels, refresh -> getSalary());
+                        salaryAdapter = new SalaryAdapter(MyApplication.currentActivity,salaryModels, refresh -> getSalary());
                         salaryAdapter.notifyDataSetChanged();
                         binding.salaryList.setAdapter(salaryAdapter);
                     }

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,6 +96,8 @@ public class RateDialog {
 
     @BindView(R.id.chbFormality)
     CheckBox chbFormality;
+    @BindView(R.id.vfSubmit)
+    ViewFlipper vfSubmit;
 
     @OnClick(R.id.btnSubmit)
     void onSubmit() {
@@ -298,6 +301,9 @@ public class RateDialog {
     }
 
     private void editRate() {
+        if (vfSubmit != null) {
+            vfSubmit.setDisplayedChild(1);
+        }
         RequestHelper.builder(EndPoints.EDIT_RATE)
                 .addParam("increaseRateId", increaseRateId + "")
                 .addParam("cityCode", spCity.getSelectedItemId())
@@ -318,6 +324,9 @@ public class RateDialog {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
+                    if (vfSubmit != null) {
+                        vfSubmit.setDisplayedChild(0);
+                    }
                     JSONObject object = new JSONObject(args[0].toString());
 
                     String message = object.getString("message");
@@ -345,6 +354,9 @@ public class RateDialog {
     };
 
     private void addRates() {
+        if (vfSubmit != null) {
+            vfSubmit.setDisplayedChild(1);
+        }
         RequestHelper.builder(EndPoints.ADD_RATE)
                 .addParam("cityCode", spCity.getSelectedItemId())
                 .addParam("fromHour", edtFromTime.getText())
@@ -365,6 +377,9 @@ public class RateDialog {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
+                    if (vfSubmit != null) {
+                        vfSubmit.setDisplayedChild(0);
+                    }
                     JSONObject object = new JSONObject(args[0].toString());
 
                     String message = object.getString("message");
