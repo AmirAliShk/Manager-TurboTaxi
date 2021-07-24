@@ -59,6 +59,7 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.ViewHolder> {
         binding.txtMeter.setText(rateModel.getMeterPricePercent() + "");
         binding.txtMinimumPrice.setText(rateModel.getMinPricePercent() + "");
         binding.txtDisposal.setText(rateModel.getCharterPricePercent() + "");
+        binding.txtEntry.setText(rateModel.getEntryPricePercent() + "");
 
         String carClass = "";
         try {

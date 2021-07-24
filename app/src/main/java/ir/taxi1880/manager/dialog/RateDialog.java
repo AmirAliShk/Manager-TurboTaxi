@@ -79,6 +79,9 @@ public class RateDialog {
     @BindView(R.id.edtMinimum)
     EditText edtMinimum;
 
+    @BindView(R.id.edtEntry)
+    EditText edtEntry;
+
     @BindView(R.id.spCity)
     Spinner spCity;
 
@@ -101,14 +104,15 @@ public class RateDialog {
 
     @OnClick(R.id.btnSubmit)
     void onSubmit() {
-        if (edtFromTime.getText() == null ||
-                edtToTime.getText() == null ||
+        if (edtFromTime.getText().toString().isEmpty() ||
+                edtToTime.getText().toString().isEmpty() ||
                 spCity.getSelectedItemId() == 0 ||
-                edtMeter.getText() == null ||
-                edtStop.getText() == null ||
-                edtDisposal.getText() == null ||
-                edtMinimum.getText() == null
-                || strCarClass.equals("")) {
+                edtMeter.getText().toString().isEmpty() ||
+                edtStop.getText().toString().isEmpty() ||
+                edtDisposal.getText().toString().isEmpty() ||
+                edtMinimum.getText().toString().isEmpty() ||
+                edtEntry.getText().toString().isEmpty() ||
+                strCarClass.equals("")) {
             MyApplication.Toast("لطفا تمام فیلد ها رو کامل کنید.", Toast.LENGTH_SHORT);
         } else {
             if (model != null) {
@@ -167,6 +171,7 @@ public class RateDialog {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             if (carType.contains("اقتصادي")) {
                 chbEconomical.setChecked(true);
                 if (strCarClass.equals("")) {
@@ -209,6 +214,7 @@ public class RateDialog {
             edtStop.setText(stopPricePercent + "");
             edtDisposal.setText(charterPricePercent + "");
             edtMinimum.setText(minPricePercent + "");
+            edtEntry.setText(entryPricePercent + "");
         }
 
         try {
@@ -296,7 +302,9 @@ public class RateDialog {
         });
 
         edtFromTime.requestFocus();
+
         MyApplication.handler.postDelayed(() -> KeyBoardHelper.showKeyboard(MyApplication.context), 300);
+
         dialog.show();
     }
 
@@ -307,13 +315,13 @@ public class RateDialog {
         RequestHelper.builder(EndPoints.EDIT_RATE)
                 .addParam("increaseRateId", increaseRateId + "")
                 .addParam("cityCode", spCity.getSelectedItemId())
-                .addParam("fromHour", edtFromTime.getText())
-                .addParam("toHour", edtToTime.getText())
-                .addParam("stopPricePercent", edtStop.getText())
-                .addParam("metrPricePercent", edtMeter.getText())
-                .addParam("charterPricePercent", edtDisposal.getText())
-                .addParam("minPricePercent", edtMinimum.getText())
-                .addParam("entryPricePercent", 0)
+                .addParam("fromHour", edtFromTime.getText().toString())
+                .addParam("toHour", edtToTime.getText().toString())
+                .addParam("stopPricePercent", edtStop.getText().toString())
+                .addParam("metrPricePercent", edtMeter.getText().toString())
+                .addParam("charterPricePercent", edtDisposal.getText().toString())
+                .addParam("minPricePercent", edtMinimum.getText().toString())
+                .addParam("entryPricePercent", edtEntry.getText().toString())
                 .addParam("carClass", strCarClass)
                 .listener(editaRateCallBack)
                 .put();
@@ -359,17 +367,16 @@ public class RateDialog {
         }
         RequestHelper.builder(EndPoints.ADD_RATE)
                 .addParam("cityCode", spCity.getSelectedItemId())
-                .addParam("fromHour", edtFromTime.getText())
-                .addParam("toHour", edtToTime.getText())
-                .addParam("stopPricePercent", edtStop.getText())
-                .addParam("metrPricePercent", edtMeter.getText())
-                .addParam("charterPricePercent", edtDisposal.getText())
-                .addParam("minPricePercent", edtMinimum.getText())
-                .addParam("entryPricePercent", 0)
+                .addParam("fromHour", edtFromTime.getText().toString())
+                .addParam("toHour", edtToTime.getText().toString())
+                .addParam("stopPricePercent", edtStop.getText().toString())
+                .addParam("metrPricePercent", edtMeter.getText().toString())
+                .addParam("charterPricePercent", edtDisposal.getText().toString())
+                .addParam("minPricePercent", edtMinimum.getText().toString())
+                .addParam("entryPricePercent", edtEntry.getText().toString())
                 .addParam("carClass", strCarClass)
                 .listener(addRatesCallBack)
                 .post();
-
     }
 
     RequestHelper.Callback addRatesCallBack = new RequestHelper.Callback() {
