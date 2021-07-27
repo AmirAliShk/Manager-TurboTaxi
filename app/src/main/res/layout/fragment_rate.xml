@@ -60,14 +60,15 @@
                 android:padding="16dp"
                 android:src="@drawable/ic_refresh" />
 
-            <TextView
+            <ImageView
+                android:id="@+id/fabAdd"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
                 android:gravity="center"
+                android:src="@drawable/ic_add_white"
                 android:textColor="@color/colorWhite"
-                android:textSize="27sp"
-                android:textStyle="bold" />
+                android:padding="10dp"/>
 
             <ImageView
                 android:id="@+id/btnBack"
@@ -139,15 +140,15 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="15dp"
-        android:backgroundTint="#424242"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="#424242" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fabAdd"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:backgroundTint="#424242"-->
+<!--        android:src="@drawable/ic_add"-->
+<!--        app:backgroundTint="#424242" />-->
 
 </RelativeLayout>

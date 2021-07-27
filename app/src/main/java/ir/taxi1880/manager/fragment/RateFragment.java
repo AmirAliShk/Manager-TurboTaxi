@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.ViewFlipper;
 
@@ -13,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +45,7 @@ public class RateFragment extends Fragment {
     int cityCode;
 
     static ViewFlipper vfRate;
-    static FloatingActionButton fabAdd;
+    static ImageView fabAdd;
     static RecyclerView rateList;
     public static Spinner spCity1;
 
@@ -57,7 +56,7 @@ public class RateFragment extends Fragment {
     }
 
     @OnClick(R.id.imgRefresh)
-    void onRefresh(){
+    void onRefresh() {
         getRates(cityCode);
     }
 
@@ -156,7 +155,7 @@ public class RateFragment extends Fragment {
     }
 
     public static void getRates(int cityCode) {
-        if (cityCode == 0 || cityCode == -1 ) {
+        if (cityCode == 0 || cityCode == -1) {
             if (vfRate != null) {
                 vfRate.setDisplayedChild(0);
             }
@@ -205,7 +204,7 @@ public class RateFragment extends Fragment {
                         } else {
                             if (vfRate != null)
                                 vfRate.setDisplayedChild(2);
-                            rateAdapter = new RateAdapter(MyApplication.currentActivity,rateModels);
+                            rateAdapter = new RateAdapter(MyApplication.currentActivity, rateModels);
                             rateList.setAdapter(rateAdapter);
                         }
                     }

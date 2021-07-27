@@ -63,7 +63,8 @@ public class AddTripCostDialog {
         initCarSpinner();
 
         binding.imgCancelDialog.setOnClickListener(view -> {
-            dialog.dismiss();
+            KeyBoardHelper.hideKeyboard();
+            dismiss();
         });
         binding.blrview.setOnClickListener(view -> {
             return;

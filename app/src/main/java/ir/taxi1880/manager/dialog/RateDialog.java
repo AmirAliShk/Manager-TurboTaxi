@@ -125,6 +125,7 @@ public class RateDialog {
 
     @OnClick(R.id.imgCancelDialog)
     void onCancel() {
+        KeyBoardHelper.hideKeyboard();
         dismiss();
     }
 

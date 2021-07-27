@@ -69,7 +69,10 @@ public class SalaryDialog {
             }
         });
 
-        binding.imgCancelDialog.setOnClickListener(view -> dismiss());
+        binding.imgCancelDialog.setOnClickListener(view -> {
+            KeyBoardHelper.hideKeyboard();
+            dismiss();
+        });
 
         dialog.show();
     }
