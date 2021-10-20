@@ -34,6 +34,7 @@ import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.ActivityMainBinding;
 import ir.taxi1880.manager.fragment.ControlLinesFragment;
 import ir.taxi1880.manager.fragment.ControlQueueFragment;
 import ir.taxi1880.manager.fragment.RateFragment;
@@ -58,108 +59,23 @@ import static ir.taxi1880.manager.app.MyApplication.context;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    Unbinder unbinder;
+    ActivityMainBinding binding;
     boolean doubleBackToExitPressedOnce = false;
     private boolean hasAxes = true;
     private boolean hasLabels = true;
-
     ArrayList<ChartsModel> chartsModels;
     ArrayList<ChartsModel> chartsModels2;
     ArrayList<ChartsModel> chartsModels3;
-
     private ColumnChartData data1;
     private ColumnChartData data2;
     private ColumnChartData data3;
-    private boolean hasLabelForSelected = false;
-    private int dataType = 0;
-
-    @BindView(R.id.txtCancelTrip)
-    TextView txtCancelTrip;
-
-    @BindView(R.id.txtTripNum)
-    TextView txtTripNum;
-
-    @BindView(R.id.operatorNum)
-    TextView operatorNum;
-
-    @BindView(R.id.draw)
-    DrawerLayout drawer;
-
-    @BindView(R.id.txtVersionName)
-    TextView txtVersionName;
-
-    @BindView(R.id.vfLoader)
-    ViewFlipper vfLoader;
-    @BindView(R.id.navigation)
-    NavigationView navigation;
-
-    @BindView(R.id.chart1)
-    ColumnChartView chart1;
-
-    @BindView(R.id.chart2)
-    ColumnChartView chart2;
-
-    @BindView(R.id.chart3)
-    ColumnChartView chart3;
-
-    @OnClick(R.id.btnWeather)
-    void OnWeather() {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
-        MyApplication.currentActivity.startActivity(i);
-    }
-
-    @OnClick(R.id.lines)
-    void onLines() {
-        drawer.close();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
-    }
-
-    @OnClick(R.id.imgRate)
-    void onRate() {
-        drawer.close();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new RateFragment()).setAddToBackStack(true).replace();
-    }
-
-    @OnClick(R.id.queues)
-    void onQueues() {
-        drawer.close();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
-    }
-
-    @OnClick(R.id.imgTripSubmit)
-    void onTrip() {
-        drawer.close();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new TripCostTestFragment()).setAddToBackStack(true).replace();
-    }
-
-    @OnClick(R.id.openDrawer)
-    void onDrawer() {
-        drawer.openDrawer(Gravity.RIGHT);
-    }
-
-    @OnClick(R.id.imgSystemSummery)
-    void onSystemSummery() {
-        drawer.close();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new SystemSummeryFragment()).setAddToBackStack(true).replace();
-    }
-
-    @OnClick(R.id.imgSalary)
-    void onSalary() {
-        drawer.close();
-        FragmentHelper.toFragment(MyApplication.currentActivity, new SalaryFragment()).setAddToBackStack(true).replace();
-    }
-
-    @OnClick(R.id.imgRefresh)
-    void onRefresh() {
-        getSummery();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        View view = getWindow().getDecorView();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -167,11 +83,55 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.alsoBlack));
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
-        unbinder = ButterKnife.bind(this, view);
-        TypefaceUtil.overrideFonts(view);
-        getSummery();
-        txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
+        getSummery();
+
+        binding.txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
+
+        binding.btnWeather.setOnClickListener(view -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://www.accuweather.com/fa/ir/mashhad/209737/current-weather/209737"));
+            MyApplication.currentActivity.startActivity(i);
+        });
+
+        binding.lines.setOnClickListener(view -> {
+            binding.draw.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new ControlLinesFragment()).setAddToBackStack(true).replace();
+        });
+
+        binding.imgRate.setOnClickListener(view -> {
+            binding.draw.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new RateFragment()).setAddToBackStack(true).replace();
+        });
+
+        binding.queues.setOnClickListener(view -> {
+            binding.draw.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new ControlQueueFragment()).setAddToBackStack(true).replace();
+        });
+
+        binding.imgTripSubmit.setOnClickListener(view -> {
+            binding.draw.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new TripCostTestFragment()).setAddToBackStack(true).replace();
+        });
+
+        binding.openDrawer.setOnClickListener(view -> {
+            binding.draw.openDrawer(Gravity.RIGHT);
+        });
+
+        binding.imgSystemSummery.setOnClickListener(view -> {
+            binding.draw.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new SystemSummeryFragment()).setAddToBackStack(true).replace();
+        });
+
+        binding.imgSalary.setOnClickListener(view -> {
+            binding.draw.close();
+            FragmentHelper.toFragment(MyApplication.currentActivity, new SalaryFragment()).setAddToBackStack(true).replace();
+        });
+
+        binding.imgRefresh.setOnClickListener(view -> {
+            getSummery();
+        });
     }
 
     public void setParamsChart1(ArrayList<ChartsModel> tripsModels) {
@@ -205,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
             data1.setAxisXBottom(null);
             data1.setAxisYLeft(null);
         }
-        chart1.setZoomEnabled(false);
-        chart1.setColumnChartData(data1);
+        binding.chart1.setZoomEnabled(false);
+        binding.chart1.setColumnChartData(data1);
 
     }
 
@@ -242,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
             data2.setAxisXBottom(null);
             data2.setAxisYLeft(null);
         }
-        chart2.setZoomEnabled(false);
-        chart2.setColumnChartData(data2);
+        binding.chart2.setZoomEnabled(false);
+        binding.chart2.setColumnChartData(data2);
 
     }
 
@@ -279,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
             data3.setAxisXBottom(null);
             data3.setAxisYLeft(null);
         }
-        chart3.setZoomEnabled(false);
-        chart3.setColumnChartData(data3);
+        binding.chart3.setZoomEnabled(false);
+        binding.chart3.setColumnChartData(data3);
 
     }
 
@@ -311,7 +271,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
     }
 
     @Override
@@ -323,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 if (doubleBackToExitPressedOnce) {
                     MyApplication.currentActivity.finish();
                 } else {
-                    drawer.close();
+                    binding.draw.close();
                     this.doubleBackToExitPressedOnce = true;
                     MyApplication.Toast(getString(R.string.txt_please_for_exit_reenter_back), Toast.LENGTH_SHORT);
                     new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 1500);
@@ -335,8 +294,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getSummery() {
-        if (vfLoader != null)
-            vfLoader.setDisplayedChild(1);
+        if (binding.vfLoader != null)
+            binding.vfLoader.setDisplayedChild(1);
         RequestHelper.builder(EndPoints.MANAGER_PATH)
                 .listener(summeryCallBack)
                 .get();
@@ -346,8 +305,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
-                if (vfLoader != null)
-                    vfLoader.setDisplayedChild(0);
+                if (binding.vfLoader != null)
+                    binding.vfLoader.setDisplayedChild(0);
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
                     JSONObject summeryObj = object.getJSONObject("summery");
@@ -355,9 +314,9 @@ public class MainActivity extends AppCompatActivity {
                     String cancelServiceCount = summeryObj.getString("cancelServiceCount");
                     String activeOperators = summeryObj.getString("activeOperators");
 
-                    txtCancelTrip.setText(cancelServiceCount);
-                    txtTripNum.setText(serviceCount);
-                    operatorNum.setText(activeOperators);
+                    binding.txtCancelTrip.setText(cancelServiceCount);
+                    binding.txtTripNum.setText(serviceCount);
+                    binding.operatorNum.setText(activeOperators);
 
                     chartsModels = new ArrayList<>();
                     chartsModels2 = new ArrayList<>();
@@ -395,8 +354,8 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (vfLoader != null)
-                        vfLoader.setDisplayedChild(0);
+                    if (binding.vfLoader != null)
+                        binding.vfLoader.setDisplayedChild(0);
                     MyApplication.Toast("خطایی پیش آمده، لطفا دوباره امتحان کنید.", Toast.LENGTH_SHORT);
                 }
             });
@@ -405,8 +364,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             MyApplication.handler.post(() -> {
-                if (vfLoader != null)
-                    vfLoader.setDisplayedChild(0);
+                if (binding.vfLoader != null)
+                    binding.vfLoader.setDisplayedChild(0);
                 MyApplication.Toast("خطایی پیش آمده، لطفا دوباره امتحان کنید.", Toast.LENGTH_SHORT);
             });
         }
