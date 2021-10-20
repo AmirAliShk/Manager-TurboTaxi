@@ -21,7 +21,7 @@
 
         <View
             android:layout_width="56dp"
-            android:layout_height="56dp"/>
+            android:layout_height="56dp" />
 
         <TextView
             android:layout_width="0dp"

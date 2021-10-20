@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,50 +19,39 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.LinesAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.FragmentControlLinesBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.LinesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class ControlLinesFragment extends Fragment {
 
+    FragmentControlLinesBinding binding;
     ArrayList<LinesModel> arrayLinesModel;
     LinesAdapter linesAdapter;
-    Unbinder unbinder;
-
-    @BindView(R.id.linesList)
-    ListView linesList;
-
-    @OnClick(R.id.btnBack)
-    void onBack() {
-        MyApplication.currentActivity.onBackPressed();
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_control_lines, container, false);
+        binding = FragmentControlLinesBinding.inflate(inflater, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        TypefaceUtil.overrideFonts(view);
+        TypefaceUtil.overrideFonts(binding.getRoot());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor("#2f2f2f"));
         }
-        unbinder = ButterKnife.bind(this, view);
 
         arrayLinesModel = new ArrayList<>();
 
         getLines();
 
-        return view;
+        binding.btnBack.setOnClickListener(view -> MyApplication.currentActivity.onBackPressed());
+
+        return binding.getRoot();
     }
 
     private void getLines() {
@@ -92,7 +78,7 @@ public class ControlLinesFragment extends Fragment {
                     }
 
                     linesAdapter = new LinesAdapter(arrayLinesModel);
-                    linesList.setAdapter(linesAdapter);
+                    binding.linesList.setAdapter(linesAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,6 +95,5 @@ public class ControlLinesFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 }
