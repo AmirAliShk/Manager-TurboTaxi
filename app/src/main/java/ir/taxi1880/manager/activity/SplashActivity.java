@@ -8,15 +8,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-//import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,13 +21,11 @@ import org.acra.ACRA;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.Constant;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.ActivitySplashBinding;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.fragment.LoginFragment;
 import ir.taxi1880.manager.helper.AppVersionHelper;
@@ -46,13 +40,9 @@ import static ir.taxi1880.manager.app.MyApplication.context;
 public class SplashActivity extends AppCompatActivity {
 
     public static final String TAG = SplashActivity.class.getSimpleName();
+    ActivitySplashBinding binding;
     boolean doubleBackToExitPressedOnce = false;
-    Unbinder unbinder;
     SplashActivityCallback splashActivityCallback;
-
-
-    @BindView(R.id.txtVersionName)
-    TextView txtVersionName;
 
     public interface SplashActivityCallback {
         void onSuccess(boolean b);
@@ -62,8 +52,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        View view = getWindow().getDecorView();
+        binding = ActivitySplashBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -71,17 +61,14 @@ public class SplashActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.alsoBlack));
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
-        unbinder = ButterKnife.bind(this, view);
-        TypefaceUtil.overrideFonts(view);
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
-        txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
+        binding.txtVersionName.setText(StringHelper.toPersianDigits(new AppVersionHelper(context).getVerionName() + ""));
 
         ACRA.getErrorReporter().putCustomData("projectId", Constant.PUSH_PROJECT_ID);
         ACRA.getErrorReporter().putCustomData("LineCode", MyApplication.prefManager.getUserCode() + "");
 
-        MyApplication.handler.postDelayed(() -> {
-            checkPermission();
-        }, 1000);
+        MyApplication.handler.postDelayed(this::checkPermission, 1000);
 
     }
 
@@ -143,7 +130,6 @@ public class SplashActivity extends AppCompatActivity {
                     .setAddToBackStack(false)
                     .add();
         } else {
-            Log.i("TAF","args[0].toString()");
             RequestHelper.builder(EndPoints.APP_INFO)
                     .addPath(new AppVersionHelper(context).getVersionCode() + "")
                     .listener(onAppInfo)
@@ -157,11 +143,8 @@ public class SplashActivity extends AppCompatActivity {
             MyApplication.handler.post(() -> {
                 try {
                     JSONObject object = new JSONObject(args[0].toString());
-//                    Log.i("TAF",args[0].toString());
-
                     boolean success = object.getBoolean("success");
-                    if (success)
-                    {
+                    if (success) {
                         JSONObject data = object.getJSONObject("data");
                         String result = data.getString("result");
 
@@ -171,8 +154,7 @@ public class SplashActivity extends AppCompatActivity {
                         boolean updateAvailable = getJResult.getBoolean("updateAvailable");
                         boolean forceUpdate = getJResult.getBoolean("forceUpdate");
                         String updateUrl = getJResult.getString("updateUrl");
-                        MyApplication.prefManager.setCarType(getJResult.getJSONArray("carClass")+"");
-//                        Log.i("TAF carClass",MyApplication.prefManager.getCarType());
+                        MyApplication.prefManager.setCarType(getJResult.getJSONArray("carClass") + "");
 
                         if (block) {
                             new GeneralDialog()
@@ -193,8 +175,6 @@ public class SplashActivity extends AppCompatActivity {
                         if (splashActivityCallback != null)
                             splashActivityCallback.onSuccess(true);
                     }
-
-
 
                 } catch (JSONException e) {
                     if (splashActivityCallback != null)
@@ -265,6 +245,5 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
     }
 }
