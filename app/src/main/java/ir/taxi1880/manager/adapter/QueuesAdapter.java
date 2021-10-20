@@ -18,6 +18,7 @@ import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.ItemQueueBinding;
 import ir.taxi1880.manager.dialog.ChangeQueueCapacityDialog;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
@@ -27,24 +28,11 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 import static ir.taxi1880.manager.app.MyApplication.context;
 
 public class QueuesAdapter extends BaseAdapter {
-
+    ItemQueueBinding binding;
     private ArrayList<QueuesModel> queuesModels;
     LayoutInflater inflater;
     String newCapacity;
     int position;
-    Unbinder unbinder;
-
-    @BindView(R.id.queueTitle)
-    TextView queueTitle;
-
-    @BindView(R.id.inLineNum)
-    TextView inLineNum;
-
-    @BindView(R.id.permittedNum)
-    TextView permittedNum;
-
-    @BindView(R.id.llLimitation)
-    LinearLayout llLimitation;
 
     public QueuesAdapter(ArrayList<QueuesModel> queuesModels) {
         this.queuesModels = queuesModels;
@@ -68,27 +56,22 @@ public class QueuesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View myView = view;
-
         QueuesModel currentQueuesModel = queuesModels.get(i);
+        
+        binding = ItemQueueBinding.inflate(inflater, viewGroup, false);
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
-        if (myView == null) {
-            myView = inflater.inflate(R.layout.item_queue, viewGroup, false);
-            TypefaceUtil.overrideFonts(myView);
-        }
-        unbinder = ButterKnife.bind(this, myView);
+        binding.queueTitle.setText(currentQueuesModel.getName());
+        binding.inLineNum.setText(currentQueuesModel.getActiveMember());
+        binding.permittedNum.setText(currentQueuesModel.getCapacity());
 
-        queueTitle.setText(currentQueuesModel.getName());
-        inLineNum.setText(currentQueuesModel.getActiveMember());
-        permittedNum.setText(currentQueuesModel.getCapacity());
-
-        llLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
+        binding.llLimitation.setOnClickListener(view1 -> new ChangeQueueCapacityDialog().show(num -> {
             newCapacity = num;
             position = i;
             getQueueInfo(currentQueuesModel.getId(), currentQueuesModel.getActiveMember(), num);
         }, currentQueuesModel.getName(), currentQueuesModel.getCapacity()));
 
-        return myView;
+        return binding.getRoot();
     }
 
     private void getQueueInfo(String id, String activeMembers, String capacity) {

@@ -27,37 +27,31 @@ import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.QueuesAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.FragmentControlQueuesBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.QueuesModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class ControlQueueFragment extends Fragment {
+    FragmentControlQueuesBinding binding;
     ArrayList<QueuesModel> arrayQueuesModel;
     QueuesAdapter queuesAdapter;
-    Unbinder unbinder;
-
-    @BindView(R.id.queuesList)
-    ListView queuesList;
-
-    @BindView(R.id.btnBack)
-    ImageView btnBack;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_control_queues, container, false);
+        binding = FragmentControlQueuesBinding.inflate(inflater, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        TypefaceUtil.overrideFonts(view);
-        unbinder = ButterKnife.bind(this, view);
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
         arrayQueuesModel = new ArrayList<>();
 
         getQueue();
 
-        btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
+        binding.btnBack.setOnClickListener(view12 -> MyApplication.currentActivity.onBackPressed());
 
-        return view;
+        return binding.getRoot();
     }
 
     private void getQueue() {
@@ -84,7 +78,7 @@ public class ControlQueueFragment extends Fragment {
                     }
 
                     queuesAdapter = new QueuesAdapter(arrayQueuesModel);
-                    queuesList.setAdapter(queuesAdapter);
+                    binding.queuesList.setAdapter(queuesAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -101,6 +95,5 @@ public class ControlQueueFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 }
