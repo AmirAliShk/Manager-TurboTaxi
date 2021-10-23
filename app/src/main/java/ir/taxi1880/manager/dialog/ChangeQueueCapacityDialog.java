@@ -5,37 +5,20 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.shawnlin.numberpicker.NumberPicker;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.DialogChangeQueueCapacityBinding;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 
 public class ChangeQueueCapacityDialog {
 
     private static final String TAG = ChangeQueueCapacityDialog.class.getSimpleName();
-    Unbinder unbinder;
-
-    @BindView(R.id.btnClose)
-    ImageView imgClose;
-
-    @BindView(R.id.btnSubmit)
-    ImageView btnSubmit;
-
-    @BindView(R.id.txtTitle)
-    TextView txtTitle;
-
-    @BindView(R.id.numberPicker)
-    NumberPicker numberPicker;
+    DialogChangeQueueCapacityBinding binding;
 
     public interface Listener {
         void num(String num);
@@ -50,9 +33,9 @@ public class ChangeQueueCapacityDialog {
         dialog = new Dialog(MyApplication.currentActivity);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.ExpandAnimation;
-        dialog.setContentView(R.layout.dialog_change_queue_capacity);
-        unbinder = ButterKnife.bind(this, dialog);
-        TypefaceUtil.overrideFonts(dialog.getWindow().getDecorView());
+        binding = DialogChangeQueueCapacityBinding.inflate(LayoutInflater.from(MyApplication.context));
+        dialog.setContentView(binding.getRoot());
+        TypefaceUtil.overrideFonts(binding.getRoot());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
         wlp.gravity = Gravity.CENTER;
@@ -62,19 +45,19 @@ public class ChangeQueueCapacityDialog {
         dialog.setCancelable(true);
         this.listener = listener;
 
-        numberPicker.setVerticalFadingEdgeEnabled(true);
-        numberPicker.setTypeface(MyApplication.IRANSANS_BOLD);
+        binding.numberPicker.setVerticalFadingEdgeEnabled(true);
+        binding.numberPicker.setTypeface(MyApplication.IRANSANS_BOLD);
 
-        txtTitle.setText(title);
-        numberPicker.setValue(Integer.parseInt(value));
-        btnSubmit.setOnClickListener(view -> {
-            int num = numberPicker.getValue();
+        binding.txtTitle.setText(title);
+        binding.numberPicker.setValue(Integer.parseInt(value));
+        binding.btnSubmit.setOnClickListener(view -> {
+            int num = binding.numberPicker.getValue();
             listener.num(num + "");
 
             dismiss();
         });
 
-        imgClose.setOnClickListener(view -> dismiss());
+        binding.btnClose.setOnClickListener(view -> dismiss());
 
         dialog.show();
     }

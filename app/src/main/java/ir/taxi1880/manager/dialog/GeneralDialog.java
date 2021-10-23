@@ -3,28 +3,14 @@ package ir.taxi1880.manager.dialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.DialogGeneralBinding;
 import ir.taxi1880.manager.helper.TypefaceUtil;
-
-
-/***
- * Created by Amirreza Erfanian on 2018/July/26.
- * v : 1.0.0
- */
 
 public class GeneralDialog {
 
@@ -38,6 +24,7 @@ public class GeneralDialog {
     private int visibility;
     private boolean cancelable = true;
     private boolean singleInstance = false;
+    DialogGeneralBinding binding;
 
     public static int TYPE = 0;
     public static final int WARNING = 1;
@@ -133,46 +120,6 @@ public class GeneralDialog {
         return this;
     }
 
-    Unbinder unbinder;
-
-    @BindView(R.id.txtMessage)
-    TextView txtMessage;
-
-    @BindView(R.id.llBtnView)
-    LinearLayout llBtnView;
-
-    @BindView(R.id.btnFirst)
-    Button btnFirst;
-
-    @BindView(R.id.btnSecond)
-    Button btnSecond;
-
-    @BindView(R.id.imgType)
-    ImageView imgType;
-
-    @OnClick(R.id.btnFirst)
-    void onFirstPress() {
-        dismiss();
-        if (firstBtn != null) {
-            if (firstBtn.getBody() != null) {
-                firstBtn.getBody().run();
-            }
-        }
-    }
-
-    @OnClick(R.id.btnSecond)
-    void onSecondPress() {
-        dismiss();
-
-        if (secondBtn != null) {
-            if (secondBtn.getBody() != null)
-                secondBtn.getBody().run();
-        }
-    }
-
-    @BindView(R.id.divider_st)
-    View divider_st;
-
     private Dialog dialog;
     private static Dialog staticDialog = null;
 
@@ -192,37 +139,54 @@ public class GeneralDialog {
             tempDialog = dialog;
         }
         tempDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        tempDialog.setContentView(R.layout.dialog_general);
+        binding = DialogGeneralBinding.inflate(LayoutInflater.from(MyApplication.context));
         tempDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        tempDialog.setContentView(binding.getRoot());
         WindowManager.LayoutParams wlp = tempDialog.getWindow().getAttributes();
         tempDialog.getWindow().setAttributes(wlp);
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         tempDialog.setCancelable(cancelable);
-        unbinder = ButterKnife.bind(this, tempDialog);
-        TypefaceUtil.overrideFonts(tempDialog.getWindow().getDecorView());
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
-        txtMessage.setText(messageText);
+        binding.txtMessage.setText(messageText);
         if (messageText.isEmpty()) {
-            txtMessage.setVisibility(View.GONE);
+            binding.txtMessage.setVisibility(View.GONE);
         }
         if (firstBtn == null) {
-            btnFirst.setVisibility(View.GONE);
+            binding.btnFirst.setVisibility(View.GONE);
         } else {
-            btnFirst.setText(firstBtn.getText());
+            binding.btnFirst.setText(firstBtn.getText());
         }
         if (secondBtn == null) {
-            btnSecond.setVisibility(View.GONE);
+            binding.btnSecond.setVisibility(View.GONE);
         } else {
-            btnSecond.setText(secondBtn.getText());
+            binding.btnSecond.setText(secondBtn.getText());
         }
         if (secondBtn == null) {
-            divider_st.setVisibility(View.GONE);
+            binding.dividerSt.setVisibility(View.GONE);
         }
         if (firstBtn == null && secondBtn == null) {
-            llBtnView.setVisibility(View.GONE);
+            binding.llBtnView.setVisibility(View.GONE);
         }
         if (bodyRunnable != null)
             bodyRunnable.run();
+
+        binding.btnFirst.setOnClickListener(view -> {
+            dismiss();
+            if (firstBtn != null) {
+                if (firstBtn.getBody() != null) {
+                    firstBtn.getBody().run();
+                }
+            }
+        });
+
+        binding.btnSecond.setOnClickListener(view -> {
+            dismiss();
+            if (secondBtn != null) {
+                if (secondBtn.getBody() != null)
+                    secondBtn.getBody().run();
+            }
+        });
 
         tempDialog.setOnDismissListener(dialog -> {
             if (dismissBody != null)
@@ -232,23 +196,23 @@ public class GeneralDialog {
 
         switch (TYPE) {
             case 0: //nothing
-                imgType.setVisibility(View.GONE);
+                binding.imgType.setVisibility(View.GONE);
                 break;
 
             case 1: //warning
-                imgType.setImageResource(R.drawable.ic_warning);
+                binding.imgType.setImageResource(R.drawable.ic_warning);
                 break;
 
             case 2: //success
-                imgType.setImageResource(R.drawable.ic_success);
+                binding.imgType.setImageResource(R.drawable.ic_success);
                 break;
 
             case 3: //error
-                imgType.setImageResource(R.drawable.ic_error);
+                binding.imgType.setImageResource(R.drawable.ic_error);
                 break;
 
             case 4: //info
-                imgType.setImageResource(R.drawable.ic_info);
+                binding.imgType.setImageResource(R.drawable.ic_info);
                 break;
 
         }

@@ -5,8 +5,12 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3328125" />
+        <entry key="app/src/main/res/layout/dialog_change_queue_capacity.xml" value="0.3328125" />
+        <entry key="app/src/main/res/layout/dialog_general.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/drawer_layout.xml" value="0.3328125" />
+        <entry key="app/src/main/res/layout/fragment_check_verification.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_control_lines.xml" value="0.3328125" />
+        <entry key="app/src/main/res/layout/fragment_rate.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/layout/fragment_system_summery.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/item_line.xml" value="0.3328125" />
       </map>

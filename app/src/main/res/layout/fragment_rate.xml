@@ -66,9 +66,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
                 android:gravity="center"
+                android:padding="10dp"
                 android:src="@drawable/ic_add_white"
-                android:textColor="@color/colorWhite"
-                android:padding="10dp"/>
+                android:textColor="@color/colorWhite" />
 
             <ImageView
                 android:id="@+id/btnBack"
@@ -139,16 +139,5 @@
         </ViewFlipper>
 
     </LinearLayout>
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fabAdd"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="70dp"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_margin="15dp"-->
-<!--        android:backgroundTint="#424242"-->
-<!--        android:src="@drawable/ic_add"-->
-<!--        app:backgroundTint="#424242" />-->
 
 </RelativeLayout>

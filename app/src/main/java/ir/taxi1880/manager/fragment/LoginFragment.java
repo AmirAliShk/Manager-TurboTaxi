@@ -7,24 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONObject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.activity.SplashActivity;
 import ir.taxi1880.manager.app.Constant;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.FragmentLoginBinding;
 import ir.taxi1880.manager.dialog.GeneralDialog;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
@@ -37,62 +30,46 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 public class LoginFragment extends Fragment {
 
     public static final String TAG = ir.taxi1880.manager.fragment.LoginFragment.class.getSimpleName();
-    Unbinder unbinder;
+    FragmentLoginBinding binding;
     String userName;
     String password;
-
-    @BindView(R.id.edtUserName)
-    EditText edtUserName;
-
-    @BindView(R.id.edtPassword)
-    EditText edtPassword;
-
-    @BindView(R.id.vfEnter)
-    ViewFlipper vfEnter;
-
-    @BindView(R.id.btnLogin)
-    Button btnLogin;
-
-    @OnClick(R.id.btnLogin)
-    void onLogin() {
-        userName = edtUserName.getText().toString();
-        password = edtPassword.getText().toString();
-
-        if (userName.isEmpty()) {
-            MyApplication.Toast("لطفا نام کاربری خود را وارد نمایید", Toast.LENGTH_SHORT);
-            return;
-        }
-        if (password.isEmpty()) {
-            MyApplication.Toast("لطفا رمز عبور خود را وارد نمایید", Toast.LENGTH_SHORT);
-            return;
-        }
-
-        logIn(userName, password);
-        KeyBoardHelper.hideKeyboard();
-    }
-
-    @OnClick(R.id.enterWithAnotherWay)
-    void onEnterWithAnotherWay() {
-        FragmentHelper.toFragment(MyApplication.currentActivity, new VerificationFragment()).setAddToBackStack(false).replace();
-    }
 
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        unbinder = ButterKnife.bind(this, view);
-        TypefaceUtil.overrideFonts(view);
-
-        edtUserName.requestFocus();
+        TypefaceUtil.overrideFonts(binding.getRoot());
+        binding.edtUserName.requestFocus();
         KeyBoardHelper.showKeyboard(MyApplication.context);
 
-        return view;
+        binding.btnLogin.setOnClickListener(view -> {
+            userName = binding.edtUserName.getText().toString();
+            password = binding.edtPassword.getText().toString();
+
+            if (userName.isEmpty()) {
+                MyApplication.Toast("لطفا نام کاربری خود را وارد نمایید", Toast.LENGTH_SHORT);
+                return;
+            }
+            if (password.isEmpty()) {
+                MyApplication.Toast("لطفا رمز عبور خود را وارد نمایید", Toast.LENGTH_SHORT);
+                return;
+            }
+
+            logIn(userName, password);
+            KeyBoardHelper.hideKeyboard();
+        });
+
+        binding.enterWithAnotherWay.setOnClickListener(view -> {
+            FragmentHelper.toFragment(MyApplication.currentActivity, new VerificationFragment()).setAddToBackStack(false).replace();
+        });
+
+        return binding.getRoot();
     }
 
     private void logIn(String username, String password) {
-        if (vfEnter != null) {
-            vfEnter.setDisplayedChild(1);
+        if (binding.vfEnter != null) {
+            binding.vfEnter.setDisplayedChild(1);
         }
         RequestHelper.builder(EndPoints.LOGIN)
                 .addParam("username", username)
@@ -113,8 +90,8 @@ public class LoginFragment extends Fragment {
                     boolean success = object.getBoolean("success");
                     String message = object.getString("message");
 
-                    if (vfEnter != null) {
-                        vfEnter.setDisplayedChild(0);
+                    if (binding.vfEnter != null) {
+                        binding.vfEnter.setDisplayedChild(0);
                     }
 
                     if (success) {
@@ -132,8 +109,8 @@ public class LoginFragment extends Fragment {
                                 .message(message)
                                 .secondButton("بستن", null)
                                 .firstButton("تلاش مجدد", () -> {
-                                    if (edtUserName != null) {
-                                        edtUserName.requestFocus();
+                                    if (binding.edtUserName != null) {
+                                        binding.edtUserName.requestFocus();
                                         KeyBoardHelper.showKeyboard(MyApplication.context);
                                     }
                                 })
@@ -151,8 +128,8 @@ public class LoginFragment extends Fragment {
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             MyApplication.handler.post(() -> {
-                if (vfEnter != null) {
-                    vfEnter.setDisplayedChild(0);
+                if (binding.vfEnter != null) {
+                    binding.vfEnter.setDisplayedChild(0);
                 }
             });
         }
@@ -161,7 +138,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

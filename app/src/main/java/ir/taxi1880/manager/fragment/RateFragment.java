@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,14 +17,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.RateAdapter;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.FragmentRateBinding;
 import ir.taxi1880.manager.dialog.RateDialog;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.CityModel;
@@ -37,53 +31,40 @@ import ir.taxi1880.manager.okHttp.RequestHelper;
 
 public class RateFragment extends Fragment {
 
-    Unbinder unbinder;
+    public static FragmentRateBinding binding;
     ArrayList<CityModel> cityModels;
     static ArrayList<RateModel> rateModels;
     static RateAdapter rateAdapter;
     String cityName = "";
     int cityCode;
 
-    static ViewFlipper vfRate;
-    static ImageView fabAdd;
-    static RecyclerView rateList;
-    public static Spinner spCity1;
-
-    @OnClick(R.id.fabAdd)
-    void onAdd() {
-        new RateDialog()
-                .show(null);
-    }
-
-    @OnClick(R.id.imgRefresh)
-    void onRefresh() {
-        getRates(cityCode);
-    }
-
-    @OnClick(R.id.btnBack)
-    void onBack() {
-        MyApplication.currentActivity.onBackPressed();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rate, container, false);
+        binding = FragmentRateBinding.inflate(inflater, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        TypefaceUtil.overrideFonts(view);
-        unbinder = ButterKnife.bind(this, view);
-        rateList = view.findViewById(R.id.rateList);
-        vfRate = view.findViewById(R.id.vfRate);
-        fabAdd = view.findViewById(R.id.fabAdd);
-        spCity1 = view.findViewById(R.id.spCity);
+        TypefaceUtil.overrideFonts(binding.getRoot());
 
-        if (vfRate != null)
-            vfRate.setDisplayedChild(0);
-        fabAdd.setVisibility(View.GONE);
+        if (binding.vfRate != null)
+            binding.vfRate.setDisplayedChild(0);
+        binding.fabAdd.setVisibility(View.GONE);
+
+        binding.fabAdd.setOnClickListener(view -> {
+            new RateDialog()
+                    .show(null);
+        });
+
+        binding.imgRefresh.setOnClickListener(view -> {
+            getRates(cityCode);
+        });
+
+        binding.btnBack.setOnClickListener(view -> {
+            MyApplication.currentActivity.onBackPressed();
+        });
 
         getCity();
 
-        return view;
+        return binding.getRoot();
     }
 
     private void getCity() {
@@ -127,10 +108,10 @@ public class RateFragment extends Fragment {
                 cityModels.add(cityModel);
                 cityList.add(i + 1, citiesObj.getString("CityName"));
             }
-            if (spCity1 == null) return;
+            if (binding.spCity == null) return;
 
-            spCity1.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
-            spCity1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            binding.spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
+            binding.spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (position == 0) {
@@ -156,12 +137,12 @@ public class RateFragment extends Fragment {
 
     public static void getRates(int cityCode) {
         if (cityCode == 0 || cityCode == -1) {
-            if (vfRate != null) {
-                vfRate.setDisplayedChild(0);
+            if (binding.vfRate != null) {
+                binding.vfRate.setDisplayedChild(0);
             }
         } else {
-            if (vfRate != null)
-                vfRate.setDisplayedChild(1);
+            if (binding.vfRate != null)
+                binding.vfRate.setDisplayedChild(1);
             RequestHelper.builder(EndPoints.GET_RATE + cityCode)
                     .listener(getRatesCallBack)
                     .get();
@@ -178,7 +159,7 @@ public class RateFragment extends Fragment {
                     boolean success = object.getBoolean("success");
                     String message = object.getString("message");
                     if (success) {
-                        fabAdd.setVisibility(View.VISIBLE);
+                        binding.fabAdd.setVisibility(View.VISIBLE);
                         JSONArray dataArr = object.getJSONArray("data");
                         for (int i = 0; i < dataArr.length(); i++) {
                             JSONObject dataObj = dataArr.getJSONObject(i);
@@ -199,19 +180,19 @@ public class RateFragment extends Fragment {
                         }
 
                         if (rateModels.size() == 0) {
-                            if (vfRate != null)
-                                vfRate.setDisplayedChild(3);
+                            if (binding.vfRate != null)
+                                binding.vfRate.setDisplayedChild(3);
                         } else {
-                            if (vfRate != null)
-                                vfRate.setDisplayedChild(2);
+                            if (binding.vfRate != null)
+                                binding.vfRate.setDisplayedChild(2);
                             rateAdapter = new RateAdapter(MyApplication.currentActivity, rateModels);
-                            rateList.setAdapter(rateAdapter);
+                            binding.rateList.setAdapter(rateAdapter);
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    if (vfRate != null)
-                        vfRate.setDisplayedChild(4);
+                    if (binding.vfRate != null)
+                        binding.vfRate.setDisplayedChild(4);
                 }
 
             });
@@ -220,8 +201,8 @@ public class RateFragment extends Fragment {
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             super.onFailure(reCall, e);
-            if (vfRate != null)
-                vfRate.setDisplayedChild(4);
+            if (binding.vfRate != null)
+                binding.vfRate.setDisplayedChild(4);
         }
     };
 

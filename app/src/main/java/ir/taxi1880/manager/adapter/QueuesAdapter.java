@@ -4,18 +4,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
 import ir.taxi1880.manager.databinding.ItemQueueBinding;
@@ -57,7 +51,7 @@ public class QueuesAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         QueuesModel currentQueuesModel = queuesModels.get(i);
-        
+
         binding = ItemQueueBinding.inflate(inflater, viewGroup, false);
         TypefaceUtil.overrideFonts(binding.getRoot());
 

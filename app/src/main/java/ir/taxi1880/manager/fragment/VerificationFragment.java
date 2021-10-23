@@ -5,80 +5,66 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONObject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.FragmentVerificationBinding;
 import ir.taxi1880.manager.helper.FragmentHelper;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.PhoneNumberValidation;
 import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
-
 public class VerificationFragment extends Fragment {
-    Unbinder unbinder;
+
+    FragmentVerificationBinding binding;
     String mobileNumber;
-
-    @BindView(R.id.edtMobileNumber)
-    EditText edtMobileNumber;
-
-    @BindView(R.id.vfEnter)
-    ViewFlipper vfEnter;
-
-    @OnClick(R.id.btnEnter)
-    void onPressEnter() {
-        mobileNumber = edtMobileNumber.getText().toString();
-
-        if (mobileNumber.isEmpty()) {
-            MyApplication.Toast("شماره موبایل را وارد کنید", Toast.LENGTH_SHORT);
-            return;
-        }
-
-        if (!PhoneNumberValidation.isValid(mobileNumber)) {
-            MyApplication.Toast("شماره موبایل نا معتبر میباشد", Toast.LENGTH_SHORT);
-            return;
-        }
-
-        mobileNumber = mobileNumber.startsWith("0") ? mobileNumber : "0" + mobileNumber;
-
-        KeyBoardHelper.hideKeyboard();
-        verification(mobileNumber);
-    }
-
-    @OnClick(R.id.txtAnotherWayToLogin)
-    void onPressAnotherWayToLogin() {
-        FragmentHelper
-                .toFragment(MyApplication.currentActivity, new LoginFragment())
-                .setAddToBackStack(false)
-                .replace();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_verification, container, false);
+        binding = FragmentVerificationBinding.inflate(inflater, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        unbinder = ButterKnife.bind(this, view);
-        TypefaceUtil.overrideFonts(view);
-        edtMobileNumber.requestFocus();
+        TypefaceUtil.overrideFonts(binding.getRoot());
+        binding.edtMobileNumber.requestFocus();
         KeyBoardHelper.showKeyboard(MyApplication.context);
-        return view;
+
+        binding.btnEnter.setOnClickListener(view -> {
+            mobileNumber = binding.edtMobileNumber.getText().toString();
+
+            if (mobileNumber.isEmpty()) {
+                MyApplication.Toast("شماره موبایل را وارد کنید", Toast.LENGTH_SHORT);
+                return;
+            }
+
+            if (!PhoneNumberValidation.isValid(mobileNumber)) {
+                MyApplication.Toast("شماره موبایل نا معتبر میباشد", Toast.LENGTH_SHORT);
+                return;
+            }
+
+            mobileNumber = mobileNumber.startsWith("0") ? mobileNumber : "0" + mobileNumber;
+
+            KeyBoardHelper.hideKeyboard();
+            verification(mobileNumber);
+        });
+
+        binding.txtAnotherWayToLogin.setOnClickListener(view -> {
+            FragmentHelper
+                    .toFragment(MyApplication.currentActivity, new LoginFragment())
+                    .setAddToBackStack(false)
+                    .replace();
+        });
+
+        return binding.getRoot();
     }
 
     private void verification(String phoneNumber) {
-        if (vfEnter != null) {
-            vfEnter.setDisplayedChild(1);
+        if (binding.vfEnter != null) {
+            binding.vfEnter.setDisplayedChild(1);
         }
 
         RequestHelper.builder(EndPoints.VERIFICATION)
@@ -109,12 +95,12 @@ public class VerificationFragment extends Fragment {
                     }
                     MyApplication.Toast(message, Toast.LENGTH_SHORT);
 
-                    if (vfEnter != null) {
-                        vfEnter.setDisplayedChild(0);
+                    if (binding.vfEnter != null) {
+                        binding.vfEnter.setDisplayedChild(0);
                     }
                 } catch (Exception e) {
-                    if (vfEnter != null) {
-                        vfEnter.setDisplayedChild(0);
+                    if (binding.vfEnter != null) {
+                        binding.vfEnter.setDisplayedChild(0);
                     }
                     e.printStackTrace();
                 }
@@ -124,8 +110,8 @@ public class VerificationFragment extends Fragment {
         @Override
         public void onFailure(Runnable reCall, Exception e) {
             MyApplication.handler.post(() -> {
-                if (vfEnter != null) {
-                    vfEnter.setDisplayedChild(0);
+                if (binding.vfEnter != null) {
+                    binding.vfEnter.setDisplayedChild(0);
                 }
             });
         }
@@ -134,7 +120,6 @@ public class VerificationFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

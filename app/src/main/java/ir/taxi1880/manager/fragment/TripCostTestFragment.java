@@ -25,14 +25,12 @@ import ir.taxi1880.manager.helper.TypefaceUtil;
 import ir.taxi1880.manager.model.TripCostModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
-
 public class TripCostTestFragment extends Fragment {
 
     static ArrayList<TripCostModel> tripCostModels;
     static TripCostTestAdapter tripCostAdapter;
     @SuppressLint("StaticFieldLeak")
     static FragmentRecordTripCostBinding binding;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,17 +61,16 @@ public class TripCostTestFragment extends Fragment {
 
     }
 
-
     public static void getTripCost() {
         if (tripCostModels == null) {
             binding.vfTCT.setDisplayedChild(0);
         } else
             binding.vfTCT.setDisplayedChild(0);
-            RequestHelper.builder(EndPoints.TRIP_COST_TEST)
-                    .listener(TRIPCostListener)
-                    .addPath("0")
-                    .addPath("-1")
-                    .get();
+        RequestHelper.builder(EndPoints.TRIP_COST_TEST)
+                .listener(TRIPCostListener)
+                .addPath("0")
+                .addPath("-1")
+                .get();
     }
 
     static RequestHelper.Callback TRIPCostListener = new RequestHelper.Callback() {
@@ -83,8 +80,6 @@ public class TripCostTestFragment extends Fragment {
                 try {
                     tripCostModels = new ArrayList<>();
                     JSONObject JsonObj = new JSONObject(args[0].toString());
-
-                    Log.i("Salam", args[0].toString());
 
                     boolean success = JsonObj.getBoolean("success");
                     String message = JsonObj.getString("message");
@@ -131,19 +126,13 @@ public class TripCostTestFragment extends Fragment {
                     e.printStackTrace();
                 }
             });
-
-
         }
 
         @Override
         public void onFailure(Runnable reCall, Exception e) {
-            MyApplication.handler.post(()->
-            {
-                binding.vfTCT.setDisplayedChild(3);
-            });
+            MyApplication.handler.post(() ->
+                    binding.vfTCT.setDisplayedChild(3));
         }
 
     };
-
-
 }

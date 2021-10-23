@@ -5,16 +5,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,14 +18,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import ir.taxi1880.manager.R;
 import ir.taxi1880.manager.adapter.SpinnerAdapter;
 import ir.taxi1880.manager.app.EndPoints;
 import ir.taxi1880.manager.app.MyApplication;
+import ir.taxi1880.manager.databinding.DialogRateBinding;
 import ir.taxi1880.manager.fragment.RateFragment;
 import ir.taxi1880.manager.helper.KeyBoardHelper;
 import ir.taxi1880.manager.helper.TypefaceUtil;
@@ -38,11 +31,10 @@ import ir.taxi1880.manager.model.RateModel;
 import ir.taxi1880.manager.okHttp.RequestHelper;
 
 import static ir.taxi1880.manager.fragment.RateFragment.getRates;
-import static ir.taxi1880.manager.fragment.RateFragment.spCity1;
 
 public class RateDialog {
 
-    Unbinder unbinder;
+    DialogRateBinding binding;
     static Dialog dialog;
     int increaseRateId;
     int cityCode;
@@ -58,76 +50,7 @@ public class RateDialog {
     private int cityCode2;
     ArrayList<CityModel> cityModels;
     String strCarClass = "";
-
     RateModel model;
-
-    @BindView(R.id.edtFromTime)
-    EditText edtFromTime;
-
-    @BindView(R.id.edtToTime)
-    EditText edtToTime;
-
-    @BindView(R.id.edtMeter)
-    EditText edtMeter;
-
-    @BindView(R.id.edtStop)
-    EditText edtStop;
-
-    @BindView(R.id.edtDisposal)
-    EditText edtDisposal;
-
-    @BindView(R.id.edtMinimum)
-    EditText edtMinimum;
-
-    @BindView(R.id.edtEntry)
-    EditText edtEntry;
-
-    @BindView(R.id.spCity)
-    Spinner spCity;
-
-    @BindView(R.id.llCarClass)
-    LinearLayout llCarClass;
-
-    @BindView(R.id.chbEconomical)
-    CheckBox chbEconomical;
-
-    @BindView(R.id.chbCeremonies)
-    CheckBox chbCeremonies;
-
-    @BindView(R.id.chbTaxi)
-    CheckBox chbTaxi;
-
-    @BindView(R.id.chbFormality)
-    CheckBox chbFormality;
-    @BindView(R.id.vfSubmit)
-    ViewFlipper vfSubmit;
-
-    @OnClick(R.id.btnSubmit)
-    void onSubmit() {
-        if (edtFromTime.getText().toString().isEmpty() ||
-                edtToTime.getText().toString().isEmpty() ||
-                spCity.getSelectedItemId() == 0 ||
-                edtMeter.getText().toString().isEmpty() ||
-                edtStop.getText().toString().isEmpty() ||
-                edtDisposal.getText().toString().isEmpty() ||
-                edtMinimum.getText().toString().isEmpty() ||
-                edtEntry.getText().toString().isEmpty() ||
-                strCarClass.equals("")) {
-            MyApplication.Toast("لطفا تمام فیلد ها رو کامل کنید.", Toast.LENGTH_SHORT);
-        } else {
-            if (model != null) {
-                editRate();
-            } else if (model == null) {
-                addRates();
-            }
-        }
-    }
-
-    @OnClick(R.id.imgCancelDialog)
-    void onCancel() {
-        KeyBoardHelper.hideKeyboard();
-        dismiss();
-    }
 
     public void show(RateModel model) {
 
@@ -136,9 +59,9 @@ public class RateDialog {
         dialog = new Dialog(MyApplication.currentActivity);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.ExpandAnimation;
-        dialog.setContentView(R.layout.dialog_rate);
-        unbinder = ButterKnife.bind(this, dialog);
-        TypefaceUtil.overrideFonts(dialog.getWindow().getDecorView());
+        binding = DialogRateBinding.inflate(LayoutInflater.from(MyApplication.context));
+        dialog.setContentView(binding.getRoot());
+        TypefaceUtil.overrideFonts(binding.getRoot());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams wlp = dialog.getWindow().getAttributes();
         wlp.gravity = Gravity.CENTER;
@@ -174,7 +97,7 @@ public class RateDialog {
             }
 
             if (carType.contains("اقتصادي")) {
-                chbEconomical.setChecked(true);
+                binding.chbEconomical.setChecked(true);
                 if (strCarClass.equals("")) {
                     strCarClass = "1";
                 } else {
@@ -183,7 +106,7 @@ public class RateDialog {
             }
 
             if (carType.contains("ممتاز")) {
-                chbFormality.setChecked(true);
+                binding.chbFormality.setChecked(true);
                 if (strCarClass.equals("")) {
                     strCarClass = "2";
                 } else {
@@ -192,7 +115,7 @@ public class RateDialog {
             }
 
             if (carType.contains("تشريفات")) {
-                chbCeremonies.setChecked(true);
+                binding.chbCeremonies.setChecked(true);
                 if (strCarClass.equals("")) {
                     strCarClass = "3";
                 } else {
@@ -201,7 +124,7 @@ public class RateDialog {
             }
 
             if (carType.contains("تاکسي")) {
-                chbTaxi.setChecked(true);
+                binding.chbTaxi.setChecked(true);
                 if (strCarClass.equals("")) {
                     strCarClass = "4";
                 } else {
@@ -209,13 +132,13 @@ public class RateDialog {
                 }
             }
 
-            edtFromTime.setText(fromHour + "");
-            edtToTime.setText(toHour + "");
-            edtMeter.setText(meterPricePercent + "");
-            edtStop.setText(stopPricePercent + "");
-            edtDisposal.setText(charterPricePercent + "");
-            edtMinimum.setText(minPricePercent + "");
-            edtEntry.setText(entryPricePercent + "");
+            binding.edtFromTime.setText(fromHour + "");
+            binding.edtToTime.setText(toHour + "");
+            binding.edtMeter.setText(meterPricePercent + "");
+            binding.edtStop.setText(stopPricePercent + "");
+            binding.edtDisposal.setText(charterPricePercent + "");
+            binding.edtMinimum.setText(minPricePercent + "");
+            binding.edtEntry.setText(entryPricePercent + "");
         }
 
         try {
@@ -231,9 +154,9 @@ public class RateDialog {
                 cityModels.add(cityModel);
                 cityList.add(c + 1, citiesObj.getString("CityName"));
             }
-            if (spCity == null) return;
-            spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
-            spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            if (binding.spCity == null) return;
+            binding.spCity.setAdapter(new SpinnerAdapter(MyApplication.currentActivity, R.layout.item_spinner, cityList));
+            binding.spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (position == 0) {
@@ -249,13 +172,13 @@ public class RateDialog {
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-            spCity.setSelection(cityCode);
+            binding.spCity.setSelection(cityCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        chbEconomical.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (chbEconomical.isChecked()) {
+        binding.chbEconomical.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (binding.chbEconomical.isChecked()) {
                 if (strCarClass.equals("")) {
                     strCarClass = "1";
                 } else {
@@ -266,8 +189,8 @@ public class RateDialog {
             }
         });
 
-        chbCeremonies.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (chbCeremonies.isChecked()) {
+        binding.chbCeremonies.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (binding.chbCeremonies.isChecked()) {
                 if (strCarClass.equals("")) {
                     strCarClass = "3";
                 } else {
@@ -278,7 +201,7 @@ public class RateDialog {
             }
         });
 
-        chbTaxi.setOnCheckedChangeListener((compoundButton, b) -> {
+        binding.chbTaxi.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 if (strCarClass.equals("")) {
                     strCarClass = "4";
@@ -290,8 +213,8 @@ public class RateDialog {
             }
         });
 
-        chbFormality.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (chbFormality.isChecked()) {
+        binding.chbFormality.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (binding.chbFormality.isChecked()) {
                 if (strCarClass.equals("")) {
                     strCarClass = "2";
                 } else {
@@ -302,7 +225,32 @@ public class RateDialog {
             }
         });
 
-        edtFromTime.requestFocus();
+        binding.edtFromTime.requestFocus();
+
+        binding.btnSubmit.setOnClickListener(view -> {
+            if (binding.edtFromTime.getText().toString().isEmpty() ||
+                    binding.edtToTime.getText().toString().isEmpty() ||
+                    binding.spCity.getSelectedItemId() == 0 ||
+                    binding.edtMeter.getText().toString().isEmpty() ||
+                    binding.edtStop.getText().toString().isEmpty() ||
+                    binding.edtDisposal.getText().toString().isEmpty() ||
+                    binding.edtMinimum.getText().toString().isEmpty() ||
+                    binding.edtEntry.getText().toString().isEmpty() ||
+                    strCarClass.equals("")) {
+                MyApplication.Toast("لطفا تمام فیلد ها رو کامل کنید.", Toast.LENGTH_SHORT);
+            } else {
+                if (model != null) {
+                    editRate();
+                } else if (model == null) {
+                    addRates();
+                }
+            }
+        });
+
+        binding.imgCancelDialog.setOnClickListener(view -> {
+            KeyBoardHelper.hideKeyboard();
+            dismiss();
+        });
 
         MyApplication.handler.postDelayed(() -> KeyBoardHelper.showKeyboard(MyApplication.context), 300);
 
@@ -310,19 +258,19 @@ public class RateDialog {
     }
 
     private void editRate() {
-        if (vfSubmit != null) {
-            vfSubmit.setDisplayedChild(1);
+        if (binding.vfSubmit != null) {
+            binding.vfSubmit.setDisplayedChild(1);
         }
         RequestHelper.builder(EndPoints.EDIT_RATE)
                 .addParam("increaseRateId", increaseRateId + "")
-                .addParam("cityCode", spCity.getSelectedItemId())
-                .addParam("fromHour", edtFromTime.getText().toString())
-                .addParam("toHour", edtToTime.getText().toString())
-                .addParam("stopPricePercent", edtStop.getText().toString())
-                .addParam("metrPricePercent", edtMeter.getText().toString())
-                .addParam("charterPricePercent", edtDisposal.getText().toString())
-                .addParam("minPricePercent", edtMinimum.getText().toString())
-                .addParam("entryPricePercent", edtEntry.getText().toString())
+                .addParam("cityCode", binding.spCity.getSelectedItemId())
+                .addParam("fromHour", binding.edtFromTime.getText().toString())
+                .addParam("toHour", binding.edtToTime.getText().toString())
+                .addParam("stopPricePercent", binding.edtStop.getText().toString())
+                .addParam("metrPricePercent", binding.edtMeter.getText().toString())
+                .addParam("charterPricePercent", binding.edtDisposal.getText().toString())
+                .addParam("minPricePercent", binding.edtMinimum.getText().toString())
+                .addParam("entryPricePercent", binding.edtEntry.getText().toString())
                 .addParam("carClass", strCarClass)
                 .listener(editaRateCallBack)
                 .put();
@@ -333,15 +281,15 @@ public class RateDialog {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
-                    if (vfSubmit != null) {
-                        vfSubmit.setDisplayedChild(0);
+                    if (binding.vfSubmit != null) {
+                        binding.vfSubmit.setDisplayedChild(0);
                     }
                     JSONObject object = new JSONObject(args[0].toString());
 
                     String message = object.getString("message");
                     boolean success = object.getBoolean("success");
-                    spCity1.setSelection((int) spCity.getSelectedItemId());
-                    getRates((int) spCity.getSelectedItemId());
+                    RateFragment.binding.spCity.setSelection((int) binding.spCity.getSelectedItemId());
+                    getRates((int) binding.spCity.getSelectedItemId());
                     new GeneralDialog()
                             .message(message)
                             .cancelable(false)
@@ -363,18 +311,18 @@ public class RateDialog {
     };
 
     private void addRates() {
-        if (vfSubmit != null) {
-            vfSubmit.setDisplayedChild(1);
+        if (binding.vfSubmit != null) {
+            binding.vfSubmit.setDisplayedChild(1);
         }
         RequestHelper.builder(EndPoints.ADD_RATE)
-                .addParam("cityCode", spCity.getSelectedItemId())
-                .addParam("fromHour", edtFromTime.getText().toString())
-                .addParam("toHour", edtToTime.getText().toString())
-                .addParam("stopPricePercent", edtStop.getText().toString())
-                .addParam("metrPricePercent", edtMeter.getText().toString())
-                .addParam("charterPricePercent", edtDisposal.getText().toString())
-                .addParam("minPricePercent", edtMinimum.getText().toString())
-                .addParam("entryPricePercent", edtEntry.getText().toString())
+                .addParam("cityCode", binding.spCity.getSelectedItemId())
+                .addParam("fromHour", binding.edtFromTime.getText().toString())
+                .addParam("toHour", binding.edtToTime.getText().toString())
+                .addParam("stopPricePercent", binding.edtStop.getText().toString())
+                .addParam("metrPricePercent", binding.edtMeter.getText().toString())
+                .addParam("charterPricePercent", binding.edtDisposal.getText().toString())
+                .addParam("minPricePercent", binding.edtMinimum.getText().toString())
+                .addParam("entryPricePercent", binding.edtEntry.getText().toString())
                 .addParam("carClass", strCarClass)
                 .listener(addRatesCallBack)
                 .post();
@@ -385,15 +333,15 @@ public class RateDialog {
         public void onResponse(Runnable reCall, Object... args) {
             MyApplication.handler.post(() -> {
                 try {
-                    if (vfSubmit != null) {
-                        vfSubmit.setDisplayedChild(0);
+                    if (binding.vfSubmit != null) {
+                        binding.vfSubmit.setDisplayedChild(0);
                     }
                     JSONObject object = new JSONObject(args[0].toString());
 
                     String message = object.getString("message");
                     boolean success = object.getBoolean("success");
-                    spCity1.setSelection((int) spCity.getSelectedItemId());
-                    getRates((int) spCity.getSelectedItemId());
+                    RateFragment.binding.spCity.setSelection((int) binding.spCity.getSelectedItemId());
+                    getRates((int) binding.spCity.getSelectedItemId());
                     if (success) {
                         new GeneralDialog()
                                 .message(message)
